@@ -5,11 +5,6 @@ $gray: #eee;
   width: 110px;
 }
 
-.navigation-menu {
-  text-decoration: none;
-  color: black;
-}
-
 .navigation {
   ul {
     text-align: left;
@@ -59,7 +54,6 @@ $gray: #eee;
     cursor: pointer;
     display: block;
     color: white;
-    text-decoration: none;
     background-color: $maincolor;
     border: none;
     font-size: 17px;
