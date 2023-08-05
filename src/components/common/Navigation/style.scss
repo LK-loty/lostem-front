@@ -1,0 +1,81 @@
+$maincolor: #00910b;
+$gray: #eee;
+
+.logo {
+  width: 110px;
+}
+
+.navigation-menu {
+  text-decoration: none;
+  color: black;
+}
+
+.navigation {
+  ul {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    li {
+      width: 100%;
+      list-style: none;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      a {
+        font-size: 18px;
+        transition: 0.2s;
+        &:hover {
+          color: $maincolor;
+        }
+      }
+    }
+  }
+}
+
+.imgsprout {
+  padding-right: 10px;
+  vertical-align: middle;
+  width: 30px;
+}
+
+.navigation {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 260px;
+  z-index: 1;
+  box-sizing: border-box;
+
+  background-color: white;
+  padding: 20px;
+  text-align: center;
+  justify-content: center;
+  border-right: solid 1px $gray;
+  z-index: 1;
+}
+
+.auth {
+  margin-bottom: 50px;
+  .btn-login {
+    cursor: pointer;
+    display: block;
+    color: white;
+    text-decoration: none;
+    background-color: $maincolor;
+    border: none;
+    font-size: 17px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-bottom: 5px;
+    width: 100%;
+    justify-content: center;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: #01a10e;
+    }
+  }
+  .btn-signup {
+    font-size: 14px;
+    color: #696969;
+  }
+}
