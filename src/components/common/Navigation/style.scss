@@ -63,9 +63,12 @@ $gray: #eee;
     width: 100%;
     justify-content: center;
     transition: 0.2s;
+    border: 1px solid $maincolor;
+    box-sizing: border-box;
 
     &:hover {
-      background-color: #01a10e;
+      background-color: white;
+      color: $maincolor;
     }
   }
   .btn-signup {
