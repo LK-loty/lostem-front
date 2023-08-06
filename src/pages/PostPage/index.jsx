@@ -1,4 +1,4 @@
-const LostItemPostPage = () => {
-  return <div className="lostiempostpage"></div>;
+const PostPage = () => {
+  return <div className="postpage">hi</div>;
 };
-export default LostItemPostPage;
+export default PostPage;
