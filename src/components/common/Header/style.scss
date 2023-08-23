@@ -5,13 +5,14 @@ $maincolor: #00910b;
   top: 0;
   left: 260px;
   height: 80px;
-  width: calc(100% - 260px - 20vw);
+  width: calc(100% - 260px - 10vw);
   z-index: 1;
   display: flex;
   justify-content: space-between;
-  padding-left: 10vw;
-  padding-right: 10vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
   align-items: center;
+  background-color: white;
 }
 
 .pagetitle {
