@@ -5,8 +5,8 @@ import ImgSprout from "../../../assets/images/img_sprout.png";
 import "./style.scss";
 
 const navItems = [
-  { id: 1, name: "주인을찾아요", link: "/" },
-  { id: 2, name: "잃어버렸어요", link: "/lostitemlist" },
+  { id: 1, name: "홈", link: "/" },
+  { id: 2, name: "검색", link: "/search" },
   { id: 3, name: "글쓰기", link: "/post" },
   { id: 4, name: "채팅", link: "/chat" },
   { id: 5, name: "키워드알림", link: "/keyword" },
