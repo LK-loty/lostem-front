@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navigation from "./components/common/Navigation";
 import Header from "./components/common/Header";
+import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";
-import PostListPage from "./pages/PostListPage";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
 import "./App.scss";
@@ -25,9 +25,9 @@ const App = () => {
         </React.Fragment>
       )}
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/postlist" element={<PostListPage />} />
         <Route path="/post" element={<PostPage />} />
       </Routes>
     </div>
