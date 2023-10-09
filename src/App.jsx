@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import axios from "axios";
 import Navigation from "./components/common/Navigation";
 import Header from "./components/common/Header";
 import HomePage from "./pages/HomePage";
@@ -7,6 +8,8 @@ import PostPage from "./pages/PostPage";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
 import NotFound from "./pages/NotFound";
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
   const location = useLocation();
