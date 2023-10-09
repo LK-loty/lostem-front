@@ -6,7 +6,6 @@ import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
-import "./App.scss";
 
 const App = () => {
   const location = useLocation();
