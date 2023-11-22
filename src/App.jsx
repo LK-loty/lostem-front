@@ -1,8 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
-import Navigation from "./components/common/Navigation";
-import Header from "./components/common/Header";
 import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";
 import LogInPage from "./pages/LogInPage";
