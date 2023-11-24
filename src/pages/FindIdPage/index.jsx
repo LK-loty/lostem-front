@@ -18,7 +18,7 @@ const FindIdPage = () => {
           <span className="green">Lost</span>em
         </Link>
       </div>
-      <div className="title">
+      <div className="auth-subtitle">
         회원가입 시 입력하신 이메일과 인증번호를 입력해주세요.
       </div>
       <div className="phone-container">
