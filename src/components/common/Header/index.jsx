@@ -15,6 +15,10 @@ const Header = () => {
 
   const getPageNameFromPathname = (pathname) => {
     switch (pathname) {
+      case "/":
+        return "잃어버렸어요";
+      case "/findowner":
+        return "주인을찾아요";
       case "/post":
         return "글쓰기";
       case "/chat":
@@ -26,7 +30,7 @@ const Header = () => {
       case "/search":
         return "검색";
       default:
-        return "홈";
+        return "";
     }
   };
 
