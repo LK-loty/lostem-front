@@ -3,13 +3,14 @@ import axios from "axios";
 // 로그인
 export const login = async (data) => {
   try {
-    const response = await axios.post("/api/login", { data });
+    const response = await axios.post("/api/login", data);
     if (response.status === 200) {
-      const accessToken = response.headers["Authorization"];
+      const accessToken = response.data.token;
       localStorage.setItem("act", accessToken);
-      return "success";
-    } else return "fail";
+      return true;
+    } else return false;
   } catch (error) {
-    return "fail";
+    console.log(error);
+    return false;
   }
 };
