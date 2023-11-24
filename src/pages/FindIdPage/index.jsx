@@ -25,7 +25,13 @@ const FindIdPage = () => {
         <input
           type="text"
           placeholder="이메일"
-          {...register("email", { required: "이메일을 입력해주세요" })}
+          {...register("email", {
+            required: "이메일을 입력해주세요.",
+            pattern: {
+              value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,}$/,
+              message: "이메일 형식이 올바르지 않습니다.",
+            },
+          })}
         />
         <button type="button">인증번호 전송</button>
       </div>
