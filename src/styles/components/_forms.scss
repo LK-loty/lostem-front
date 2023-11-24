@@ -1,0 +1,68 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 5px;
+  .logo {
+    font-size: 45px;
+    font-weight: 700;
+    padding: 30px 0;
+  }
+}
+
+.success,
+.error {
+  width: 340px;
+  font-size: 14px;
+}
+
+.success {
+  color: $green;
+}
+
+.error {
+  color: $red;
+}
+
+input,
+textarea,
+button,
+select {
+  border-radius: $border-radius;
+  border: $border-gray;
+  &:focus {
+    outline: none;
+    border: $border-green;
+  }
+}
+
+button.auth-button {
+  font-size: 16px;
+  width: 350px;
+  padding: 13px 10px;
+  margin: 10px 0;
+  background-color: $green;
+  color: $white;
+  border: $border-green;
+}
+
+input {
+  width: 350px;
+  margin: 5px 0;
+  padding: 13px 10px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+textarea {
+  resize: none;
+}
+
+select {
+  margin-left: 15px;
+  width: 90px;
+  height: 40px;
+  padding-left: 5px;
+}

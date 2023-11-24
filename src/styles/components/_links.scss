@@ -1,0 +1,10 @@
+a {
+  text-decoration: none;
+  color: $black;
+  cursor: pointer;
+  border-radius: $border-radius;
+}
+
+a.underline {
+  text-decoration: underline;
+}

@@ -1,0 +1,11 @@
+.login__login-more {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+
+  a {
+    margin: 5px 0;
+    color: $gray6;
+  }
+}
