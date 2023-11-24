@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";
@@ -8,6 +9,7 @@ import FindIdPage from "./pages/FindIdPage";
 import FindPasswordPage from "./pages/FindPasswordPage";
 import NotFound from "./pages/NotFound";
 
+axios.defaults.baseURL = "http://localhost:8080/";
 const App = () => {
   return (
     <div className="App">
