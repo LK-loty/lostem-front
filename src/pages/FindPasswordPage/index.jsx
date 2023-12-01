@@ -18,13 +18,15 @@ const FindPasswordPage = () => {
           <span className="green">Lost</span>em
         </Link>
       </div>
-      <div className="title">가입하신 아이디와 이메일을 입력해주세요.</div>
+      <div className="auth-subtitle">
+        가입하신 아이디와 이메일을 입력해주세요.
+      </div>
       <input
         type="text"
         placeholder="아이디"
-        {...register("id", { required: "아이디를 입력해주세요" })}
+        {...register("username", { required: "아이디를 입력해주세요" })}
       />
-      <span className="error">{errors?.id?.message}</span>
+      <span className="error">{errors?.username?.message}</span>
       <div className="phone-container">
         <input
           type="text"
