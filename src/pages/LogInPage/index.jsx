@@ -22,9 +22,9 @@ const LogInPage = () => {
       <input
         type="text"
         placeholder="아이디"
-        {...register("id", { required: "아이디를 입력해주세요" })}
+        {...register("username", { required: "아이디를 입력해주세요" })}
       />
-      <span className="error">{errors?.id?.message}</span>
+      <span className="error">{errors?.username?.message}</span>
       <input
         type="password"
         placeholder="비밀번호"
