@@ -1,16 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { login } from "../../apis/auth";
 import ImgLoty from "../../assets/images/img_loty.png";
 
 const LogInPage = () => {
+  const navigate = useNavigate();
+  const [loginError, setLoginError] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => login(data);
+  const onSubmit = async (data) => {
+    const result = await login(data);
+    if (result) {
+      // 로그인이 성공하면 이전 페이지로 이동
+      navigate(-1);
+    } else {
+      setLoginError(true);
+    }
+  };
 
   return (
     <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
@@ -29,8 +41,15 @@ const LogInPage = () => {
         placeholder="비밀번호"
         {...register("password", { required: "비밀번호를 입력해주세요" })}
       />
-      <span className="error">{errors?.password?.message}</span>
-      <button type="submit" className="login-button">
+      {errors?.password && (
+        <span className="error">{errors?.password?.message}</span>
+      )}
+      {loginError && (
+        <span className="error">
+          아이디 또는 비밀번호가 틀렸습니다. 다시 입력해주세요.
+        </span>
+      )}
+      <button type="submit" className="auth-button">
         로그인
       </button>
       <div className="login-more">
