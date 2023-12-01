@@ -8,6 +8,7 @@ import SignUpPage from "./pages/SignUpPage";
 import FindIdPage from "./pages/FindIdPage";
 import FindPasswordPage from "./pages/FindPasswordPage";
 import NotFound from "./pages/NotFound";
+import "./styles/main.scss";
 
 axios.defaults.baseURL = "http://localhost:8080/";
 const App = () => {
