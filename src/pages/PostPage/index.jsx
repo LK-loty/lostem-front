@@ -1,4 +1,4 @@
-import PostForm from "../../components/PostForm";
+import PostForm from "../../components/common/PostForm";
 import Navigation from "../../components/common/Navigation";
 import Header from "../../components/common/Header";
 
