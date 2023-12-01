@@ -77,12 +77,12 @@ select {
   a {
     margin: 5px 0;
     text-decoration: none;
-    color: #696969;
+    color: $gray6;
   }
 }
 
 .error {
-  color: red;
+  color: $red;
   font-size: 14px;
   width: 330px;
 }
