@@ -53,11 +53,11 @@ const LogInPage = () => {
         로그인
       </button>
       <div className="login-more">
-        <Link to="/">아이디찾기</Link>
+        <Link to="/findid">아이디찾기</Link>
         <span className="thin-font">|</span>
-        <Link to="/">비밀번호찾기</Link>
+        <Link to="/findpassword">비밀번호찾기</Link>
         <span className="thin-font">|</span>
-        <Link to="/">회원가입</Link>
+        <Link to="/signup">회원가입</Link>
       </div>
     </form>
   );
