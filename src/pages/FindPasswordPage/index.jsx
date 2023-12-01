@@ -45,7 +45,7 @@ const FindPasswordPage = () => {
         확인
       </button>
       <div>
-        아이디가 기억나지 않는다면?{" "}
+        아이디가 기억나지 않는다면?
         <Link className="find-id" to="/findid">
           아이디 찾기
         </Link>
