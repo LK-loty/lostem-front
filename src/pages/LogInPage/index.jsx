@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { login } from "../../apis/auth";
 import ImgLoty from "../../assets/images/img_loty.png";
-import "./style.scss";
 
 const LogInPage = () => {
   const {
