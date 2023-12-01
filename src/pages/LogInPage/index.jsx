@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { login } from "../../apis/auth";
-import ImgLoty from "../../assets/images/img_loty.png";
 
 const LogInPage = () => {
   const navigate = useNavigate();
@@ -25,11 +24,12 @@ const LogInPage = () => {
   };
 
   return (
-    <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-      <Link to="/">
-        <img src={ImgLoty} />
-      </Link>
-      <span className="green">로그인</span>
+    <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="logo">
+        <Link to="/">
+          <span className="green">Lost</span>em
+        </Link>
+      </div>
       <input
         type="text"
         placeholder="아이디"
