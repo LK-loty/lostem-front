@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import FindItemPage from "./pages/FindItemPage";
 import PostPage from "./pages/PostPage";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -15,7 +15,7 @@ const App = () => {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<FindItemPage />} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="findid" element={<FindIdPage />} />
         <Route path="findpassword" element={<FindPasswordPage />} />
