@@ -30,7 +30,7 @@ const FindIdPage = () => {
           </h2>
         </div>
         <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
-          <div className="phone-container">
+          <div className="form-group">
             <input
               type="text"
               placeholder="이메일"

@@ -35,7 +35,7 @@ const FindPasswordPage = () => {
             {...register("username", { required: "아이디를 입력해주세요" })}
           />
           <span className="error">{errors?.username?.message}</span>
-          <div className="phone-container">
+          <div className="form-group">
             <input
               type="text"
               placeholder="이메일"
