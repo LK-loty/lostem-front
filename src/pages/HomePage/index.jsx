@@ -1,10 +1,4 @@
-import Navigation from "../../components/common/Navigation";
-
 const HomePage = () => {
-  return (
-    <div>
-      <Navigation />
-    </div>
-  );
+  return <div></div>;
 };
 export default HomePage;
