@@ -12,8 +12,8 @@ const FindIdPage = () => {
 
   return (
     <div className="auth-container">
-      <header>
-        <div className="header_logo">
+      <header className="auth-header">
+        <div className="auth-header_logo">
           <h1 className="logo">
             <Link to="/">
               <span className="green">Lost</span>em
