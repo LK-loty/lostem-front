@@ -1,5 +1,13 @@
-body {
+body,
+h1,
+h2,
+li,
+ul {
   margin: 0;
+  padding: 0;
+}
+
+body {
   min-width: 360px;
 }
 
@@ -11,4 +19,8 @@ textarea {
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
+}
+
+li {
+  list-style: none;
 }
