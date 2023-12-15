@@ -1,9 +1,177 @@
+// main header
+
+// 코드 정리
+// 로그인 후 profile
+.main-header-wrap {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.main-header {
+  padding: 0 20vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  background-color: $white;
+  height: 80px;
+}
+
+.dark-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: visibility 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 1310px) {
+  .main-header {
+    padding: 0 3vw;
+  }
+}
+
+.main-logo {
+  text-align: center;
+  img {
+    width: 75px;
+  }
+}
+
+.main-dynamic {
+  justify-self: end;
+  align-items: center;
+  display: flex;
+}
+
+.main-list,
+.icon-list,
+.auth-list {
+  display: flex;
+}
+
+.main-list,
+.auth-list {
+  font-size: 16px;
+  font-weight: 500;
+  gap: 30px;
+}
+
+.icon-list,
+.auth-list,
+.main-dynamic {
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .icon-list li:nth-of-type(2),
+  .auth-list li {
+    display: none;
+  }
+
+  .main-logo img {
+    width: 65px;
+  }
+
+  .main-header {
+    height: 70px;
+  }
+
+  .main-wrap {
+    position: fixed;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    background: $white;
+    transition: top 0.3s linear;
+    z-index: -1;
+    padding: 10px 3vw 30px 3vw;
+  }
+
+  .main-list {
+    flex-direction: column;
+  }
+
+  .nav-open {
+    top: 70px;
+  }
+}
+
+//menu button
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  width: 23px;
+  cursor: pointer;
+
+  span {
+    background: $black;
+    border-radius: $border-radius;
+    height: 2px;
+    margin: 2.5px 0;
+    transition: 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
+
+  span:nth-of-type(1) {
+    width: 100%;
+  }
+
+  span:nth-of-type(2) {
+    width: 100%;
+  }
+
+  span:nth-of-type(3) {
+    width: 75%;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"]:checked ~ span:nth-of-type(1) {
+    transform-origin: bottom;
+    width: 100%;
+    transform: rotateZ(45deg) translate(5px, 4px);
+  }
+
+  input[type="checkbox"]:checked ~ span:nth-of-type(2) {
+    transform-origin: top;
+    transform: rotateZ(-45deg);
+  }
+
+  input[type="checkbox"]:checked ~ span:nth-of-type(3) {
+    transform-origin: bottom;
+    width: 0%;
+    transform: translate(12px, -4px) rotateZ(45deg);
+  }
+}
+
+@media (min-width: 900px) {
+  .menu-button-wrap,
+  .icon-list li:nth-of-type(4) {
+    display: none;
+  }
+}
+
+//auth-header
 .auth-wrap {
   padding-bottom: 30px;
   text-align: center;
 }
 
 .auth-header_logo {
-  padding: 80px 0 20px 0;
+  padding: 50px 0 20px 0;
   text-align: center;
 }
