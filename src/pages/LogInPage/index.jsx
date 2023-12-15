@@ -5,8 +5,6 @@ import { login } from "../../apis/auth";
 
 const LogInPage = () => {
   const navigate = useNavigate();
-  const [loginError, setLoginError] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -22,6 +20,8 @@ const LogInPage = () => {
       setLoginError(true);
     }
   };
+
+  const [loginError, setLoginError] = useState(false);
 
   return (
     <div className="auth-container">
