@@ -12,3 +12,20 @@ export const signup = async (data) => {
     return false;
   }
 };
+
+// 아이디  중복확인
+export const checkUsername = async (username) => {
+  try {
+    const response = await axios.get("/api/users/check", {
+      params: {
+        username: username,
+      },
+    });
+
+    if (response.status === 200) {
+      return true;
+    } else return false;
+  } catch (error) {
+    return false;
+  }
+};
