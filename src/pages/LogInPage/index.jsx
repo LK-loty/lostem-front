@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { usernameRegex, passwordRegex } from "../../utils/regexPatterns";
 import { login } from "../../apis/auth";
 
 const LogInPage = () => {
@@ -39,13 +40,25 @@ const LogInPage = () => {
           <input
             type="text"
             placeholder="아이디"
-            {...register("username", { required: "아이디를 입력해주세요" })}
+            {...register("username", {
+              required: "아이디를 입력해주세요",
+              pattern: {
+                value: usernameRegex,
+                message: "아이디는 5~20자의 영문, 숫자만 사용 가능합니다",
+              },
+            })}
           />
           <span className="error">{errors?.username?.message}</span>
           <input
             type="password"
             placeholder="비밀번호"
-            {...register("password", { required: "비밀번호를 입력해주세요" })}
+            {...register("password", {
+              required: "비밀번호를 입력해주세요",
+              pattern: {
+                value: passwordRegex,
+                message: "비밀번호는 6~20자의 영문과 숫자만 사용 가능합니다",
+              },
+            })}
           />
           {errors?.password && (
             <span className="error">{errors?.password?.message}</span>
