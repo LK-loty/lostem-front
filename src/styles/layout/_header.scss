@@ -29,7 +29,7 @@
   visibility: hidden;
   z-index: -1;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: visibility 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .visible {
@@ -56,9 +56,13 @@
   display: flex;
 }
 
-.main-list,
 .auth-list,
 .icon-list {
+  display: flex;
+  align-items: center;
+}
+
+.main-list {
   display: flex;
 }
 
@@ -67,6 +71,7 @@
   font-size: 16px;
   font-weight: 500;
 }
+
 .icon-list,
 .auth-list,
 .main-list,
