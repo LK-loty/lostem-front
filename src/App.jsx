@@ -8,6 +8,7 @@ import SignUpPage from "./pages/SignUpPage";
 import FindIdPage from "./pages/FindIdPage";
 import FindPasswordPage from "./pages/FindPasswordPage";
 import NotFound from "./pages/NotFound";
+import PrivateRoute from "./components/PrivateRoute";
 import "./styles/main.scss";
 
 axios.defaults.baseURL = "http://localhost:8080/";
@@ -18,9 +19,12 @@ const App = () => {
         <Route path="/" element={<FindItemPage />} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="findid" element={<FindIdPage />} />
-        <Route path="findpassword" element={<FindPasswordPage />} />
+        <Route path="/findpassword" element={<FindPasswordPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/post" element={<PostPage />} />
+        {/* 로그인 해야 접근 가능한 페이지 */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/post" element={<PostPage />} />
+        </Route>
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
