@@ -14,3 +14,18 @@ export const login = async (data) => {
     return false;
   }
 };
+
+// 로그아웃
+export const logout = async () => {
+  try {
+    const response = await axios.get("/api/logout");
+
+    if (response.status === 200) {
+      localStorage.removeItem("act");
+      return true;
+    } else return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
