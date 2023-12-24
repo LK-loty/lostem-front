@@ -4,10 +4,12 @@ import { IoIosSearch } from "react-icons/io";
 import { PiChatsCircle } from "react-icons/pi";
 import { GoPerson } from "react-icons/go";
 import { PiBell } from "react-icons/pi";
+import { isLogin } from "../../../utils/auth";
 import ImgLoty from "../../../assets/images/img_loty.png";
 
 const Header = () => {
   const [nav, setNav] = useState(false);
+  const loginState = isLogin();
 
   const navItems = [
     { name: "잃어버렸어요", link: "/" },
@@ -69,23 +71,28 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to="/login" className="green">
-                <GoPerson size={26} />
-              </Link>
+              {!loginState && (
+                <Link to="/login" className="green">
+                  <GoPerson size={26} />
+                </Link>
+              )}
+              {/* 로그인 시 유저 프로필 버튼 */}
             </li>
           </ul>
-          <ul className="auth-list">
-            <li>
-              <Link to="/login" className="hoverGreen">
-                로그인
-              </Link>
-            </li>
-            <li>
-              <Link to="/signup" className="green">
-                회원가입
-              </Link>
-            </li>
-          </ul>
+          {!loginState && (
+            <ul className="auth-list">
+              <li>
+                <Link to="/login" className="hoverGreen">
+                  로그인
+                </Link>
+              </li>
+              <li>
+                <Link to="/signup" className="green">
+                  회원가입
+                </Link>
+              </li>
+            </ul>
+          )}
         </div>
       </header>
     </div>
