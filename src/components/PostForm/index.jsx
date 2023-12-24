@@ -138,7 +138,7 @@ const PostForm = () => {
 
   return (
     <form className="postform" onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <div className="postform-group">
         제목
         <input
           type="text"
@@ -152,7 +152,7 @@ const PostForm = () => {
         />
       </div>
       {errors?.title && <span className="error">{errors?.title?.message}</span>}
-      <div className="imge-upload">
+      <div className="">
         사진
         <label htmlFor="images" className="button-upload">
           <BiImageAdd size="30" />
@@ -165,6 +165,9 @@ const PostForm = () => {
           multiple
           onChange={handleImageChange}
         />
+        {imageCheck.error && (
+          <span className="error">{imageCheck.message}</span>
+        )}
         <div className="container-images">
           {images.map((image, index) => (
             <div className="file-image" key={index}>
@@ -179,11 +182,8 @@ const PostForm = () => {
             </div>
           ))}
         </div>
-        {imageCheck.error && (
-          <span className="error">{imageCheck.message}</span>
-        )}
       </div>
-      <div>
+      <div className="postform-group">
         분실물명
         <input
           type="text"
@@ -197,7 +197,7 @@ const PostForm = () => {
         />
         {errors?.item && <span className="error">{errors?.item?.message}</span>}
       </div>
-      <div>
+      <div className="postform-group">
         분실기간
         <Controller
           name="datetime"
@@ -227,7 +227,7 @@ const PostForm = () => {
         )}
       </div>
 
-      <div className="region">
+      <div className="postform-group">
         분실지역
         <div className="region-container">
           <select
@@ -250,7 +250,7 @@ const PostForm = () => {
           />
         </div>
       </div>
-      <div className="location">
+      <div className="postform-group">
         분실장소
         <input
           type="text"
@@ -258,7 +258,7 @@ const PostForm = () => {
           {...register("location", { required: "분실장소를 입력해주세요" })}
         />
       </div>
-      <div className="category">
+      <div className="postform-group">
         카테고리
         <div className="category-wrap">
           {category.map((cat) => (
@@ -278,7 +278,7 @@ const PostForm = () => {
           ))}
         </div>
       </div>
-      <div>
+      <div className="postform-group">
         자세한설명
         <textarea {...register("explain", { maxLength: 300 })} />
       </div>
