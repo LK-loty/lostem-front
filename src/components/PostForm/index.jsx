@@ -78,7 +78,7 @@ const PostForm = () => {
       if (image.size > 1 * 1024 * 1024) {
         setImageCheck({
           error: true,
-          message: "이미지는 각각 최대 50MB까지 업로드할 수 있습니다.",
+          message: "이미지는 각각 최대 50MB까지 업로드할 수 있습니다",
         });
         isValid = true;
       }
@@ -87,8 +87,9 @@ const PostForm = () => {
     if (images.length + newImages.length > 3) {
       setImageCheck({
         error: true,
-        message: "이미지는 최대 3개까지 업로드할 수 있습니다.",
+        message: "이미지는 최대 3개까지 업로드할 수 있습니다",
       });
+      isValid = true;
     }
 
     if (!imageCheck.error) {
@@ -202,7 +203,7 @@ const PostForm = () => {
         <input
           type="text"
           {...register("item", {
-            required: "분실물명을 입력해주세요.",
+            required: "분실물명을 입력해주세요",
             maxLength: {
               value: 20,
               message: "분실물명은 20자이내로 입력해야 합니다",
@@ -216,7 +217,7 @@ const PostForm = () => {
         <Controller
           name="datetime"
           control={control}
-          rules={{ required: "분실기간을 입력해주세요." }}
+          rules={{ required: "분실기간을 입력해주세요" }}
           defaultValue=""
           render={({ field }) => (
             <DatePicker
@@ -245,7 +246,7 @@ const PostForm = () => {
         분실지역
         <div className="region-container">
           <select
-            {...register("field_do", { required: "분실지역을 입력해주세요." })}
+            {...register("field_do", { required: "분실지역을 입력해주세요" })}
           >
             <option value="">선택</option>
             {regions.map((reg) => (
@@ -259,7 +260,7 @@ const PostForm = () => {
             name="region"
             placeholder="시/군/구"
             {...register("field_sigungu", {
-              required: "분실지역을 입력해주세요.",
+              required: "분실지역을 입력해주세요",
             })}
           />
         </div>
@@ -269,7 +270,7 @@ const PostForm = () => {
         <input
           type="text"
           name="location"
-          {...register("location", { required: "분실장소를 입력해주세요." })}
+          {...register("location", { required: "분실장소를 입력해주세요" })}
         />
       </div>
       <div className="category">
@@ -283,9 +284,8 @@ const PostForm = () => {
                 className="radio"
                 id={cat.id}
                 value={cat.name}
-                // onChange={(event) => handleInputChange(event, "category")}
                 {...register("category", {
-                  required: "카테고리를 선택해주세요.",
+                  required: "카테고리를 선택해주세요",
                 })}
               />
               <label htmlFor={cat.id}>{cat.name}</label>
