@@ -1,4 +1,4 @@
-import PostForm from "../../components/common/PostForm";
+import PostForm from "../../components/PostForm";
 import Header from "../../components/common/Header";
 
 const PostPage = () => {
