@@ -1,11 +1,17 @@
 $main-color: #00910b;
 $form-font-size: 16px;
 
-.postpage {
-  padding: 100px 0;
+.postform {
+  padding: 100px 20vw;
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+@media (max-width: 1310px) {
+  .postform {
+    padding: 100px 3vw;
+  }
 }
 
 .button-submit {
@@ -18,14 +24,8 @@ $form-font-size: 16px;
   margin: auto;
   margin-top: 40px;
   padding: 13px 100px;
-  transition: 0.15s;
   border: 1px solid $main-color;
   box-sizing: border-box;
-
-  &:hover {
-    background-color: $main-color;
-    color: white;
-  }
 }
 
 select {
@@ -37,7 +37,12 @@ input {
   font-size: $form-font-size;
 }
 
+input[type="file"] {
+  display: none;
+}
+
 textarea {
+  resize: none;
   font-size: $form-font-size;
   font-weight: 300;
   height: 150px;
@@ -74,7 +79,7 @@ select option[value=""] {
   display: none;
 }
 
-.category {
+.postform-group {
   label {
     transition: 0.15s;
     display: inline-block;
@@ -136,28 +141,6 @@ select option[value=""] {
   cursor: pointer;
 }
 
-.region {
-  select {
-    margin: 0;
-    width: 130px;
-  }
-  .region-container {
-    input[type="text"] {
-      width: 300px;
-    }
-  }
-
-  .button-search {
-    font-size: 16px;
-    cursor: pointer;
-    background-color: white;
-    color: $main-color;
-    border: 1px solid $main-color;
-    padding: 10px 15px;
-    transition: 0.1s;
-    &:hover {
-      background-color: $main-color;
-      color: white;
-    }
-  }
+select {
+  height: 45px;
 }
