@@ -70,7 +70,7 @@ const PostForm = () => {
   const [startDate, endDate] = dateRange;
 
   const handleImageChange = (event) => {
-    const isValid = false;
+    let isValid = false;
     const files = event.target.files;
     const newImages = Array.from(files);
 
@@ -92,7 +92,7 @@ const PostForm = () => {
       isValid = true;
     }
 
-    if (!imageCheck.error) {
+    if (!isValid) {
       setImageCheck({
         error: false,
         message: "",
