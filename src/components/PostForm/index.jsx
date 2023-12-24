@@ -139,21 +139,6 @@ const PostForm = () => {
   return (
     <form className="postform" onSubmit={handleSubmit(onSubmit)}>
       <div>
-        상태
-        <select
-          name="state"
-          {...register("state", {
-            required: "상태를 선택해주세요",
-          })}
-        >
-          <option value="">선택</option>
-          <option value="찾는중">찾는중</option>
-          <option value="확인중">확인중</option>
-          <option value="습득완료">습득완료</option>
-        </select>
-      </div>
-      {errors?.state && <span className="error">{errors?.state?.message}</span>}
-      <div>
         제목
         <input
           type="text"
