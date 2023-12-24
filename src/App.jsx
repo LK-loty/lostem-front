@@ -2,11 +2,13 @@ import React from "react";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import FindItemPage from "./pages/FindItemPage";
+import FindOwnerPage from "./pages/FindOwnerPage";
 import PostPage from "./pages/PostPage";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
 import FindIdPage from "./pages/FindIdPage";
 import FindPasswordPage from "./pages/FindPasswordPage";
+import ChatPage from "./pages/ChatPage";
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
 import "./styles/main.scss";
@@ -17,6 +19,7 @@ const App = () => {
     <div className="App">
       <Routes>
         <Route path="/" element={<FindItemPage />} />
+        <Route path="/findowner" element={<FindOwnerPage />} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="findid" element={<FindIdPage />} />
         <Route path="/findpassword" element={<FindPasswordPage />} />
@@ -24,6 +27,7 @@ const App = () => {
         {/* 로그인 해야 접근 가능한 페이지 */}
         <Route element={<PrivateRoute />}>
           <Route path="/post" element={<PostPage />} />
+          <Route path="/chat" element={<ChatPage />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
       </Routes>
