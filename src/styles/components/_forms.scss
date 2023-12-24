@@ -72,21 +72,6 @@ input {
   padding: 13px 10px;
 }
 
-input[type="file"] {
-  display: none;
-}
-
-textarea {
-  resize: none;
-}
-
-select {
-  margin-left: 15px;
-  width: 90px;
-  height: 40px;
-  padding-left: 5px;
-}
-
 .login-more {
   display: flex;
   flex-direction: row;
