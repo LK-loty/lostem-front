@@ -19,3 +19,16 @@ export const post = async (data) => {
     return false;
   }
 };
+
+// 글목록 조회
+export const readPost = async () => {
+  try {
+    const response = await axios.get("api/posts/read");
+
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log("readPost api 에러:", error);
+  }
+};
