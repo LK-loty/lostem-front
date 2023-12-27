@@ -5,17 +5,13 @@ const PostList = ({ posts }) => {
     <div className="post-list">
       {posts.map((post, index) => (
         <div className="post-list-container" key={index}>
-          <div className="post-image-wrap">
-            <img src={post.image} alt="" className="post-image" />
-          </div>
+          <img src={post.image} alt="" className="post-image" />
           <div className="post-details">
-            <span className="post-status">{post.status}</span>
-            <div className="post-title">
-              <span className="title-text">{post.title}</span>
-              <span className="post-time">{post.uploadedTime}</span>
-            </div>
-            <span className="post-location">{post.location}</span>
-            <span className="post-content">{post.content}</span>
+            <span className="post-state">{post.state}</span>
+            <span className="post-title">{post.title}</span>
+            <span className="post-region-time">
+              {post.region} · {post.time}
+            </span>
           </div>
         </div>
       ))}
