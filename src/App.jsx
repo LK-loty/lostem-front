@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/" element={<FindItemPage />} />
         <Route path="/findowner" element={<FindOwnerPage />} />
         <Route path="/login" element={<LogInPage />} />
-        <Route path="findid" element={<FindIdPage />} />
+        <Route path="/findid" element={<FindIdPage />} />
         <Route path="/findpassword" element={<FindPasswordPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         {/* 로그인 해야 접근 가능한 페이지 */}

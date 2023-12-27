@@ -19,7 +19,10 @@ const Header = () => {
   return (
     <div className="main-header-wrap">
       <header className="main-header">
-        <div className={"dark-overlay" + (nav ? " visible" : "")}></div>
+        <div
+          className={"dark-overlay" + (nav ? " visible" : "")}
+          onClick={() => setNav(false)}
+        ></div>
         <nav className="main-nav">
           <div className="menu-button-wrap">
             <label htmlFor="menu-button" className="menu-container">
