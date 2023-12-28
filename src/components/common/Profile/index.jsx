@@ -1,7 +1,13 @@
-const Profile = ({ width, height, src, username }) => {
+const Profile = ({ size, imageUrl }) => {
   return (
-    <div className="profile" style={{ width: width, height: height }}>
-      <img className="profile_img" alt={username} src={src} />
+    <div className="profile">
+      <img
+        className="profile_img"
+        alt="profile"
+        src={imageUrl}
+        width={size}
+        height={size}
+      />
     </div>
   );
 };
