@@ -1,24 +1,22 @@
 .post-list {
-  padding: 80px 20vw;
+  padding: 0px 20vw;
 }
 
 @media (max-width: 1310px) {
   .post-list {
-    padding: 100px 3vw;
+    padding: 0px 3vw;
   }
 }
 
 .post-list-container {
-  width: 100%;
   background-color: white;
   display: flex;
   gap: 10px;
   padding: 10px 0;
-  justify-content: center;
   box-sizing: border-box;
 }
 
-.post-image-wrap {
+.post-image {
   background-color: $gray1;
   display: flex;
   width: 150px;
@@ -31,27 +29,21 @@
 .post-details {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-
-  height: 170px;
+  gap: 7px;
 }
 
-.post-status {
+.post-state {
   color: $green;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
 }
 
-.title-text {
-  margin-right: 10px;
+.post-title {
   font-weight: 700;
 }
 
-.post-time {
-  color: $gray4;
+.post-region-time {
   font-size: 14px;
-}
-
-.post-content {
-  text-overflow: ellipsis;
+  color: $gray4;
+  font-weight: 500;
 }

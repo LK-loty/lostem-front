@@ -1,11 +1,7 @@
 // main header
-
-// 코드 정리
-// 로그인 후 profile
 .main-header-wrap {
-  position: fixed;
+  position: sticky;
   top: 0;
-  width: 100%;
   z-index: 1;
 }
 
@@ -167,7 +163,7 @@
 
 @media (min-width: 900px) {
   .menu-button-wrap,
-  .icon-list li:nth-of-type(4),
+  .icon-list .icon-person,
   .dark-overlay {
     display: none;
   }
