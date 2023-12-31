@@ -5,6 +5,7 @@ import { PiChatsCircle } from "react-icons/pi";
 import { GoPerson } from "react-icons/go";
 import { PiBell } from "react-icons/pi";
 import { isLogin } from "../../../utils/auth";
+import Profile from "../Profile";
 import ImgLoty from "../../../assets/images/img_loty.png";
 
 const Header = () => {
@@ -73,14 +74,20 @@ const Header = () => {
                 <PiBell size={26} />
               </Link>
             </li>
-            <li>
-              {!loginState && (
+            {!loginState && (
+              <li className="icon-person">
                 <Link to="/login" className="green">
                   <GoPerson size={26} />
                 </Link>
-              )}
-              {/* 로그인 시 유저 프로필 버튼 */}
-            </li>
+              </li>
+            )}
+            {loginState && (
+              <li>
+                <Link to="/mypage">
+                  <Profile size={40} imageUrl={""} />
+                </Link>
+              </li>
+            )}
           </ul>
           {!loginState && (
             <ul className="auth-list">

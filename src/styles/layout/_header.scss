@@ -66,13 +66,12 @@
 .auth-list {
   font-size: 16px;
   font-weight: 500;
+  gap: 20px;
 }
 
 .icon-list,
-.auth-list,
-.main-list,
 .main-dynamic {
-  gap: 20px;
+  gap: 15px;
 }
 
 @media (max-width: 900px) {
