@@ -25,17 +25,17 @@ const FindItemPage = () => {
   return (
     <div className="finditem">
       <Header />
-      <ul className="post-container">
-        {posts.length > 0 ? (
-          posts.map((post, index) => (
-            <li>
-              <PostList post={post} key={index} />
+      {posts.length > 0 ? (
+        <ul className="post-container">
+          {posts.map((post, index) => (
+            <li key={index}>
+              <PostList post={post} />
             </li>
-          ))
-        ) : (
-          <div className="no-post">게시물이 존재하지 않습니다</div>
-        )}
-      </ul>
+          ))}
+        </ul>
+      ) : (
+        <div className="no-post">게시물이 존재하지 않습니다</div>
+      )}
     </div>
   );
 };

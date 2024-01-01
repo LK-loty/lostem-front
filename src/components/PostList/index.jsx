@@ -1,10 +1,9 @@
-import React from "react";
-import postImg from "../../assets/images/img_loty.png";
-
 const PostList = ({ post }) => {
   return (
     <div className="post-list">
-      <img src={postImg} alt="hi" className="post-image" />
+      <div className="post-image-wrap">
+        <img src={post.image} alt="" className="post-image" />
+      </div>
       <div className="post-details">
         <span className="post-state">{post.state}</span>
         <span className="post-title">{post.title}</span>

@@ -1,49 +1,81 @@
 .post-container {
-  padding: 0px 20vw;
+  padding: 20px 20vw 0 20vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.post-container li {
+  width: calc(100% / 4);
+  padding: 0 10px 10px 10px;
 }
 
 @media (max-width: 1310px) {
   .post-container {
-    padding: 0px 3vw;
+    padding: 20px 3vw 0 3vw;
+  }
+  .post-container li {
+    width: calc(100% / 3);
   }
 }
 
-.post-list-container {
-  background-color: white;
+@media (max-width: 700px) {
+  .post-container li {
+    width: calc(100% / 2);
+  }
+}
+
+.post-image-wrap {
   display: flex;
-  gap: 10px;
-  padding: 10px 0;
-  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.post-image-wrap::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
 }
 
 .post-image {
-  background-color: $gray1;
-  display: flex;
-  width: 150px;
-  height: 150px;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  position: absolute;
+  border-radius: $border-radius;
+  top: 50;
+  left: 50;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .post-details {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  margin-top: 10px;
+  gap: 5px;
 }
 
 .post-state {
   color: $green;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .post-title {
-  font-weight: 700;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
 }
 
 .post-region-time {
-  font-size: 14px;
+  font-size: 12px;
   color: $gray4;
   font-weight: 500;
+}
+
+.no-post {
+  color: $gray5;
+  padding-top: 30px;
+  text-align: center;
 }
