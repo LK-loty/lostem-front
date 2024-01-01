@@ -2,7 +2,7 @@ $main-color: #00910b;
 $form-font-size: 16px;
 
 .postform {
-  padding: 100px 20vw;
+  padding: 0px 20vw;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -10,7 +10,7 @@ $form-font-size: 16px;
 
 @media (max-width: 1310px) {
   .postform {
-    padding: 100px 3vw;
+    padding: 0px 3vw;
   }
 }
 
@@ -63,14 +63,6 @@ textarea {
   background-color: #eeeeee;
 }
 
-.file-image {
-  background-color: #eeeeee;
-  width: 130px;
-  height: 130px;
-  border: 1px solid #eeeeee;
-  display: inline-block;
-}
-
 .picture {
   display: inline-block;
 }
@@ -114,14 +106,16 @@ select option[value=""] {
   flex-wrap: wrap;
   gap: 10px;
   max-width: 100%;
+  margin-top: 5px;
 }
 
 .file-image {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 200px;
+  background-color: #eeeeee;
+  width: 120px;
+  height: 120px;
   margin-top: 10px;
   position: relative;
 }
