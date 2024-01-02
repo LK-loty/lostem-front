@@ -2,15 +2,16 @@
   display: flex;
   flex-direction: row;
   gap: 5px;
-  font-size: 16px;
+  font-size: 14px;
   justify-content: center;
   padding-top: 10px;
 
   li a {
-    padding: 5px;
+    padding: 10px 15px;
   }
 
   .active a {
     color: $green;
+    border: 1px solid $green;
   }
 }
