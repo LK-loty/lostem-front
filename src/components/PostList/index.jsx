@@ -1,6 +1,6 @@
 const PostList = ({ post }) => {
   return (
-    <div className="post-list">
+    <div className="post-item">
       <div className="post-image-wrap">
         <img src={post.image} alt="" className="post-image" />
       </div>

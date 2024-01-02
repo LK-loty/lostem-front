@@ -1,25 +1,28 @@
-.post-container {
+.post-list-container {
   padding: 20px 20vw 0 20vw;
+}
+
+.post-list {
   display: flex;
   flex-wrap: wrap;
 }
 
-.post-container li {
+.post-list li {
   width: calc(100% / 4);
-  padding: 0 10px 10px 10px;
+  padding: 0 10px 20px 10px;
 }
 
 @media (max-width: 1310px) {
-  .post-container {
+  .post-list-container {
     padding: 20px 3vw 0 3vw;
   }
-  .post-container li {
+  .post-list-container li {
     width: calc(100% / 3);
   }
 }
 
 @media (max-width: 700px) {
-  .post-container li {
+  .post-list-container li {
     width: calc(100% / 2);
   }
 }
@@ -30,6 +33,7 @@
   align-items: center;
   position: relative;
   width: 100%;
+  background-color: #eee;
 }
 
 .post-image-wrap::before {
@@ -78,4 +82,21 @@
   color: $gray5;
   padding-top: 30px;
   text-align: center;
+}
+
+a.go-post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 120px;
+  height: 45px;
+  border-radius: 50px;
+  position: sticky;
+  bottom: 40px;
+  margin-left: auto;
+  z-index: 5;
+  background-color: $green;
+  color: $white;
+  box-shadow: 1px 3px 6px 0 rgba(0, 0, 0, 0.3);
 }
