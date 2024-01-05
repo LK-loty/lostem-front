@@ -1,21 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { PiChatsCircle } from "react-icons/pi";
 import { GoPerson } from "react-icons/go";
 import { PiBell } from "react-icons/pi";
 import { isLogin } from "../../../utils/auth";
+import { previewUser } from "../../../apis/user";
 import Profile from "../Profile";
 import ImgLoty from "../../../assets/images/img_loty.png";
 
 const Header = () => {
   const [nav, setNav] = useState(false);
+  const [profile, setProfile] = useState("");
   const loginState = isLogin();
-
   const navItems = [
     { name: "잃어버렸어요", link: "/" },
     { name: "주인을찾아요", link: "/findowner" },
   ];
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const data = await previewUser();
+        setProfile(data.profile);
+      } catch (error) {
+        console.error("header 유저 프로필 에러:", error);
+      }
+    };
+
+    if (loginState) {
+      fetchUserInfo();
+    }
+  }, [loginState]);
 
   return (
     <div className="main-header-wrap">
@@ -82,9 +98,9 @@ const Header = () => {
               </li>
             )}
             {loginState && (
-              <li>
+              <li className="icon-profile">
                 <Link to="/mypage">
-                  <Profile size={40} imageUrl={""} />
+                  <Profile size={40} imageUrl={profile} />
                 </Link>
               </li>
             )}
