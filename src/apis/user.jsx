@@ -29,3 +29,22 @@ export const checkUsername = async (username) => {
     return false;
   }
 };
+
+// 유저 프로필 받아오기
+export const previewUser = async () => {
+  try {
+    const accessToken = localStorage.getItem("act");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    const response = await axios.post("/api/users/preview", {
+      headers,
+    });
+    if (response.status === 200) {
+      return response.data;
+    } else return false;
+  } catch (error) {
+    return false;
+  }
+};
