@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GoPencil } from "react-icons/go";
-import Header from "../../components/common/Header";
 import PostList from "../../components/PostList";
 import Paginate from "../../components/common/Paginate";
 import { readPost } from "../../apis/post";
@@ -34,13 +33,14 @@ const FindItemPage = () => {
 
   return (
     <div className="finditem">
-      <Header />
       <div className="post-list-container">
         {posts.length > 0 ? (
           <ul className="post-list">
             {posts.map((post, index) => (
               <li key={index}>
-                <PostList post={post} />
+                <Link to={`/${post.postId}`}>
+                  <PostList post={post} />
+                </Link>
               </li>
             ))}
           </ul>

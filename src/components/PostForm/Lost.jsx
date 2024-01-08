@@ -16,7 +16,7 @@ const Lost = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({ defaultValues: { start: "", end: "" } });
+  } = useForm({ defaultValues: { start: "", end: "", userId: "bla" } });
 
   const [images, setImages] = useState([]);
   const [imageCheck, setImageCheck] = useState({ error: false, message: "" });

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { GoPencil } from "react-icons/go";
-import Header from "../../components/common/Header";
 import PostList from "../../components/PostList";
 import Paginate from "../../components/common/Paginate";
 
@@ -16,13 +15,14 @@ const FindOwnerPage = () => {
 
   return (
     <div className="FindOwerPage">
-      <Header />
       <div className="post-list-container">
         {posts.length > 0 ? (
           <ul className="post-list">
             {posts.map((post, index) => (
               <li key={index}>
-                <PostList post={post} />
+                <Link to={`/findowner/${post.postId}`}>
+                  <PostList post={post} />
+                </Link>
               </li>
             ))}
           </ul>

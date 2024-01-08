@@ -12,11 +12,15 @@ import ImgLoty from "../../../assets/images/img_loty.png";
 const Header = () => {
   const [nav, setNav] = useState(false);
   const [profile, setProfile] = useState("");
-  const loginState = isLogin();
+  const [loginState, SetLoginState] = useState();
   const navItems = [
     { name: "잃어버렸어요", link: "/" },
     { name: "주인을찾아요", link: "/findowner" },
   ];
+
+  useEffect(() => {
+    SetLoginState(isLogin());
+  }, []);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -31,7 +35,7 @@ const Header = () => {
     if (loginState) {
       fetchUserInfo();
     }
-  }, [loginState]);
+  }, []);
 
   return (
     <div className="main-header-wrap">
