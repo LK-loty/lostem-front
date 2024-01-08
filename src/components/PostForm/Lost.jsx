@@ -6,68 +6,22 @@ import { ko } from "date-fns/esm/locale";
 import { BiImageAdd } from "react-icons/bi";
 import { FiX } from "react-icons/fi";
 import Modal from "../common/Modal";
-import { post } from "../../apis/post";
+import { postLost } from "../../apis/post";
+import { regions, category } from "./data";
 import "./style.scss";
 
-// 카테고리
-const category = [
-  { id: 1, name: "카드" },
-  { id: 2, name: "증명서" },
-  { id: 3, name: "전자기기" },
-  { id: 4, name: "자동차" },
-  { id: 5, name: "유가증권" },
-  { id: 6, name: "스포츠용품" },
-  { id: 7, name: "현금" },
-  { id: 8, name: "쇼핑백 " },
-  { id: 9, name: "도서용품" },
-  { id: 10, name: "휴대폰" },
-  { id: 11, name: "컴퓨터" },
-  { id: 12, name: "가방 " },
-  { id: 13, name: "유류품 " },
-  { id: 14, name: "지갑" },
-  { id: 15, name: "서류" },
-  { id: 16, name: "산업용품" },
-  { id: 17, name: "기타" },
-];
-
-// 지역
-const regions = [
-  { id: 1, name: "서울특별시" },
-  { id: 2, name: "강원도" },
-  { id: 3, name: "경기도" },
-  { id: 4, name: "경상남도" },
-  { id: 5, name: "경상북도" },
-  { id: 6, name: "광주광역시" },
-  { id: 7, name: "대구광역시" },
-  { id: 8, name: "대전광역시" },
-  { id: 9, name: "부산광역시" },
-  { id: 10, name: "울산광역시" },
-  { id: 11, name: "인천광역시" },
-  { id: 12, name: "전라남도" },
-  { id: 13, name: "전라북도" },
-  { id: 14, name: "충청남도" },
-  { id: 15, name: "충청북도" },
-  { id: 16, name: "제주특별자치도" },
-  { id: 17, name: "세종특별자치시" },
-  { id: 18, name: "해외" },
-  { id: 19, name: "기타" },
-];
-
-// 분실기간, 습득날짜로 하기
-// 분실기간은 /로 구분
-const PostForm = () => {
+const Lost = () => {
   const {
     register,
     handleSubmit,
-    setError,
-    control,
+    setValue,
     formState: { errors },
-  } = useForm({ mode: "onBlur", defaultValues: {} });
+  } = useForm({ defaultValues: { start: "", end: "" } });
 
   const [images, setImages] = useState([]);
   const [imageCheck, setImageCheck] = useState({ error: false, message: "" });
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
 
   const handleImageChange = (event) => {
     let isValid = false;
@@ -109,31 +63,18 @@ const PostForm = () => {
   };
 
   const onSubmit = (data) => {
-    const formattedDateRange = dateRange.map((date) =>
-      date ? formatDate(date) : ""
-    );
-    const formatData = {
-      ...data,
-      datetime: formattedDateRange.join("-"),
-    };
+    console.log(data);
+
     const formData = new FormData();
-    const JSONData = JSON.stringify(formatData);
+    const JSONData = JSON.stringify(data);
+
     formData.append("data", new Blob([JSONData], { type: "application/json" }));
 
     images.forEach((image) => {
       formData.append("image", image);
     });
 
-    console.log(formData.get("data"));
-
-    post(formData);
-  };
-
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}.${month}.${day}`;
+    postLost(formData);
   };
 
   return (
@@ -150,25 +91,25 @@ const PostForm = () => {
             },
           })}
         />
-      </div>
-      {errors?.title && <span className="error">{errors?.title?.message}</span>}
-      <div className="">
-        사진
-        <label htmlFor="images" className="button-upload">
-          <BiImageAdd size="30" />
-        </label>
-        <input
-          type="file"
-          name="images"
-          id="images"
-          accept="image/*"
-          multiple
-          onChange={handleImageChange}
-        />
-        {imageCheck.error && (
-          <span className="error">{imageCheck.message}</span>
+        {errors?.title && (
+          <span className="error">{errors?.title?.message}</span>
         )}
+      </div>
+      <div>
+        사진
         <div className="container-images">
+          <label htmlFor="images" className="button-upload">
+            <BiImageAdd size={24} />
+            {images.length}/3
+          </label>
+          <input
+            type="file"
+            name="images"
+            id="images"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+          />
           {images.map((image, index) => (
             <div className="file-image" key={index}>
               <img src={URL.createObjectURL(image)} alt="" />
@@ -177,11 +118,14 @@ const PostForm = () => {
                 className="button-delete"
                 onClick={() => handleImageDelete(index)}
               >
-                <FiX size="15" />
+                <FiX size={15} />
               </button>
             </div>
           ))}
         </div>
+        {imageCheck.error && (
+          <span className="error">{imageCheck.message}</span>
+        )}
       </div>
       <div className="postform-group">
         분실물명
@@ -198,40 +142,44 @@ const PostForm = () => {
         {errors?.item && <span className="error">{errors?.item?.message}</span>}
       </div>
       <div className="postform-group">
-        분실기간
-        <Controller
-          name="datetime"
-          control={control}
-          rules={{ required: "분실기간을 입력해주세요" }}
-          defaultValue=""
-          render={({ field }) => (
-            <DatePicker
-              {...field}
-              dateFormat="yyyy.MM.dd"
-              dateFormatCalendar="yyyy년 MM월"
-              locale={ko}
-              maxDate={new Date()}
-              selectsRange={true}
-              startDate={startDate}
-              endDate={endDate}
-              onChange={(update) => {
-                setDateRange(update);
-                field.onChange(update); // 필드 값 업데이트
-              }}
-              isClearable={true}
-            />
-          )}
+        <div>분실기간</div>
+        <DatePicker
+          {...register("start", { required: true })}
+          dateFormat="yyyy.MM.dd"
+          dateFormatCalendar="yyyy년 MM월"
+          locale={ko}
+          maxDate={new Date()}
+          selected={startDate}
+          onChange={(date) => {
+            setStartDate(date);
+            setValue("start", date);
+          }}
+          isClearable={true}
         />
-        {errors?.datetime && (
-          <span className="error">{errors?.datetime?.message}</span>
-        )}
+        {" ~ "}
+        <DatePicker
+          {...register("end", { required: true })}
+          dateFormat="yyyy.MM.dd"
+          dateFormatCalendar="yyyy년 MM월"
+          locale={ko}
+          minDate={startDate}
+          maxDate={new Date()}
+          selected={endDate}
+          onChange={(date) => {
+            setEndDate(date);
+            setValue("end", date);
+          }}
+          isClearable={true}
+        />
       </div>
-
+      {(errors?.start || errors?.end) && (
+        <span className="error">분실기간을 입력해주세요</span>
+      )}
       <div className="postform-group">
         분실지역
         <div className="region-container">
           <select
-            {...register("field_do", { required: "분실지역을 입력해주세요" })}
+            {...register("field_sido", { required: "분실지역을 입력해주세요" })}
           >
             <option value="">선택</option>
             {regions.map((reg) => (
@@ -242,21 +190,26 @@ const PostForm = () => {
           </select>
           <input
             type="text"
-            name="region"
-            placeholder="시/군/구"
+            placeholder="시 / 구 / 군"
             {...register("field_sigungu", {
               required: "분실지역을 입력해주세요",
             })}
           />
         </div>
+        {(errors?.field_sido || errors?.field_sigungu) && (
+          <span className="error">분실지역을 입력해주세요</span>
+        )}
       </div>
       <div className="postform-group">
         분실장소
         <input
           type="text"
-          name="location"
-          {...register("location", { required: "분실장소를 입력해주세요" })}
+          name="place"
+          {...register("place", { required: "분실장소를 입력해주세요" })}
         />
+        {errors?.place && (
+          <span className="error">{errors?.place?.message}</span>
+        )}
       </div>
       <div className="postform-group">
         카테고리
@@ -265,7 +218,7 @@ const PostForm = () => {
             <React.Fragment key={cat.id}>
               <input
                 type="radio"
-                name="cat"
+                name="category"
                 className="radio"
                 id={cat.id}
                 value={cat.name}
@@ -277,10 +230,20 @@ const PostForm = () => {
             </React.Fragment>
           ))}
         </div>
+        {errors?.category && (
+          <span className="error">{errors?.category?.message}</span>
+        )}
       </div>
       <div className="postform-group">
         자세한설명
-        <textarea {...register("explain", { maxLength: 300 })} />
+        <textarea
+          {...register("contents", {
+            maxLength: {
+              value: 300,
+              message: "자세한설명은 300자이내로 입력해야 합니다",
+            },
+          })}
+        />
       </div>
       <button type="submit" className="button-submit">
         글쓰기
@@ -288,4 +251,4 @@ const PostForm = () => {
     </form>
   );
 };
-export default PostForm;
+export default Lost;
