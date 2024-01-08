@@ -1,11 +1,11 @@
 $main-color: #00910b;
-$form-font-size: 16px;
+$form-font-size: 14px;
 
 .postform {
   padding: 0px 20vw;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 @media (max-width: 1310px) {
@@ -33,7 +33,6 @@ select {
 }
 
 input {
-  font-weight: 300;
   font-size: $form-font-size;
 }
 
@@ -53,18 +52,17 @@ textarea {
 
 .button-upload {
   display: flex;
-  width: 80px;
-  height: 80px;
+  flex-direction: column;
+  font-size: 12px;
+  gap: 5px;
+  width: 60px;
+  height: 60px;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: #a3a3a3;
   font-weight: 200;
   background-color: #eeeeee;
-}
-
-.picture {
-  display: inline-block;
 }
 
 select option[value=""] {
@@ -76,6 +74,7 @@ select option[value=""] {
     transition: 0.15s;
     display: inline-block;
     border-radius: 20px;
+    font-size: 14px;
     border: 1px solid #00910b;
     padding: 10px 15px;
     margin-right: 8px;
@@ -102,11 +101,11 @@ select option[value=""] {
 }
 
 .container-images {
+  margin: 5px 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
   max-width: 100%;
-  margin-top: 5px;
 }
 
 .file-image {
@@ -114,9 +113,8 @@ select option[value=""] {
   justify-content: center;
   align-items: center;
   background-color: #eeeeee;
-  width: 120px;
-  height: 120px;
-  margin-top: 10px;
+  width: 100px;
+  height: 100px;
   position: relative;
 }
 
@@ -127,14 +125,26 @@ select option[value=""] {
 
 .button-delete {
   position: absolute;
-  top: -16px;
-  right: -8px;
-  background-color: transparent;
-  color: red;
-  border: none;
+  top: 2px;
+  right: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #dddd;
+  box-sizing: border-box;
   cursor: pointer;
 }
 
+.region-container {
+  input {
+    margin-left: 5px;
+    width: 200px;
+  }
+}
 select {
   height: 45px;
 }
