@@ -1,0 +1,43 @@
+// 카테고리
+export const category = [
+  { id: 1, name: "카드" },
+  { id: 2, name: "증명서" },
+  { id: 3, name: "전자기기" },
+  { id: 4, name: "자동차" },
+  { id: 5, name: "유가증권" },
+  { id: 6, name: "스포츠용품" },
+  { id: 7, name: "현금" },
+  { id: 8, name: "쇼핑백 " },
+  { id: 9, name: "도서용품" },
+  { id: 10, name: "휴대폰" },
+  { id: 11, name: "컴퓨터" },
+  { id: 12, name: "가방 " },
+  { id: 13, name: "유류품 " },
+  { id: 14, name: "지갑" },
+  { id: 15, name: "서류" },
+  { id: 16, name: "산업용품" },
+  { id: 17, name: "기타" },
+];
+
+// 지역
+export const regions = [
+  { id: 1, name: "서울특별시" },
+  { id: 2, name: "강원도" },
+  { id: 3, name: "경기도" },
+  { id: 4, name: "경상남도" },
+  { id: 5, name: "경상북도" },
+  { id: 6, name: "광주광역시" },
+  { id: 7, name: "대구광역시" },
+  { id: 8, name: "대전광역시" },
+  { id: 9, name: "부산광역시" },
+  { id: 10, name: "울산광역시" },
+  { id: 11, name: "인천광역시" },
+  { id: 12, name: "전라남도" },
+  { id: 13, name: "전라북도" },
+  { id: 14, name: "충청남도" },
+  { id: 15, name: "충청북도" },
+  { id: 16, name: "제주특별자치도" },
+  { id: 17, name: "세종특별자치시" },
+  { id: 18, name: "해외" },
+  { id: 19, name: "기타" },
+];
