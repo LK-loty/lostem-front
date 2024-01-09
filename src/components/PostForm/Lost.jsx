@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
@@ -16,8 +17,15 @@ const Lost = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({ defaultValues: { start: "", end: "", userId: "bla" } });
-
+  } = useForm({
+    defaultValues: {
+      start: "",
+      end: "",
+      state: "찾는중",
+      area: "",
+    },
+  });
+  const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [imageCheck, setImageCheck] = useState({ error: false, message: "" });
   const [startDate, setStartDate] = useState();
@@ -63,8 +71,13 @@ const Lost = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    // field_sido와 field_sigungu 필드 제거 및 area에 값 설정
+    const areaValue = `${data.field_sido} ${data.field_sigungu}`;
+    delete data.field_sido;
+    delete data.field_sigungu;
+    setValue("area", areaValue);
 
+    console.log(data);
     const formData = new FormData();
     const JSONData = JSON.stringify(data);
 
@@ -74,7 +87,15 @@ const Lost = () => {
       formData.append("image", image);
     });
 
-    postLost(formData);
+    postLost(formData).then((response) => {
+      console.log(response);
+      if (response.stautus === 200) {
+        navigate(-1);
+      } else if (response.status === 401) {
+        localStorage.clear();
+        navigate("/login");
+      }
+    });
   };
 
   return (
@@ -171,10 +192,11 @@ const Lost = () => {
           }}
           isClearable={true}
         />
+        <br />
+        {(errors?.start || errors?.end) && (
+          <span className="error">분실기간을 입력해주세요</span>
+        )}
       </div>
-      {(errors?.start || errors?.end) && (
-        <span className="error">분실기간을 입력해주세요</span>
-      )}
       <div className="postform-group">
         분실지역
         <div className="region-container">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
@@ -16,8 +17,8 @@ const Found = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({ defaultValues: { date: "" } });
-
+  } = useForm({ defaultValues: { date: "", area: "", state: "보관중" } });
+  const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [imageCheck, setImageCheck] = useState({ error: false, message: "" });
   const [date, setDate] = useState();
@@ -62,8 +63,13 @@ const Found = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    // field_sido와 field_sigungu 필드 제거 및 area에 값 설정
+    const areaValue = `${data.field_sido} ${data.field_sigungu}`;
+    delete data.field_sido;
+    delete data.field_sigungu;
+    setValue("area", areaValue);
 
+    console.log(data);
     const formData = new FormData();
     const JSONData = JSON.stringify(data);
 
@@ -73,7 +79,14 @@ const Found = () => {
       formData.append("image", image);
     });
 
-    postFound(formData);
+    postFound(formData).then((response) => {
+      if (response.stautus === 200) {
+        navigate(-1);
+      } else if (response.status === 401) {
+        localStorage.clear();
+        navigate("/login");
+      }
+    });
   };
 
   return (
@@ -142,7 +155,6 @@ const Found = () => {
       </div>
       <div className="postform-group">
         <div>습득날짜</div>
-
         <DatePicker
           {...register("date", { required: "습득날짜를 입력해주세요" })}
           dateFormat="yyyy.MM.dd"
@@ -156,14 +168,15 @@ const Found = () => {
           }}
           isClearable={true}
         />
+        <br />
+        {errors?.date && (
+          <span className="error"> {errors?.date?.message}</span>
+        )}
       </div>
-      {errors?.date && <span className="error"> {errors?.date?.message}</span>}
       <div className="postform-group">
         습득지역
         <div className="region-container">
-          <select
-            {...register("field_sido", { required: "습득지역을 입력해주세요" })}
-          >
+          <select {...register("field_sido", { required: true })}>
             <option value="">선택</option>
             {regions.map((reg) => (
               <option key={reg.id} value={reg.name}>
@@ -175,7 +188,7 @@ const Found = () => {
             type="text"
             placeholder="시 / 구 / 군"
             {...register("field_sigungu", {
-              required: "분실지역을 입력해주세요",
+              required: true,
             })}
           />
         </div>
