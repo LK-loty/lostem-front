@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { PiChatsCircle } from "react-icons/pi";
 import { GoPerson } from "react-icons/go";
@@ -10,6 +10,7 @@ import Profile from "../Profile";
 import ImgLoty from "../../../assets/images/img_loty.png";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [nav, setNav] = useState(false);
   const [profile, setProfile] = useState("");
   const [loginState, SetLoginState] = useState();
@@ -19,14 +20,15 @@ const Header = () => {
   ];
 
   useEffect(() => {
-    SetLoginState(isLogin());
+    const isLoggedIn = isLogin();
+    SetLoginState(isLoggedIn);
   }, []);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const data = await previewUser();
-        setProfile(data.profile);
+        const response = await previewUser();
+        if (response.status === 200) setProfile(response.data.profile);
       } catch (error) {
         console.error("header 유저 프로필 에러:", error);
       }
@@ -63,7 +65,11 @@ const Header = () => {
               {navItems.map((nav) => {
                 return (
                   <li key={nav.name}>
-                    <Link className="nav_item hoverGreen" to={nav.link}>
+                    <Link
+                      className="nav_item hoverGreen"
+                      to={nav.link}
+                      onClick={() => setNav(false)}
+                    >
                       {nav.name}
                     </Link>
                   </li>
