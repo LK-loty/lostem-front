@@ -3,8 +3,13 @@ a {
   color: $black;
   cursor: pointer;
   border-radius: $border-radius;
+  transition: color 0.2s;
 }
 
 a.underline {
   text-decoration: underline;
+}
+
+a.hoverGreen:hover {
+  color: $green;
 }
