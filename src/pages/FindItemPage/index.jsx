@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { GoPencil } from "react-icons/go";
 import PostList from "../../components/PostList";
 import Paginate from "../../components/common/Paginate";
-import { readPost } from "../../apis/post";
+import { readLost } from "../../apis/post";
 
 const FindItemPage = () => {
-  const [posts, setPosts] = useState([]); // 게시글 목록
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [posts, setPosts] = useState([]); // 게시글 데이터
   const [page, setPage] = useState(1); // 현재 페이지 번호
   const postPerPage = 20; // 페이지 당 post 개수
 
-  // page 이동 시 게시글 요청하는 로직으로 변경할 것 (readPost 함수도 포함)
   useEffect(() => {
+    // 글 목록 조회
     const fetchData = async () => {
       try {
-        const data = await readPost();
-        if (data) {
-          console.log(data);
-          setPosts(data);
+        const response = await readLost(page);
+        if (response.status === 200) {
+          setPosts(response.data.content);
         }
       } catch (error) {
         console.error("finditempage useeffect 에러", error);
@@ -25,10 +26,17 @@ const FindItemPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [page]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const currentPage = parseInt(searchParams.get("page")) || 1;
+    setPage(currentPage);
+  }, [location.search]);
 
   const handlePageChange = (page) => {
     setPage(page);
+    navigate(`?page=${page}`);
   };
 
   return (
