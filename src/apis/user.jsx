@@ -38,13 +38,11 @@ export const previewUser = async () => {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.post("/api/users/preview", {
+    const response = await axios.get("/api/users/preview", {
       headers,
     });
-    if (response.status === 200) {
-      return response.data;
-    } else return false;
+    return response;
   } catch (error) {
-    return false;
+    return error.response;
   }
 };
