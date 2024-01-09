@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { PiChatsCircle } from "react-icons/pi";
 import { GoPerson } from "react-icons/go";
@@ -10,7 +10,6 @@ import Profile from "../Profile";
 import ImgLoty from "../../../assets/images/img_loty.png";
 
 const Header = () => {
-  const navigate = useNavigate();
   const [nav, setNav] = useState(false);
   const [profile, setProfile] = useState("");
   const [loginState, SetLoginState] = useState();
