@@ -12,11 +12,9 @@ export const postLost = async (data) => {
       headers,
     });
 
-    if (response.status === 200) return true;
-    else return false;
+    return response;
   } catch (error) {
-    console.log(error);
-    return false;
+    return error.response;
   }
 };
 
@@ -31,26 +29,38 @@ export const postFound = async (data) => {
     const response = await axios.post("api/found/create", data, {
       headers,
     });
-
-    if (response.status === 200) return true;
-    else return false;
+    return response;
   } catch (error) {
-    console.log(error);
-    return false;
+    return error.response;
   }
 };
 
-// 잃어버렸어요 글목록 조회
-export const readPost = async () => {
+// 글목록 조회 - 잃어버렸어요
+export const readLost = async (page) => {
   try {
-    const response = await axios.get("api/lost/read");
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      return false;
-    }
+    const response = await axios.get("api/lost/read", {
+      params: {
+        page: page - 1,
+      },
+    });
+    return response;
   } catch (error) {
     console.log("readPost api 에러:", error);
-    return false;
+    return error.response;
+  }
+};
+
+// 글목록 조회 - 주인을찾아요
+export const readFound = async (page) => {
+  try {
+    const response = await axios.get("api/found/read", {
+      params: {
+        page: page - 1,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log("readFound api 에러:", error);
+    return error.response;
   }
 };
