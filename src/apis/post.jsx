@@ -8,7 +8,7 @@ export const postLost = async (data) => {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.post("api/posts/create", data, {
+    const response = await axios.post("api/lost/create", data, {
       headers,
     });
 
@@ -43,6 +43,7 @@ export const readLost = async (page) => {
         page: page - 1,
       },
     });
+    console.log(response);
     return response;
   } catch (error) {
     console.log("readPost api 에러:", error);
