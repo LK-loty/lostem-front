@@ -200,7 +200,7 @@ const Found = () => {
           errors?.field_sigungu?.type === "required") && (
           <span className="error">습득지역을 입력해주세요</span>
         )}
-        {errors?.field_sigungu && (
+        {errors?.field_sigungu?.type === "maxLength" && (
           <span className="error"> {errors?.field_sigungu?.message}</span>
         )}
       </div>
