@@ -17,7 +17,7 @@ const Found = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({ defaultValues: { date: "", area: "", state: "보관중" } });
+  } = useForm({ defaultValues: { date: "", state: "보관중" } });
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [imageCheck, setImageCheck] = useState({ error: false, message: "" });
@@ -67,11 +67,13 @@ const Found = () => {
     const areaValue = `${data.field_sido} ${data.field_sigungu}`;
     delete data.field_sido;
     delete data.field_sigungu;
-    setValue("area", areaValue);
 
-    console.log(data);
+    const updatedData = {
+      ...data,
+      area: areaValue,
+    };
     const formData = new FormData();
-    const JSONData = JSON.stringify(data);
+    const JSONData = JSON.stringify(updatedData);
 
     formData.append("data", new Blob([JSONData], { type: "application/json" }));
 
@@ -80,7 +82,7 @@ const Found = () => {
     });
 
     postFound(formData).then((response) => {
-      if (response.stautus === 200) {
+      if (response.status === 200) {
         navigate(-1);
       } else if (response.status === 401) {
         localStorage.clear();
@@ -169,9 +171,7 @@ const Found = () => {
           isClearable={true}
         />
         <br />
-        {errors?.date && (
-          <span className="error"> {errors?.date?.message}</span>
-        )}
+        {errors?.date && <span className="error">{errors?.date?.message}</span>}
       </div>
       <div className="postform-group">
         습득지역
@@ -189,11 +189,19 @@ const Found = () => {
             placeholder="시 / 구 / 군"
             {...register("field_sigungu", {
               required: true,
+              maxLength: {
+                value: 15,
+                message: "시/군/구는 15자 이내로 입력해야 합니다",
+              },
             })}
           />
         </div>
-        {(errors?.field_sido || errors?.field_sigungu) && (
+        {(errors?.field_sido?.type === "required" ||
+          errors?.field_sigungu?.type === "required") && (
           <span className="error">습득지역을 입력해주세요</span>
+        )}
+        {errors?.field_sigungu && (
+          <span className="error"> {errors?.field_sigungu?.message}</span>
         )}
       </div>
       <div className="postform-group">

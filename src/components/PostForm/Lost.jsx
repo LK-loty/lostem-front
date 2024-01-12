@@ -22,7 +22,6 @@ const Lost = () => {
       start: "",
       end: "",
       state: "찾는중",
-      area: "",
     },
   });
   const navigate = useNavigate();
@@ -75,11 +74,14 @@ const Lost = () => {
     const areaValue = `${data.field_sido} ${data.field_sigungu}`;
     delete data.field_sido;
     delete data.field_sigungu;
-    setValue("area", areaValue);
 
-    console.log(data);
+    const updatedData = {
+      ...data,
+      area: areaValue,
+    };
+
     const formData = new FormData();
-    const JSONData = JSON.stringify(data);
+    const JSONData = JSON.stringify(updatedData);
 
     formData.append("data", new Blob([JSONData], { type: "application/json" }));
 
@@ -89,7 +91,7 @@ const Lost = () => {
 
     postLost(formData).then((response) => {
       console.log(response);
-      if (response.stautus === 200) {
+      if (response.status === 200) {
         navigate(-1);
       } else if (response.status === 401) {
         localStorage.clear();
@@ -218,8 +220,12 @@ const Lost = () => {
             })}
           />
         </div>
-        {(errors?.field_sido || errors?.field_sigungu) && (
+        {(errors?.field_sido?.type === "required" ||
+          errors?.field_sigungu?.type === "required") && (
           <span className="error">분실지역을 입력해주세요</span>
+        )}
+        {errors?.field_sigungu && (
+          <span className="error"> {errors?.field_sigungu?.message}</span>
         )}
       </div>
       <div className="postform-group">
