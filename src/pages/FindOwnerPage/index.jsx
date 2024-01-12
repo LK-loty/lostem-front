@@ -10,6 +10,7 @@ const FindOwnerPage = () => {
   const location = useLocation();
   const [posts, setPosts] = useState([]); // 게시글 데이터 list
   const [page, setPage] = useState(1); // 현재 페이지 번호
+  const [totalItemCount, setTotalItemCount] = useState(); // 총 게시글 개수
   const postPerPage = 20; // 페이지 당 post 개수
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const FindOwnerPage = () => {
         const response = await readFound(page);
         if (response.status === 200) {
           setPosts(response.data.content);
+          setTotalItemCount(response.data.totalElements);
         }
       } catch (error) {
         console.error("findownerpage useeffect 에러", error);
@@ -42,7 +44,7 @@ const FindOwnerPage = () => {
   return (
     <div className="FindOwerPage">
       <div className="post-list-container">
-        {posts.length > 0 ? (
+        {totalItemCount > 0 ? (
           <ul className="post-list">
             {posts.map((post, index) => (
               <li key={index}>
@@ -62,7 +64,7 @@ const FindOwnerPage = () => {
       </div>
       <Paginate
         page={page}
-        totalItemsCount={posts.length}
+        totalItemsCount={totalItemCount}
         postPerPage={postPerPage}
         handlePageChange={handlePageChange}
       />
