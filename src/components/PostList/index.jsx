@@ -7,8 +7,8 @@ const PostList = ({ post }) => {
       <div className="post-details">
         <span className="post-state">{post.state}</span>
         <span className="post-title">{post.title}</span>
-        <span className="post-region-time">
-          {post.region} · {post.time}
+        <span className="post-area-time">
+          {post.area} · {post.time}
         </span>
       </div>
     </div>
