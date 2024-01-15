@@ -65,3 +65,33 @@ export const readFound = async (page) => {
     return error.response;
   }
 };
+
+// 글 자세히 - 잃어버렸어요
+export const readLostDetail = async (id) => {
+  try {
+    const response = await axios.get("api/lost/read", {
+      params: {
+        id: id,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log("readLostDetail api 에러", error);
+    return error.response;
+  }
+};
+
+// 글 자세히 - 주인을찾아요
+export const readFoundDetail = async (id) => {
+  try {
+    const response = await axios.get("api/found/read", {
+      params: {
+        id: id,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log("readFoundDetail api 에러", error);
+    return error.response;
+  }
+};
