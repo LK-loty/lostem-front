@@ -1,24 +1,47 @@
 import React, { useState } from "react";
+import { GoChevronLeft } from "react-icons/go";
 
 const ImageSlider = ({ images }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const goToNextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
+  const goNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  const goToPrevSlide = () => {
-    setCurrentSlide(
-      (prevSlide) => (prevSlide - 1 + images.length) % images.length
+  const goPrev = () => {
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length
     );
   };
 
   return (
-    <div>
-      <div>
-        <button onClick={goToPrevSlide}>이전</button>
-        <img src={images[currentSlide]} alt={`slide ${currentSlide}`} />
-        <button onClick={goToNextSlide}>다음</button>
+    <div className="image-slider">
+      <div className="slider-container">
+        <ul className="image-list">
+          {images.map((image, index) => (
+            <li
+              key={index}
+              className={index === currentIndex ? "visible" : "hidden"}
+            >
+              <img src={image} alt={image} />
+            </li>
+          ))}
+        </ul>
+        <button className="prev-button" onClick={goPrev}>
+          <GoChevronLeft size={20} />
+        </button>
+        <button className="next-button" onClick={goNext}>
+          다음
+        </button>
+      </div>
+      <div className="nav-dots">
+        {images.map((_, index) => (
+          <span
+            key={index}
+            className={index === currentIndex ? "active" : "inactive"}
+            onClick={() => setCurrentIndex(index)}
+          />
+        ))}
       </div>
     </div>
   );
