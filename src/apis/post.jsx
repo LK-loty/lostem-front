@@ -67,13 +67,9 @@ export const readFound = async (page) => {
 };
 
 // 글 자세히 - 잃어버렸어요
-export const readLostDetail = async (id) => {
+export const readLostDetail = async (postId) => {
   try {
-    const response = await axios.get("api/lost/read", {
-      params: {
-        id: id,
-      },
-    });
+    const response = await axios.get(`/api/lost/read/${postId}`, {});
     return response;
   } catch (error) {
     console.log("readLostDetail api 에러", error);
@@ -82,13 +78,9 @@ export const readLostDetail = async (id) => {
 };
 
 // 글 자세히 - 주인을찾아요
-export const readFoundDetail = async (id) => {
+export const readFoundDetail = async (postId) => {
   try {
-    const response = await axios.get("api/found/read", {
-      params: {
-        id: id,
-      },
-    });
+    const response = await axios.get(`/api/found/read/${postId}`, {});
     return response;
   } catch (error) {
     console.log("readFoundDetail api 에러", error);
