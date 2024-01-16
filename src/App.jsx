@@ -5,6 +5,8 @@ import FindItemPage from "./pages/FindItemPage";
 import FindOwnerPage from "./pages/FindOwnerPage";
 import FindItemPostPage from "./pages/PostPage/FindItemPostPage";
 import FindOwnerPostPage from "./pages/PostPage/FindOwnerPostPage";
+import LostDetailPage from "./pages/PostDetailPage/LostDetailPage";
+import FoundDetailPage from "./pages/PostDetailPage/FoundDetailPage";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
 import FindIdPage from "./pages/FindIdPage";
@@ -26,11 +28,13 @@ const App = () => {
         <Route path="/signup" element={<SignUpPage />} />
         <Route element={<MainLayout />}>
           <Route path="/" element={<FindItemPage />} />
+          <Route path="/:postId" element={<LostDetailPage />} />
           <Route path="/findowner" element={<FindOwnerPage />} />
           {/* 로그인 해야 접근 가능한 페이지 */}
           <Route element={<PrivateRoute />}>
             <Route path="/post" element={<FindItemPostPage />} />
             <Route path="/findowner/post" element={<FindOwnerPostPage />} />
+            <Route path="/findowner/:postId" element={<LostDetailPage />} />
             <Route path="/chat" element={<ChatPage />} />
           </Route>
         </Route>
