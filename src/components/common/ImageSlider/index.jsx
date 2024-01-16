@@ -38,7 +38,6 @@ const ImageSlider = ({ images }) => {
         {images.map((_, index) => (
           <span
             key={index}
-            a
             className={index === currentIndex ? "active" : "inactive"}
             onClick={() => setCurrentIndex(index)}
           />
