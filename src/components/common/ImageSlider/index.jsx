@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GoChevronLeft } from "react-icons/go";
+import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 
 const ImageSlider = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,29 +15,30 @@ const ImageSlider = ({ images }) => {
   };
 
   return (
-    <div className="image-slider">
+    <div className="slider-wrapper">
       <div className="slider-container">
-        <ul className="image-list">
-          {images.map((image, index) => (
-            <li
-              key={index}
-              className={index === currentIndex ? "visible" : "hidden"}
-            >
-              <img src={image} alt={image} />
-            </li>
-          ))}
-        </ul>
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`image-list ${
+              index === currentIndex ? "active" : "inactive"
+            }`}
+          >
+            <img src={image} alt={image} />
+          </div>
+        ))}
         <button className="prev-button" onClick={goPrev}>
-          <GoChevronLeft size={20} />
+          <GoChevronLeft size={24} />
         </button>
         <button className="next-button" onClick={goNext}>
-          다음
+          <GoChevronRight size={24} />
         </button>
       </div>
       <div className="nav-dots">
         {images.map((_, index) => (
           <span
             key={index}
+            a
             className={index === currentIndex ? "active" : "inactive"}
             onClick={() => setCurrentIndex(index)}
           />
