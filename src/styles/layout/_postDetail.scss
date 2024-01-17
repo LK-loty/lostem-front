@@ -1,0 +1,38 @@
+.postdetail {
+  padding: 0 20vw;
+  font-size: 14px;
+}
+
+@media (max-width: 1310px) {
+  .postdetail {
+    padding: 0 3vw;
+  }
+}
+
+hr {
+  border-top: $gray1;
+}
+
+.postdetail-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  button {
+    background-color: $green;
+    color: $white;
+    border: none;
+    padding: 10px 13px;
+  }
+}
+
+.details-container {
+  display: flex;
+  gap: 10px;
+}
+
+.details-contents {
+  .state {
+    font-size: 16px;
+  }
+}
