@@ -1,0 +1,15 @@
+.chatpage {
+  display: flex;
+  height: 100vh;
+}
+
+.chatlist {
+  width: 370px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.chatroom {
+  flex: 1;
+  height: 100vh;
+}

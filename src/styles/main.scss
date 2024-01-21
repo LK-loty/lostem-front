@@ -6,14 +6,18 @@
 
 @import "layout/header";
 @import "layout/footer";
+@import "layout/postDetail";
 
 @import "components/buttons";
+@import "components/chat";
 @import "components/forms";
+@import "components/imageSlider";
 @import "components/links";
 @import "components/modal";
 @import "components/paginate";
 @import "components/postlist";
 @import "components/profile";
 
+@import "pages/chat";
 @import "pages/findPassword";
 @import "pages/login";

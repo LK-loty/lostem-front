@@ -11,6 +11,10 @@
     background-color: $gray1;
   }
 
+  a:active {
+    background-color: $red;
+  }
+
   img {
     width: 55px;
     height: 55px;
@@ -36,5 +40,42 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+//chatroom
+.chatroom {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    padding: 10px;
+  }
+
+  .chat-messages {
+    // 채팅 메시지 스타일
+    flex: 1; // 채팅 메시지 영역이 남은 공간을 차지하도록 설정
+    overflow-y: auto; // 채팅이 많아질 경우 스크롤이 나타나도록 설정
+  }
+
+  .message-input {
+    // 메시지 입력 폼 스타일
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    input {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
   }
 }
