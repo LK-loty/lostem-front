@@ -47,35 +47,95 @@
 .chatroom {
   display: flex;
   flex-direction: column;
+  padding: 10px;
 
   .header {
     padding: 10px;
   }
 
-  .chat-messages {
-    // 채팅 메시지 스타일
-    flex: 1; // 채팅 메시지 영역이 남은 공간을 차지하도록 설정
-    overflow-y: auto; // 채팅이 많아질 경우 스크롤이 나타나도록 설정
-  }
-
   .message-input {
-    // 메시지 입력 폼 스타일
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    gap: 10px;
+    border: 1px solid $gray3;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin: 10px;
 
-    input {
+    textarea {
       flex: 1;
       margin-right: 10px;
+      border: none;
     }
 
     button {
-      background-color: #4caf50;
-      color: white;
+      background-color: $green;
+      color: $white;
       border: none;
-      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      padding: 15px;
       cursor: pointer;
     }
+  }
+}
+
+// chat messages
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  gap: 10px;
+
+  .message-time {
+    font-size: 12px;
+    color: $gray4;
+  }
+
+  .my-message {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 5px;
+    margin: 3px;
+
+    p {
+      display: flex;
+      max-width: 70%;
+      margin: 0;
+      flex: 1;
+      background-color: $green;
+      color: $white;
+      font-size: 14px;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 5px;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      padding: 15px;
+    }
+  }
+
+  .other-message {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 5px;
+  }
+
+  p {
+    max-width: 70%;
+    min-width: 20%;
+    margin: 0;
+    flex: 1;
+    background-color: $gray1;
+    font-size: 14px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 15px;
   }
 }
