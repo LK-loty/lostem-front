@@ -1,11 +1,11 @@
 .postdetail {
-  padding: 0 20vw;
-  font-size: 14px;
+  padding: 0 20vw 50px 20vw;
+  font-size: 16px;
 }
 
 @media (max-width: 1310px) {
   .postdetail {
-    padding: 0 3vw;
+    padding: 0 3vw 50px 3vw;
   }
 }
 
@@ -28,11 +28,43 @@ hr {
 
 .details-container {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  padding: 20px 0;
+
+  .details-contents {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .details-title {
+    font-size: 24px;
+    font-weight: 600;
+
+    .time {
+      color: $gray5;
+      font-size: 14px;
+    }
+  }
+
+  .writer-info {
+    display: flex;
+    align-items: center;
+
+    img {
+      border-radius: 50%;
+      object-fit: cover;
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .tag {
+      color: $gray5;
+    }
+  }
 }
 
-.details-contents {
-  .state {
-    font-size: 16px;
-  }
+.plus-detail {
+  padding-top: 20px;
 }

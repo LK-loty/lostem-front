@@ -6,7 +6,8 @@ import { readLostDetail } from "../../apis/post";
 const LostDetailPage = () => {
   const { postId } = useParams(); // 게시글 아이디
   const [post, setPost] = useState({});
-  const images = ["", "", ""];
+  const [user, setUser] = useState({});
+  const images = ["", "", ""]; // 테스트용 이미지
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,6 +15,7 @@ const LostDetailPage = () => {
         const response = await readLostDetail(postId);
         if (response.status === 200) {
           setPost(response.data.postLostDTO);
+          setUser(response.data.postUserDTO);
           console.log(response.data);
         }
       } catch (error) {
@@ -51,12 +53,17 @@ const LostDetailPage = () => {
           <button>채팅하기</button>
           <button>신고하기</button>
         </div>
-        <div className="postdetail-title">
-          {post.title} {timeDisplay}
-        </div>
         <div className="details-container">
           <ImageSlider images={images} />
           <div className="details-contents">
+            <div className="details-title">
+              {post.title} <span className="time">{timeDisplay}</span>
+            </div>
+            <div className="writer-info">
+              <img src="" />
+              {user.nickname}
+              <span className="tag">#123</span>
+            </div>
             <div className="green bolder">{post.state}</div>
             <div className="item">
               <span className="bolder">분실물명</span> {post.item}
@@ -73,7 +80,7 @@ const LostDetailPage = () => {
           </div>
         </div>
         <hr />
-        {post.contents}
+        <div className="plus-detail">{post.contents}</div>
       </div>
     </div>
   );
