@@ -31,12 +31,10 @@ const App = () => {
           <Route path="/:postId" element={<LostDetailPage />} />
           <Route path="/findowner" element={<FindOwnerPage />} />
           {/* 로그인 해야 접근 가능한 페이지 */}
-        </Route>
-        <Route element={<PrivateRoute />}>
-          <Route element={<MainLayout />}>
+          <Route element={<PrivateRoute />}>
             <Route path="/post" element={<FindItemPostPage />} />
             <Route path="/findowner/post" element={<FindOwnerPostPage />} />
-            <Route path="/findowner/:postId" element={<LostDetailPage />} />
+            <Route path="/findowner/:postId" element={<FoundDetailPage />} />
           </Route>
           <Route path="/chat" element={<ChatPage />}>
             <Route path=":roomId" element={<ChatPage />} />
