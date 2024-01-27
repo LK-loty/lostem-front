@@ -62,7 +62,7 @@ const FoundDetailPage = () => {
             <div className="writer-info">
               <img src="" />
               {user.nickname}
-              <span className="tag">#123</span>
+              <span className="tag">#{user.tag}</span>
             </div>
             <div className="green bolder">{post.state}</div>
             <div className="item">
