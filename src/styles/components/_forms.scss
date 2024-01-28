@@ -66,12 +66,14 @@ button.auth-button {
   border: $border-green;
 }
 
-input {
-  width: 100%;
-  margin: 5px 0;
-  padding: 13px 10px;
+.auth-container,
+.postpage {
+  input {
+    width: 100%;
+    margin: 5px 0;
+    padding: 13px 10px;
+  }
 }
-
 .login-more {
   display: flex;
   flex-direction: row;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import ImageSlider from "../../components/common/ImageSlider";
+import PostReportModal from "../../components/common/Modal/report/PostReportModal";
 import { readFoundDetail } from "../../apis/post";
 
 const FoundDetailPage = () => {
@@ -8,6 +9,7 @@ const FoundDetailPage = () => {
   const [post, setPost] = useState({});
   const [user, setUser] = useState({});
   const images = ["", "", ""]; // 테스트용 이미지
+  const [isPostReportModalOpen, setIsPostReportModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,10 +50,20 @@ const FoundDetailPage = () => {
 
   return (
     <div className="postdetail">
+      {isPostReportModalOpen && (
+        <PostReportModal
+          title={post.title}
+          postId={post.postId}
+          type={"found"}
+          onClose={() => setIsPostReportModalOpen(false)}
+        />
+      )}
       <div className="postdetail-container">
         <div className="postdetail-buttons">
           <button>채팅하기</button>
-          <button>신고하기</button>
+          <button onClick={() => setIsPostReportModalOpen(true)}>
+            신고하기
+          </button>
         </div>
         <div className="details-container">
           <ImageSlider images={images} />
