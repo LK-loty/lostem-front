@@ -2,3 +2,17 @@ button {
   cursor: pointer;
   border-radius: $border-radius;
 }
+
+.outline-green-button {
+  border: 1px solid $green;
+  box-sizing: border-box;
+  color: $green;
+  padding: 10px 13px;
+}
+
+.fill-green-button {
+  border: none;
+  background-color: $green;
+  color: $white;
+  padding: 10px 13px;
+}
