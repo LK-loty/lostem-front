@@ -43,7 +43,7 @@ const FindItemPage = () => {
   };
 
   return (
-    <div className="finditem">
+    <div className="findpage">
       <div className="post-list-container">
         {totalItemCount > 0 ? (
           <ul className="post-list">

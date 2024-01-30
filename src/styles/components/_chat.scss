@@ -56,21 +56,42 @@
       padding: 10px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+
+      .dropdown {
+        position: relative;
+        button {
+          border: none;
+          background-color: transparent;
+          transition: 0.2s;
+          &:hover {
+            background-color: $gray1;
+          }
+        }
+        .menu-list {
+          position: absolute;
+          font-size: 14px;
+          border-radius: 3px;
+          top: 100%;
+          left: -80px;
+          background-color: $white;
+          box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+        }
+
+        .menu-list li {
+          padding: 10px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $gray1;
+          }
+        }
+      }
     }
 
     .item-info {
       padding: 10px;
       display: flex;
-      justify-content: space-between;
-
-      button.menu {
-        border: none;
-        background-color: transparent;
-        transition: 0.2s;
-        &:hover {
-          background-color: $gray1;
-        }
-      }
     }
   }
 
@@ -118,7 +139,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    margin: 8px;
+    margin: 3px;
 
     p {
       display: flex;
@@ -128,7 +149,7 @@
       font-weight: 300;
       font-size: 14px;
       border-top-left-radius: 30px;
-      border-top-right-radius: 5px;
+      border-top-right-radius: 3px;
       border-bottom-left-radius: 30px;
       border-bottom-right-radius: 30px;
       padding: 15px;
@@ -140,7 +161,7 @@
     justify-content: flex-start;
     align-items: flex-end;
     padding-left: 10px;
-    margin: 8px;
+    margin: 3px;
 
     p {
       max-width: 60%;
