@@ -12,12 +12,14 @@ import SignUpPage from "./pages/SignUpPage";
 import FindIdPage from "./pages/FindIdPage";
 import FindPasswordPage from "./pages/FindPasswordPage";
 import ChatPage from "./pages/ChatPage";
+import SearchPage from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
 import MainLayout from "./components/common/MainLayout";
 import "./styles/main.scss";
 
 axios.defaults.baseURL = "http://localhost:8080/";
+
 const App = () => {
   return (
     <div className="App">
@@ -30,6 +32,7 @@ const App = () => {
           <Route path="/" element={<FindItemPage />} />
           <Route path="/:postId" element={<LostDetailPage />} />
           <Route path="/findowner" element={<FindOwnerPage />} />
+          <Route path="/search" element={<SearchPage />} />
         </Route>
         {/* 로그인 해야 접근 가능한 페이지 */}
         <Route element={<PrivateRoute />}>
