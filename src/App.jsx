@@ -11,6 +11,7 @@ import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
 import FindIdPage from "./pages/FindIdPage";
 import FindPasswordPage from "./pages/FindPasswordPage";
+import KeywordPage from "./pages/KeywordPage";
 import ChatPage from "./pages/ChatPage";
 import SearchPage from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/post" element={<FindItemPostPage />} />
             <Route path="/findowner/post" element={<FindOwnerPostPage />} />
             <Route path="/findowner/:postId" element={<FoundDetailPage />} />
+            <Route path="/keword" element={<KeywordPage />} />
           </Route>
           <Route path="/chat" element={<ChatPage />}>
             <Route path=":roomId" element={<ChatPage />} />
