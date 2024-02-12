@@ -8,7 +8,7 @@ export const readChatList = async () => {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.post("api/chat/room/read/user", {
+    const response = await axios.get("api/chat/room/read/user", {
       headers,
     });
 
