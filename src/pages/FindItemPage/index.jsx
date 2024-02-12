@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { IoIosSearch } from "react-icons/io";
 import { GoPencil } from "react-icons/go";
 import PostList from "../../components/PostList";
 import Paginate from "../../components/common/Paginate";
@@ -58,10 +59,6 @@ const FindItemPage = () => {
         ) : (
           <div className="no-post">게시물이 존재하지 않습니다</div>
         )}
-        <Link to="/post" className="go-post">
-          <GoPencil size={20} />
-          글쓰기
-        </Link>
       </div>
       <Paginate
         page={page}
@@ -69,6 +66,14 @@ const FindItemPage = () => {
         postPerPage={postPerPage}
         handlePageChange={handlePageChange}
       />
+      <div className="list-buttons">
+        <Link to="/post">
+          <GoPencil size={24} />
+        </Link>
+        <Link to="/search">
+          <IoIosSearch size={24} />
+        </Link>
+      </div>
     </div>
   );
 };

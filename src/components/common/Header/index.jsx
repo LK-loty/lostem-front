@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { IoIosSearch } from "react-icons/io";
 import { PiChatsCircle } from "react-icons/pi";
 import { GoPerson } from "react-icons/go";
 import { PiBell } from "react-icons/pi";
@@ -84,11 +83,6 @@ const Header = () => {
         </div>
         <div className="main-dynamic">
           <ul className="icon-list">
-            <li>
-              <Link to="/search" className="hoverGreen">
-                <IoIosSearch size={26} />
-              </Link>
-            </li>
             <li>
               <Link to="/chat" className="hoverGreen">
                 <PiChatsCircle size={26} />
