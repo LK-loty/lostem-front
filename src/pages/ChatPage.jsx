@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
-import ChatList from "../components/Chat/ChatList";
-import ChatRoom from "../components/Chat/ChatRoom";
+import ChatList from "../components/chat/ChatList";
+import ChatRoom from "../components/chat/ChatRoom";
 
 const ChatPage = () => {
   const stompClientRef = useRef(null);
