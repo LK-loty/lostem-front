@@ -1,23 +1,25 @@
 import React from "react";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
-import FindItemPage from "./pages/FindItemPage";
-import FindOwnerPage from "./pages/FindOwnerPage";
-import FindItemPostPage from "./pages/PostPage/FindItemPostPage";
-import FindOwnerPostPage from "./pages/PostPage/FindOwnerPostPage";
-import LostDetailPage from "./pages/PostDetailPage/LostDetailPage";
-import FoundDetailPage from "./pages/PostDetailPage/FoundDetailPage";
-import LogInPage from "./pages/LogInPage";
-import SignUpPage from "./pages/SignUpPage";
-import FindIdPage from "./pages/FindIdPage";
-import FindPasswordPage from "./pages/FindPasswordPage";
-import KeywordPage from "./pages/KeywordPage";
+
+import FindIdPage from "./pages/Auth/FindIdPage";
+import FindPasswordPage from "./pages/Auth/FindPasswordPage";
+import LogInPage from "./pages/Auth/LogInPage";
+import SignUpPage from "./pages/Auth/SignUpPage";
+import PostLostPage from "./pages/Lost/PostLostPage";
+import LostListPage from "./pages/Lost/LostListPage";
+import LostDetailPage from "./pages/Lost/LostDetailPage";
+import SearchLostPage from "./pages/Lost/SearchLostPage";
+import FoundListPage from "./pages/Found/FoundListPage";
+import PostFoundPage from "./pages/Found/PostFoundPage";
+import FoundDetailPage from "./pages/Found/FoundDetailPage";
+import SearchFoundPage from "./pages/Found/SearchFoundPage";
 import ChatPage from "./pages/ChatPage";
-import SearchPage from "./pages/SearchPage";
-import NotFound from "./pages/NotFound";
+import KeywordPage from "./pages/KeywordPage";
+import NotFound from "./pages/NotFoundPage";
+
 import PrivateRoute from "./components/PrivateRoute";
 import MainLayout from "./components/common/MainLayout";
-import "./styles/main.scss";
 
 axios.defaults.baseURL = "http://localhost:8080/";
 
@@ -30,24 +32,23 @@ const App = () => {
         <Route path="/findpassword" element={<FindPasswordPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route element={<MainLayout />}>
-          <Route path="/" element={<FindItemPage />} />
+          <Route path="/" element={<LostListPage />} />
           <Route path="/:postId" element={<LostDetailPage />} />
-          <Route path="/findowner" element={<FindOwnerPage />} />
-          <Route path="/search" element={<SearchPage />} />
+          <Route path="/found" element={<FoundListPage />} />
+          <Route path="/found/search" element={<SearchFoundPage />} />
+          <Route path="/search" element={<SearchLostPage />} />
         </Route>
-        {/* 로그인 해야 접근 가능한 페이지 */}
         <Route element={<PrivateRoute />}>
           <Route element={<MainLayout />}>
-            <Route path="/post" element={<FindItemPostPage />} />
-            <Route path="/findowner/post" element={<FindOwnerPostPage />} />
-            <Route path="/findowner/:postId" element={<FoundDetailPage />} />
-            <Route path="/keword" element={<KeywordPage />} />
+            <Route path="/post" element={<PostLostPage />} />
+            <Route path="/found/post" element={<PostFoundPage />} />
+            <Route path="/found/:postId" element={<FoundDetailPage />} />
+            <Route path="/keyword" element={<KeywordPage />} />
           </Route>
           <Route path="/chat" element={<ChatPage />}>
             <Route path=":roomId" element={<ChatPage />} />
           </Route>
         </Route>
-
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

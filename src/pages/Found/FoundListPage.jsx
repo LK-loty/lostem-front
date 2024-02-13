@@ -6,7 +6,7 @@ import PostList from "../../components/PostList";
 import Paginate from "../../components/common/Paginate";
 import { readFound } from "../../apis/post";
 
-const FindOwnerPage = () => {
+const FoundListPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [posts, setPosts] = useState([]); // 게시글 데이터 list
@@ -76,4 +76,4 @@ const FindOwnerPage = () => {
     </div>
   );
 };
-export default FindOwnerPage;
+export default FoundListPage;

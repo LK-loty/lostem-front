@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import "./style.scss";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="notfound">
       <div className="notfound-content">
@@ -12,9 +9,10 @@ const NotFound = () => {
           <br />
           권한이 없거나 존재하지 않는 페이지입니다.
         </p>
-        <button onClick={() => navigate(-1)} className="back-button">
-          이전페이지로
-        </button>
+        <br />
+        <Link to="/" className="back-button">
+          메인으로
+        </Link>
       </div>
     </div>
   );

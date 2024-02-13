@@ -1,10 +1,10 @@
 import Found from "../../components/PostForm/Found";
 
-const FindOwnerPostPage = () => {
+const PostFoundPage = () => {
   return (
     <div className="postpage">
       <Found />
     </div>
   );
 };
-export default FindOwnerPostPage;
+export default PostFoundPage;

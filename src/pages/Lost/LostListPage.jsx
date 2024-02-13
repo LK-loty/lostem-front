@@ -6,7 +6,7 @@ import PostList from "../../components/PostList";
 import Paginate from "../../components/common/Paginate";
 import { readLost } from "../../apis/post";
 
-const FindItemPage = () => {
+const LostListPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [posts, setPosts] = useState([]); // 게시글 데이터
@@ -78,4 +78,4 @@ const FindItemPage = () => {
   );
 };
 
-export default FindItemPage;
+export default LostListPage;

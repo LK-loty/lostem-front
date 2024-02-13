@@ -18,7 +18,6 @@ const FoundDetailPage = () => {
         if (response.status === 200) {
           setPost(response.data.postFoundDTO);
           setUser(response.data.postUserDTO);
-          console.log(response.data);
         }
       } catch (error) {
         console.error("lostdetailpage fetchdata 에러", error);
@@ -60,7 +59,19 @@ const FoundDetailPage = () => {
       )}
       <div className="postdetail-container">
         <div className="postdetail-buttons">
-          <button>채팅하기</button>
+          <Link
+            to={"/chat"}
+            state={{
+              userInfo: user,
+              postInfo: {
+                title: post.title,
+                // image: post.images[0], // 게시글 첫번째 이미지
+                state: post.state,
+              },
+            }}
+          >
+            <button>채팅하기</button>
+          </Link>
           <button onClick={() => setIsPostReportModalOpen(true)}>
             신고하기
           </button>
