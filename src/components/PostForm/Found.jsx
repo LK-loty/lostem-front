@@ -8,7 +8,8 @@ import { BiImageAdd } from "react-icons/bi";
 import { FiX } from "react-icons/fi";
 import Modal from "../common/Modal";
 import { postFound } from "../../apis/post";
-import { regions, category } from "./data";
+import { regions } from "../../data/regions";
+import { category } from "../../data/category";
 import "./style.scss";
 
 const Found = () => {

@@ -1,4 +1,3 @@
-// 카테고리
 export const category = [
   { id: 1, name: "카드" },
   { id: 2, name: "증명서" },
@@ -17,25 +16,4 @@ export const category = [
   { id: 15, name: "서류" },
   { id: 16, name: "산업용품" },
   { id: 17, name: "기타" },
-];
-
-// 지역 - 시/도
-export const regions = [
-  { id: 1, name: "서울" },
-  { id: 2, name: "경기" },
-  { id: 3, name: "인천" },
-  { id: 4, name: "강원" },
-  { id: 5, name: "대전" },
-  { id: 6, name: "세종" },
-  { id: 7, name: "충남" },
-  { id: 8, name: "충북" },
-  { id: 9, name: "부산" },
-  { id: 10, name: "울산" },
-  { id: 11, name: "경남" },
-  { id: 12, name: "경북" },
-  { id: 13, name: "대구" },
-  { id: 14, name: "광주" },
-  { id: 15, name: "전남" },
-  { id: 16, name: "전북" },
-  { id: 17, name: "제주" },
 ];
