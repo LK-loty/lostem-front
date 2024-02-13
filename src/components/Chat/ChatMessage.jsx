@@ -10,7 +10,6 @@ const ChatMessage = React.memo(({ message, isMyMessage, avatar, time }) => {
         </>
       ) : (
         <>
-          <img src={avatar} alt="Profile" className="profile-image" />
           <p>{message}</p>
           {time && <span className="message-time">{time}</span>}
         </>

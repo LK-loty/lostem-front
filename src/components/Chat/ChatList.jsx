@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import ChatItem from "../ChatItem";
-import { readChatList } from "../../../apis/chat";
+import ChatItem from "./ChatItem";
+import { readChatList } from "../../apis/chat";
 
 const ChatList = () => {
   const [chatList, setChatList] = useState([]);
