@@ -4,191 +4,42 @@ import { readChatList } from "../../apis/chat";
 
 const ChatList = () => {
   const [chatList, setChatList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await readChatList();
+    const fetchData = async () => {
+      try {
+        const response = await readChatList();
 
-    //     if (response.status === 200) {
-    //       setChatList(response.data);
-    //     }
-    //   } catch (error) {
-    //     console.error("ChatList fetchData 에러", error);
-    //   }
-    // };
+        if (response.status === 200) {
+          setChatList(response.data);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("ChatList fetchData 에러", error);
+        setLoading(false);
+      }
+    };
 
-    // fetchData();
-    setChatList([
-      {
-        roomId: "1",
-        image: "/image/민증.jpg",
-        nickname: "User1",
-        time: "1시간 전",
-        message: "안녕하세요!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-      {
-        roomId: "2",
-        image: "/image/이지원.jpg",
-        nickname: "User2",
-        time: "2시간 전",
-        message: "반갑습니다!",
-      },
-    ]);
+    fetchData();
   }, []);
 
   return (
     <div className="chatlist">
-      {chatList.map((item, index) => (
-        <ChatItem
-          key={index}
-          roomId={item.roomId}
-          image={item.image}
-          nickname={item.nickname}
-          time={item.time}
-          message={item.message}
-        />
-      ))}
+      {!loading && chatList.length === 0 ? (
+        <div className="no-chatlist">채팅목록이 없습니다</div>
+      ) : (
+        chatList.map((item, index) => (
+          <ChatItem
+            key={index}
+            roomId={item.roomId}
+            image={item.image}
+            nickname={item.nickname}
+            time={item.time}
+            message={item.message}
+          />
+        ))
+      )}
     </div>
   );
 };
