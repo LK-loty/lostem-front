@@ -7,6 +7,11 @@ export const login = async (data) => {
     if (response.status === 200) {
       const accessToken = response.headers["authorization"];
       localStorage.setItem("act", accessToken);
+
+      const tokenParts = accessToken.split(".");
+      const decodedPayload = JSON.parse(atob(tokenParts[1]));
+      localStorage.setItem("tag", decodedPayload.tag);
+
       return true;
     } else return false;
   } catch (error) {
