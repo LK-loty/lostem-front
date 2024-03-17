@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { PiChatsCircle } from "react-icons/pi";
 import { GoPerson } from "react-icons/go";
 import { PiBell } from "react-icons/pi";
@@ -14,7 +14,7 @@ const Header = () => {
   const [loginState, SetLoginState] = useState();
   const navItems = [
     { name: "잃어버렸어요", link: "/" },
-    { name: "주인을찾아요", link: "/findowner" },
+    { name: "주인을찾아요", link: "/found" },
   ];
 
   useEffect(() => {
@@ -63,13 +63,15 @@ const Header = () => {
               {navItems.map((nav) => {
                 return (
                   <li key={nav.name}>
-                    <Link
-                      className="nav_item hoverGreen"
+                    <NavLink
+                      className={({ isActive }) =>
+                        "nav_item hoverGreen " + (isActive ? "green" : "")
+                      }
                       to={nav.link}
                       onClick={() => setNav(false)}
                     >
                       {nav.name}
-                    </Link>
+                    </NavLink>
                   </li>
                 );
               })}
