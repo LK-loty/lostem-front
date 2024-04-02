@@ -1,3 +1,40 @@
-.search-found {
-  border: 1px solid $gray1;
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid $green;
+  padding: 10px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+
+  input,
+  textarea {
+    padding: 10px 13px;
+    width: 100%;
+  }
+
+  textarea {
+    resize: none;
+    font-weight: 300;
+    height: 40px;
+  }
+
+  .region-container {
+    display: flex;
+
+    input {
+      margin: 0;
+    }
+  }
+}
+
+.serach-form-button {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+
+  button {
+    padding: 10px 20px;
+  }
 }
