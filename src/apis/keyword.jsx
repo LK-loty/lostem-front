@@ -1,10 +1,13 @@
+import axios from "axios";
+
 // 키워드 추가
-export const addKeyword = async (data) => {
+export const addKeyword = async (keyword) => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
+    const data = { keyword: keyword };
 
     const response = await axios.post("api/keyword/create", data, {
       headers,
@@ -23,7 +26,7 @@ export const readKeyword = async () => {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.get("api/keyword/read", {
+    const response = await axios.get("/api/keyword/read", {
       headers,
     });
     return response;
@@ -50,16 +53,18 @@ export const updateKeyword = async (data) => {
 };
 
 // 키워드 삭제
-export const deleteKeyword = async (data) => {
+export const deleteKeyword = async (keyword) => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
+    const config = {
+      headers: headers,
+      data: { keyword: keyword },
+    };
 
-    const response = await axios.delete("api/keyword/delete", data, {
-      headers,
-    });
+    const response = await axios.delete("api/keyword/delete", config);
     return response;
   } catch (error) {
     return error.response;
@@ -67,14 +72,14 @@ export const deleteKeyword = async (data) => {
 };
 
 // 키워드 검색
-export const searchKeyword = async (data) => {
+export const searchKeyword = async () => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.get("api/keyword/search", {
+    const response = await axios.get("/api/keyword/search", {
       headers,
     });
     return response;
