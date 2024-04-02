@@ -6,9 +6,9 @@
 .chatlist {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  // height: 100%;
   width: 370px;
-  // overflow-y: auto;
+  overflow-y: auto;
 }
 
 .chatroom {
