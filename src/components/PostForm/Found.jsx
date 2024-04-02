@@ -18,7 +18,7 @@ const Found = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({ defaultValues: { date: "", state: "보관중" } });
+  } = useForm({ defaultValues: { date: "", state: "찾는중" } });
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [imageCheck, setImageCheck] = useState({ error: false, message: "" });
@@ -157,7 +157,7 @@ const Found = () => {
         {errors?.item && <span className="error">{errors?.item?.message}</span>}
       </div>
       <div className="postform-group">
-        <div>습득날짜</div>
+        <div>습득일자</div>
         <DatePicker
           {...register("date", { required: "습득날짜를 입력해주세요" })}
           dateFormat="yyyy.MM.dd"
