@@ -55,7 +55,7 @@ const PostReportModal = ({ title, type, postId, onClose }) => {
     <div className="modal-overlay">
       <div className="modal">
         <div className="modal-content">
-          <p className="modal-title">게시글 신고</p>
+          <p className="modal-title">게시물 신고</p>
           <form className="post-report">
             {reasons.map((reason) => (
               <label key={reason}>
