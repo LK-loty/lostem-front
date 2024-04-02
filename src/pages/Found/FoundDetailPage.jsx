@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import ImageSlider from "../../components/common/ImageSlider";
 import PostReportModal from "../../components/common/Modal/report/PostReportModal";
 import { readFoundDetail } from "../../apis/post";
+import { formatRelativeDate, formatDate } from "../../utils/date";
 
 const FoundDetailPage = () => {
   const { postId } = useParams(); // 게시글 아이디
@@ -18,6 +19,8 @@ const FoundDetailPage = () => {
         if (response.status === 200) {
           setPost(response.data.postFoundDTO);
           setUser(response.data.postUserDTO);
+
+          console.log(response.data);
         }
       } catch (error) {
         console.error("lostdetailpage fetchdata 에러", error);
@@ -27,26 +30,8 @@ const FoundDetailPage = () => {
     fetchData();
   }, []);
 
-  const currentDate = new Date();
-  const postDate = new Date(post.time);
-  const timeDifference = currentDate - postDate;
-
-  let timeDisplay;
-  if (timeDifference < 3600000) {
-    // 1시간 이내
-    const minutes = Math.floor(timeDifference / 60000);
-    timeDisplay = `${minutes}분 전`;
-  } else if (timeDifference < 86400000) {
-    // 24시간 이내
-    const hours = Math.floor(timeDifference / 3600000);
-    timeDisplay = `${hours}시간 전`;
-  } else {
-    // 24시간 이상
-    const month = String(postDate.getMonth() + 1).padStart(2, "0");
-    const day = String(postDate.getDate()).padStart(2, "0");
-    timeDisplay = `${month}.${day}`;
-  }
-
+  const formattedTime = post.time ? formatRelativeDate(post.time) : "";
+  const formattedTime2 = post.date ? formatDate(post.date) : "";
   return (
     <div className="postdetail">
       {isPostReportModalOpen && (
@@ -59,6 +44,12 @@ const FoundDetailPage = () => {
       )}
       <div className="postdetail-container">
         <div className="postdetail-buttons">
+          <button
+            className="outline-green-button"
+            onClick={() => setIsPostReportModalOpen(true)}
+          >
+            신고하기
+          </button>
           <Link
             to={"/chat"}
             state={{
@@ -67,20 +58,19 @@ const FoundDetailPage = () => {
                 title: post.title,
                 // image: post.images[0], // 게시글 첫번째 이미지
                 state: post.state,
+                postId: post.postId,
+                postType: "found",
               },
             }}
           >
-            <button>채팅하기</button>
+            <button className="fill-green-button">채팅하기</button>
           </Link>
-          <button onClick={() => setIsPostReportModalOpen(true)}>
-            신고하기
-          </button>
         </div>
         <div className="details-container">
           <ImageSlider images={images} />
           <div className="details-contents">
             <div className="details-title">
-              {post.title} <span className="time">{timeDisplay}</span>
+              {post.title} <span className="time">{formattedTime}</span>
             </div>
             <div className="writer-info">
               <img src="" />
@@ -88,17 +78,21 @@ const FoundDetailPage = () => {
               <span className="tag">#{user.tag}</span>
             </div>
             <div className="green bolder">{post.state}</div>
+            <hr />
             <div className="item">
-              <span className="bolder">분실물명</span> {post.item}
+              <span className="bolder">습득물명</span> {post.item}
+            </div>
+            <div className="category">
+              <span className="bolder">카테고리</span> {post.category}
             </div>
             <div className="period">
-              <span className="bolder">분실기간</span> {post.date}
+              <span className="bolder">습득일자</span> {formattedTime2}
             </div>
             <div className="area">
-              <span className="bolder">분실지역</span> {post.area}
+              <span className="bolder">습득지역</span> {post.area}
             </div>
             <div className="place">
-              <span className="bolder">분실장소</span> {post.place}
+              <span className="bolder">습득장소</span> {post.place}
             </div>
           </div>
         </div>

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ImageSlider from "../../components/common/ImageSlider";
 import PostReportModal from "../../components/common/Modal/report/PostReportModal";
 import { readLostDetail } from "../../apis/post";
+import { formatRelativeDate, formatDate } from "../../utils/date";
 
 const LostDetailPage = () => {
   const { postId } = useParams(); // 게시글 아이디
@@ -28,25 +29,9 @@ const LostDetailPage = () => {
     fetchData();
   }, []);
 
-  const currentDate = new Date();
-  const postDate = new Date(post.time);
-  const timeDifference = currentDate - postDate;
-
-  let timeDisplay;
-  if (timeDifference < 3600000) {
-    // 1시간 이내
-    const minutes = Math.floor(timeDifference / 60000);
-    timeDisplay = `${minutes}분 전`;
-  } else if (timeDifference < 86400000) {
-    // 24시간 이내
-    const hours = Math.floor(timeDifference / 3600000);
-    timeDisplay = `${hours}시간 전`;
-  } else {
-    // 24시간 이상
-    const month = String(postDate.getMonth() + 1).padStart(2, "0");
-    const day = String(postDate.getDate()).padStart(2, "0");
-    timeDisplay = `${month}.${day}`;
-  }
+  const formattedTime = post.time ? formatRelativeDate(post.time) : "";
+  const formattedStartTime = post.start ? formatDate(post.start) : "";
+  const formattedEndTime = post.end ? formatDate(post.end) : "";
 
   return (
     <div className="postdetail">
@@ -60,16 +45,33 @@ const LostDetailPage = () => {
       )}
       <div className="postdetail-container">
         <div className="postdetail-buttons">
-          <button>채팅하기</button>
-          <button onClick={() => setIsPostReportModalOpen(true)}>
+          <button
+            className="outline-green-button"
+            onClick={() => setIsPostReportModalOpen(true)}
+          >
             신고하기
           </button>
+          <Link
+            to={"/chat"}
+            state={{
+              userInfo: user,
+              postInfo: {
+                title: post.title,
+                // image: post.images[0], // 게시글 첫번째 이미지
+                state: post.state,
+                postId: post.postId,
+                postType: "lost",
+              },
+            }}
+          >
+            <button className="fill-green-button">채팅하기</button>
+          </Link>
         </div>
         <div className="details-container">
           <ImageSlider images={images} />
           <div className="details-contents">
             <div className="details-title">
-              {post.title} <span className="time">{timeDisplay}</span>
+              {post.title} <span className="time">{formattedTime}</span>
             </div>
             <div className="writer-info">
               <img src="" />
@@ -80,8 +82,12 @@ const LostDetailPage = () => {
             <div className="item">
               <span className="bolder">분실물명</span> {post.item}
             </div>
+            <div className="category">
+              <span className="bolder">카테고리</span> {post.category}
+            </div>
             <div className="period">
-              <span className="bolder">분실기간</span> {post.start} {post.end}
+              <span className="bolder">분실일자</span> {formattedStartTime} ~{" "}
+              {formattedEndTime}
             </div>
             <div className="area">
               <span className="bolder">분실지역</span> {post.area}

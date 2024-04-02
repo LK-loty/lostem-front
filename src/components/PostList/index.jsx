@@ -1,23 +1,7 @@
-const PostList = ({ post }) => {
-  const currentDate = new Date();
-  const postDate = new Date(post.time);
-  const timeDifference = currentDate - postDate;
+import { formatRelativeDate } from "../../utils/date";
 
-  let timeDisplay;
-  if (timeDifference < 3600000) {
-    // 1시간 이내
-    const minutes = Math.floor(timeDifference / 60000);
-    timeDisplay = `${minutes}분 전`;
-  } else if (timeDifference < 86400000) {
-    // 24시간 이내
-    const hours = Math.floor(timeDifference / 3600000);
-    timeDisplay = `${hours}시간 전`;
-  } else {
-    // 24시간 이상
-    const month = String(postDate.getMonth() + 1).padStart(2, "0");
-    const day = String(postDate.getDate()).padStart(2, "0");
-    timeDisplay = `${month}.${day}`;
-  }
+const PostList = ({ post }) => {
+  const formattedTime = post.time ? formatRelativeDate(post.time) : "";
 
   return (
     <div className="post-item">
@@ -28,7 +12,7 @@ const PostList = ({ post }) => {
         <span className="post-state">{post.state}</span>
         <span className="post-title">{post.title}</span>
         <span className="post-area-time">
-          {post.area} · {timeDisplay}
+          {post.area} · {formattedTime}
         </span>
       </div>
     </div>
