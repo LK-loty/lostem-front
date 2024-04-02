@@ -18,7 +18,7 @@ export const readChatList = async () => {
   }
 };
 
-// 특정 채팅방 조회
+// 특정 채팅방 정보조회
 export const readChatRoom = async (roomId) => {
   try {
     const accessToken = localStorage.getItem("act");
@@ -44,7 +44,25 @@ export const readMessages = async (roomId) => {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.get("api/chat/get", {
+    const response = await axios.get(`/api/chat/get/room/${roomId}`, {
+      headers,
+    });
+
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// 채팅 방 개설
+export const createRoom = async (data) => {
+  try {
+    const accessToken = localStorage.getItem("act");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    const response = await axios.post("/api/chat/room/create", data, {
       headers,
     });
 
