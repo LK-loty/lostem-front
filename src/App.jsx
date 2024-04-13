@@ -18,8 +18,8 @@ import ChatPage from "./pages/ChatPage";
 import KeywordPage from "./pages/KeywordPage";
 import NotFound from "./pages/NotFoundPage";
 
-import PrivateRoute from "./components/PrivateRoute";
-import MainLayout from "./components/common/MainLayout";
+import PrivateRoute from "./routes/PrivateRoute";
+import MainLayout from "./routes/MainLayout";
 
 axios.defaults.baseURL = "http://localhost:8080/";
 
