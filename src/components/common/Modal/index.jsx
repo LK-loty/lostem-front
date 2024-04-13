@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import "./style.scss";
 
 const Modal = ({ show, handleClose, content }) => {
   useEffect(() => {
