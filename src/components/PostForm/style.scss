@@ -2,15 +2,25 @@ $main-color: #00910b;
 $form-font-size: 14px;
 
 .postform {
-  padding: 0px 20vw;
+  padding: 0px 20vw 50px 20vw;
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  textarea {
+    resize: none;
+    font-size: $form-font-size;
+    font-weight: 300;
+    height: 150px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 0;
+  }
 }
 
 @media (max-width: 1310px) {
   .postform {
-    padding: 0px 3vw;
+    padding: 0px 3vw 50px 3vw;
   }
 }
 
@@ -40,16 +50,6 @@ input[type="file"] {
   display: none;
 }
 
-textarea {
-  resize: none;
-  font-size: $form-font-size;
-  font-weight: 300;
-  height: 150px;
-  padding: 10px;
-  width: 100%;
-  border-radius: 0;
-}
-
 .button-upload {
   display: flex;
   flex-direction: column;
@@ -76,10 +76,9 @@ select option[value=""] {
     border-radius: 20px;
     font-size: 14px;
     border: 1px solid #00910b;
-    padding: 10px 15px;
-    margin-right: 8px;
-    margin-top: 8px;
-    margin-bottom: 5px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-top: 5px;
     cursor: pointer;
   }
 
