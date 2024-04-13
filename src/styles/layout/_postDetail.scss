@@ -18,19 +18,23 @@ hr {
   justify-content: flex-end;
   gap: 10px;
 
-  button {
-    background-color: $green;
-    color: $white;
-    border: none;
-    padding: 10px 13px;
-  }
+  // button {
+  //   background-color: $green;
+  //   color: $white;
+  //   border: none;
+  //   padding: 10px 13px;
+  // }
 }
 
 .details-container {
-  display: flex;
+  // display: flex;
   gap: 20px;
   padding: 20px 0;
 
+  .state {
+    background-color: $dark-green;
+    color: $white;
+  }
   .details-contents {
     display: flex;
     flex-direction: column;
@@ -54,8 +58,8 @@ hr {
     img {
       border-radius: 50%;
       object-fit: cover;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       margin-right: 10px;
     }
 

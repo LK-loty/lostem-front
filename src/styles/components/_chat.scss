@@ -23,6 +23,7 @@
   }
 
   .chat-info {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -41,6 +42,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+.current-room {
+  background-color: $gray1;
 }
 
 //chatroom
@@ -131,15 +136,16 @@
   overflow-y: auto;
 
   .message-time {
-    font-size: 12px;
+    font-size: 11px;
     color: $gray4;
+    padding: 3px 5px;
   }
 
   .my-message {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    margin: 3px;
+    margin: 5px 15px;
 
     p {
       display: flex;
@@ -148,11 +154,8 @@
       color: $white;
       font-weight: 300;
       font-size: 14px;
-      border-top-left-radius: 30px;
-      border-top-right-radius: 3px;
-      border-bottom-left-radius: 30px;
-      border-bottom-right-radius: 30px;
-      padding: 15px;
+      border-radius: 30px;
+      padding: 10px;
     }
   }
 
@@ -160,15 +163,14 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
-    padding-left: 10px;
-    margin: 3px;
+    margin: 5px 15px;
 
     p {
       max-width: 60%;
       background-color: $gray1;
       font-size: 14px;
       border-radius: 30px;
-      padding: 15px;
+      padding: 10px 13px;
     }
   }
 }
@@ -179,7 +181,13 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  box-sizing: border-box;
-  border: 1px solid #eee;
   color: $gray5;
+}
+
+.chatlist {
+  border-right: 1px solid $gray1;
+
+  .logo {
+    width: 110px;
+  }
 }

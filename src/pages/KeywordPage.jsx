@@ -104,7 +104,7 @@ const KeywordPage = () => {
             ))}
           </ul>
         )}
-        {keywordPosts ? (
+        {!keywordPosts ? (
           <ul className="keyword-post">
             {/* {keywordPosts.map((post) => (
               <li className="keyword-post-item">
@@ -116,7 +116,7 @@ const KeywordPage = () => {
             ))} */}
           </ul>
         ) : (
-          <div className="no-post">게시물이 존재하지 않습니다</div>
+          <div className="no-post">알림이 존재하지 않습니다</div>
         )}
       </div>
     </div>
