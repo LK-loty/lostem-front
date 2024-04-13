@@ -14,6 +14,7 @@ const FoundListPage = () => {
   const [totalItemCount, setTotalItemCount] = useState(); // 총 게시글 개수
   const postPerPage = 20; // 페이지 당 post 개수
 
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     // 글 목록 조회
     const fetchData = async () => {
@@ -22,9 +23,11 @@ const FoundListPage = () => {
         if (response.status === 200) {
           setPosts(response.data.content);
           setTotalItemCount(response.data.totalElements);
+          setLoading(false);
         }
       } catch (error) {
         console.error("findownerpage useeffect 에러", error);
+        setLoading(false);
       }
     };
 
@@ -45,19 +48,19 @@ const FoundListPage = () => {
   return (
     <div className="findpage">
       <div className="post-list-container">
-        {totalItemCount > 0 ? (
-          <ul className="post-list">
-            {posts.map((post, index) => (
-              <li key={index}>
-                <Link to={`/findowner/${post.postId}`}>
-                  <PostList post={post} />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
+        {/* {totalItemCount > 0 ? ( */}
+        <ul className="post-list">
+          {posts.map((post, index) => (
+            <li key={index}>
+              <Link to={`/found/${post.postId}`}>
+                <PostList post={post} />
+              </Link>
+            </li>
+          ))}
+        </ul>
+        {/* ) : (
           <div className="no-post">게시물이 존재하지 않습니다</div>
-        )}
+        )} */}
       </div>
       <Paginate
         page={page}
@@ -66,10 +69,10 @@ const FoundListPage = () => {
         handlePageChange={handlePageChange}
       />
       <div className="list-buttons">
-        <Link to="/post">
+        <Link to="/found/post">
           <GoPencil size={24} />
         </Link>
-        <Link to="/findowner/search">
+        <Link to="/found/search">
           <IoIosSearch size={24} />
         </Link>
       </div>

@@ -46,19 +46,19 @@ const LostListPage = () => {
   return (
     <div className="findpage">
       <div className="post-list-container">
-        {totalItemCount > 0 ? (
-          <ul className="post-list">
-            {posts.map((post, index) => (
-              <li key={index}>
-                <Link to={`/${post.postId}`}>
-                  <PostList post={post} />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
+        {/* {totalItemCount > 0 ? ( */}
+        <ul className="post-list">
+          {posts.map((post, index) => (
+            <li key={index}>
+              <Link to={`/${post.postId}`}>
+                <PostList post={post} />
+              </Link>
+            </li>
+          ))}
+        </ul>
+        {/* ) : (
           <div className="no-post">게시물이 존재하지 않습니다</div>
-        )}
+        )} */}
       </div>
       <Paginate
         page={page}
