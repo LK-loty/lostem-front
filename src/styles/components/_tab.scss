@@ -1,0 +1,28 @@
+.tabs {
+  .tab-buttons {
+    display: flex;
+    gap: 3px;
+  }
+
+  .tab-button {
+    padding: 10px 20px;
+    border: 1px solid $gray1;
+    border-radius: 0;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      color: $green;
+    }
+  }
+
+  .activeTab {
+    border-bottom: 1px solid $green;
+    color: $green;
+  }
+
+  .tab-content {
+    margin-top: 10px;
+  }
+}
