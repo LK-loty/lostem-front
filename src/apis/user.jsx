@@ -31,16 +31,80 @@ export const checkUsername = async (username) => {
 };
 
 // 유저 프로필 받아오기
-export const previewUser = async () => {
+export const previewUser = async (tag) => {
+  try {
+    const params = { tag: tag };
+    const response = await axios.get("/api/users/preview", {
+      params,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// 마이페이지 사용자 프로필
+export const getUserProfile = async () => {
+  try {
+    const accessToken = localStorage.getItem("act");
+    const headers = {
+      Authorization: `Bearer ${accessToken},`,
+    };
+    const response = await axios.get("/api/users/read", { headers });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const getUserLostPost = async (tag) => {
+  try {
+    const params = { tag: tag };
+    const response = await axios.get("/api/lost/read/user", { params });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const getUserFoundPost = async (tag) => {
+  try {
+    const params = { tag: tag };
+    const response = await axios.get("/api/found/read/user", { params });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const updateProfile = async (data) => {
+  try {
+    const accessToken = localStorage.getItem("act");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+    const response = await axios.patch("/api/users/update", data, { headers });
+
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// 회원 탈퇴
+export const deleteAccount = async (password) => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.get("/api/users/preview", {
-      headers,
-    });
+    const config = {
+      headers: headers,
+      data: { word: password },
+    };
+    const response = await axios.delete("/api/users/delete", config);
+
     return response;
   } catch (error) {
     return error.response;
