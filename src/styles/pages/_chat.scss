@@ -16,4 +16,14 @@
 .chatroom {
   flex: 1;
   height: 100vh;
+
+  textarea {
+    resize: none;
+    font-size: $form-font-size;
+    font-weight: 300;
+    height: 150px;
+    padding: 10px;
+    width: 100%;
+    border-radius: $border-radius;
+  }
 }
