@@ -67,13 +67,23 @@ button.auth-button {
 }
 
 .auth-container,
-.postpage {
+.postpage,
+.account-form {
   input {
     width: 100%;
     margin: 5px 0;
     padding: 13px 10px;
   }
 }
+
+.account-form {
+  max-width: 350px;
+  display: flex;
+  margin: 0 auto;
+  gap: 10px;
+  flex-direction: column;
+}
+
 .login-more {
   display: flex;
   flex-direction: row;
@@ -106,4 +116,8 @@ button.auth-button {
   span {
     padding-right: 10px;
   }
+}
+
+.state-select {
+  width: 100px;
 }

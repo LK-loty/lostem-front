@@ -16,6 +16,10 @@ $form-font-size: 14px;
     width: 100%;
     border-radius: 0;
   }
+
+  input[type="file"] {
+    display: none;
+  }
 }
 
 @media (max-width: 1310px) {
@@ -44,10 +48,6 @@ select {
 
 input {
   font-size: $form-font-size;
-}
-
-input[type="file"] {
-  display: none;
 }
 
 .button-upload {
