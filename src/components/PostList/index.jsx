@@ -9,7 +9,6 @@ const PostList = ({ post }) => {
         <img src={post.image} alt="" className="post-image" />
       </div>
       <div className="post-details">
-        <span className="post-state">{post.state}</span>
         <span className="post-title">{post.title}</span>
         <span className="post-area-time">
           {post.area} · {formattedTime}
