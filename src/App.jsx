@@ -6,14 +6,19 @@ import FindIdPage from "./pages/auth/FindIdPage";
 import FindPasswordPage from "./pages/auth/FindPasswordPage";
 import LogInPage from "./pages/auth/LogInPage";
 import SignUpPage from "./pages/auth/SignUpPage";
+
 import PostLostPage from "./pages/lost/PostLostPage";
 import LostListPage from "./pages/lost/LostListPage";
 import LostDetailPage from "./pages/lost/LostDetailPage";
 import SearchLostPage from "./pages/lost/SearchLostPage";
-import FoundListPage from "./pages/found/FoundListPage";
+import EditLostPage from "./pages/lost/EditLostPage";
+
 import PostFoundPage from "./pages/found/PostFoundPage";
+import FoundListPage from "./pages/found/FoundListPage";
 import FoundDetailPage from "./pages/found/FoundDetailPage";
 import SearchFoundPage from "./pages/found/SearchFoundPage";
+import EditFoundPage from "./pages/found/EditFoundPage";
+
 import ChatPage from "./pages/ChatPage";
 import AccountPage from "./pages/AccountPage";
 import KeywordPage from "./pages/KeywordPage";
@@ -37,14 +42,16 @@ const App = () => {
           <Route path="/" element={<LostListPage />} />
           <Route path="/:postId" element={<LostDetailPage />} />
           <Route path="/found" element={<FoundListPage />} />
+          <Route path="/found/:postId" element={<FoundDetailPage />} />
           <Route path="/found/search" element={<SearchFoundPage />} />
           <Route path="/search" element={<SearchLostPage />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route element={<MainLayout />}>
             <Route path="/post" element={<PostLostPage />} />
+            <Route path="/:postId/edit" element={<EditLostPage />} />
             <Route path="/found/post" element={<PostFoundPage />} />
-            <Route path="/found/:postId" element={<FoundDetailPage />} />
+            <Route path="/found/:postId/edit" element={<EditFoundPage />} />
             <Route path="/keyword" element={<KeywordPage />} />
             <Route path="/mypage/*" element={<MyPage />} />
             <Route path="/account/*" element={<AccountPage />} />

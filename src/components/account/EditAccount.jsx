@@ -1,10 +1,12 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { updateProfile } from "../../apis/user";
+import { updateProfile, getUserProfile } from "../../apis/user";
 
 const EditAccount = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -21,6 +23,27 @@ const EditAccount = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await getUserProfile();
+        if (response.status === 200) {
+          const profile = response.data; // 프로필 데이터
+          console.log(profile);
+          // 수정 가능한 필드만 폼에 설정합니다.
+          setValue("username", profile.username);
+          setValue("name", profile.name);
+          setValue("nickname", profile.nickname);
+          setValue("phone", profile.phone);
+          setValue("email", profile.email);
+        }
+      } catch (error) {
+        console.error("프로필 가져오기 에러:", error);
+      }
+    };
+
+    fetchProfile();
+  }, [setValue]);
   return (
     <form className="account-form" onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -33,8 +56,8 @@ const EditAccount = () => {
         />
       </div>
       <div>
-        <label htmlFor="id">아이디</label>
-        <input {...register("id")} type="text" id="id" disabled />
+        <label htmlFor="username">아이디</label>
+        <input {...register("username")} type="text" id="username" disabled />
       </div>
       <div>
         <label htmlFor="password">비밀번호</label>

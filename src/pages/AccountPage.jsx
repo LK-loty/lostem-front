@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import { getUserProfile } from "../apis/user";
+import { previewUser } from "../apis/user";
 import sproutIco from "../assets/icons/ico_green-sprout.png";
 import Tab from "../components/common/Tab";
 import EditAccount from "../components/account/EditAccount";
@@ -10,7 +10,7 @@ const EditAccountPage = () => {
   const [userProfile, setUserProfile] = useState({});
 
   const tabs = [
-    { title: "프로필 수정", url: "/account/edit" },
+    { title: "프로필 수정", url: "/account/profile" },
     { title: "탈퇴", url: "/account/delete" },
   ];
 
@@ -18,7 +18,8 @@ const EditAccountPage = () => {
     const fetchData = async () => {
       const tag = localStorage.getItem("tag");
       try {
-        const response = await getUserProfile(tag);
+        const response = await previewUser(tag);
+
         if (response.status === 200) {
           setUserProfile(response.data);
         }
@@ -39,9 +40,9 @@ const EditAccountPage = () => {
             <span className="tag">#{userProfile.tag}</span>
           </div>
           <div className="star-count">
-            <img src={sproutIco} /> {userProfile.starCount}
+            <img src={sproutIco} /> {userProfile.star}
           </div>
-          <Link to={"/mypage"} className="edit-account">
+          <Link to={"/mypage/lost"} className="edit-account">
             마이페이지
           </Link>
         </div>
@@ -50,9 +51,9 @@ const EditAccountPage = () => {
         <Tab tabs={tabs} />
         <div className="tab-contents">
           <Routes>
-            <Route path="/edit" element={<EditAccount />} />
+            <Route path="/profile" element={<EditAccount />} />
             <Route path="/delete" element={<DeleteAccount />} />
-            <Route path="*" />
+            <Route path="*" element={<></>} />
           </Routes>
         </div>
       </div>

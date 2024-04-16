@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../../apis/user";
 
 const DeleteAccount = () => {
+  const navigate = useNavigate();
+
   const [password, setPassword] = useState(""); // 비밀번호 상태
 
   const handleChangePassword = (event) => {
@@ -12,7 +15,8 @@ const DeleteAccount = () => {
     try {
       const response = await deleteAccount(password);
       if (response.status === 200) {
-        console.log(response.data);
+        localStorage.clear();
+        navigate("/");
       }
     } catch (error) {
       console.error("계정 삭제 중 에러:", error);
