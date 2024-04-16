@@ -66,8 +66,7 @@ const LostDetailPage = () => {
   };
 
   const formattedTime = post.time ? formatRelativeDate(post.time) : "";
-  const formattedStartTime = post.start ? formatDate(post.start) : "";
-  const formattedEndTime = post.end ? formatDate(post.end) : "";
+  const formattedDate = post.date ? formatDate(post.date) : "";
 
   return (
     <div className="postdetail">
@@ -150,8 +149,7 @@ const LostDetailPage = () => {
               <span className="bolder">카테고리</span> {post.category}
             </div>
             <div className="period">
-              <span className="bolder">분실일자</span> {formattedStartTime} ~{" "}
-              {formattedEndTime}
+              <span className="bolder">분실일자</span> {formattedDate}
             </div>
             <div className="area">
               <span className="bolder">분실지역</span> {post.area}

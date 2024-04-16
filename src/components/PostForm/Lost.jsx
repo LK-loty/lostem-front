@@ -18,16 +18,14 @@ const Lost = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      start: "",
-      end: "",
+      date: "",
       state: "찾는중",
     },
   });
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [imageCheck, setImageCheck] = useState({ error: false, message: "" });
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [date, setDate] = useState();
 
   const handleImageChange = (event) => {
     let isValid = false;
@@ -164,39 +162,22 @@ const Lost = () => {
         {errors?.item && <span className="error">{errors?.item?.message}</span>}
       </div>
       <div className="postform-group">
-        <div>분실기간</div>
+        <div>분실일자</div>
         <DatePicker
-          {...register("start", { required: true })}
+          {...register("date", { required: true })}
           dateFormat="yyyy.MM.dd"
           dateFormatCalendar="yyyy년 MM월"
           locale={ko}
           maxDate={new Date()}
-          selected={startDate}
+          selected={date}
           onChange={(date) => {
-            setStartDate(date);
-            setValue("start", date);
-          }}
-          isClearable={true}
-        />
-        {" ~ "}
-        <DatePicker
-          {...register("end", { required: true })}
-          dateFormat="yyyy.MM.dd"
-          dateFormatCalendar="yyyy년 MM월"
-          locale={ko}
-          minDate={startDate}
-          maxDate={new Date()}
-          selected={endDate}
-          onChange={(date) => {
-            setEndDate(date);
-            setValue("end", date);
+            setDate(date);
+            setValue("date", date);
           }}
           isClearable={true}
         />
         <br />
-        {(errors?.start || errors?.end) && (
-          <span className="error">분실기간을 입력해주세요</span>
-        )}
+        {errors?.date && <span className="error">분실일자를 입력해주세요</span>}
       </div>
       <div className="postform-group">
         분실지역

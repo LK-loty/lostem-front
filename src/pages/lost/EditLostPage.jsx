@@ -32,6 +32,8 @@ const EditLostPage = () => {
         if (response.status === 200) {
           const postData = response.data.postLostDTO;
 
+          console.log(postData);
+
           setValue("title", postData.title);
           setValue("item", postData.item);
           setValue("place", postData.place);
@@ -41,8 +43,7 @@ const EditLostPage = () => {
           setValue("field_sido", postData.area.split(" ")[0]);
           setValue("field_sigungu", postData.area.split(" ")[1]);
           setValue("category", postData.category);
-          setStartDate(new Date(postData.start));
-          setEndDate(new Date(postData.end));
+          setStartDate(new Date(postData.date));
 
           // 이미지 설정
         }
@@ -191,7 +192,7 @@ const EditLostPage = () => {
       <div className="postform-group">
         <div>분실기간</div>
         <DatePicker
-          {...register("start", { required: true })}
+          {...register("date", { required: true })}
           dateFormat="yyyy.MM.dd"
           dateFormatCalendar="yyyy년 MM월"
           locale={ko}
@@ -199,25 +200,11 @@ const EditLostPage = () => {
           selected={startDate}
           onChange={(date) => {
             setStartDate(date);
-            setValue("start", date);
+            setValue("date", date);
           }}
           isClearable={true}
         />
-        {" ~ "}
-        <DatePicker
-          {...register("end", { required: true })}
-          dateFormat="yyyy.MM.dd"
-          dateFormatCalendar="yyyy년 MM월"
-          locale={ko}
-          minDate={startDate}
-          maxDate={new Date()}
-          selected={endDate}
-          onChange={(date) => {
-            setEndDate(date);
-            setValue("end", date);
-          }}
-          isClearable={true}
-        />
+
         <br />
         {(errors?.start || errors?.end) && (
           <span className="error">분실기간을 입력해주세요</span>
