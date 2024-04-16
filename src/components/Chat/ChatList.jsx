@@ -16,7 +16,7 @@ const ChatList = ({ chatList }) => {
           <img className="logo" src={ImgLoty} />
         </Link>
       </div>
-      <div>
+      <div className="chatlist-content">
         {chatList && chatList.length == 0 ? (
           <div className="no-chatlist">채팅목록이 없습니다</div>
         ) : (
