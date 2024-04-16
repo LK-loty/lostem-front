@@ -1,12 +1,13 @@
 .tabs {
+  border-bottom: 1px solid $gray1;
   .tab-buttons {
     display: flex;
     gap: 3px;
   }
 
   .tab-button {
-    padding: 10px 20px;
-    border: 1px solid $gray1;
+    padding: 20px 10px;
+    border: none;
     border-radius: 0;
     background-color: transparent;
     cursor: pointer;
@@ -24,5 +25,6 @@
 
   .tab-content {
     margin-top: 10px;
+    text-align: center;
   }
 }
