@@ -68,7 +68,8 @@ button.auth-button {
 
 .auth-container,
 .postpage,
-.account-form {
+.account-form,
+.postform {
   input {
     width: 100%;
     margin: 5px 0;
@@ -120,4 +121,156 @@ button.auth-button {
 
 .state-select {
   width: 100px;
+}
+
+//form style.scss
+
+$main-color: #00910b;
+$form-font-size: 14px;
+
+.postform {
+  padding: 0px 20vw 50px 20vw;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  textarea {
+    resize: none;
+    font-size: $form-font-size;
+    font-weight: 400;
+    margin: 5px 0;
+    height: 150px;
+    padding: 10px;
+    width: 100%;
+    border-radius: $border-radius;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+}
+
+@media (max-width: 1310px) {
+  .postform {
+    padding: 0px 3vw 50px 3vw;
+  }
+}
+
+.button-submit {
+  background-color: white;
+  color: $main-color;
+  text-align: center;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  margin: auto;
+  margin-top: 40px;
+  padding: 13px 100px;
+  border: 1px solid $main-color;
+  box-sizing: border-box;
+}
+
+select {
+  font-size: 14px;
+}
+
+input {
+  font-size: $form-font-size;
+}
+
+.button-upload {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  gap: 5px;
+  width: 60px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #a3a3a3;
+  font-weight: 200;
+  background-color: $gray1;
+}
+
+select option[value=""] {
+  display: none;
+}
+
+.postform-group {
+  label {
+    transition: 0.15s;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: 14px;
+    border: 1px solid #00910b;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    &:checked + label {
+      background-color: #00910b;
+      color: white;
+    }
+  }
+}
+
+.react-datepicker__close-icon::after {
+  background-color: white;
+  color: red;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+.container-images {
+  margin: 5px 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  max-width: 100%;
+}
+
+.file-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $gray1;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.file-image img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.button-delete {
+  position: absolute;
+  top: 2px;
+  right: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #dddd;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.region-container {
+  input {
+    margin-left: 5px;
+    width: 200px;
+  }
+}
+select {
+  height: 45px;
 }

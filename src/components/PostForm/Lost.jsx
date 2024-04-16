@@ -6,11 +6,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { BiImageAdd } from "react-icons/bi";
 import { FiX } from "react-icons/fi";
-import Modal from "../common/Modal";
 import { postLost } from "../../apis/post";
 import { regions } from "../../data/regions";
 import { category } from "../../data/category";
-import "./style.scss";
 
 const Lost = () => {
   const {
