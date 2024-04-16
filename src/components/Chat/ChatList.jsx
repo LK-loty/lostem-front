@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import ChatItem from "./ChatItem";
-import { readChatList } from "../../apis/chat";
 import ImgLoty from "../../assets/images/img_loty.png";
 
 // 최근 (메시지 + 시간)
@@ -25,6 +23,7 @@ const ChatList = ({ chatList }) => {
               key={index}
               roomId={item.roomId}
               image={""}
+              tag={item.chatUserDTO.tag}
               nickname={item.chatUserDTO.nickname}
               time={item.chatMessageDTO.time}
               message={item.chatMessageDTO.message}

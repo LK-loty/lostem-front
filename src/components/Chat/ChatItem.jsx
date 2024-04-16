@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import { formatRelativeDate } from "../../utils/date";
 
-const ChatItem = ({ roomId, image, nickname, time, message, isCurrent }) => {
+const ChatItem = ({
+  roomId,
+  image,
+  nickname,
+  tag,
+  time,
+  message,
+  isCurrent,
+}) => {
   const formattedTime = time ? formatRelativeDate(time) : "";
 
   return (
@@ -10,7 +18,10 @@ const ChatItem = ({ roomId, image, nickname, time, message, isCurrent }) => {
         <img src={image} className="profile-image" />
         <div className="chat-info">
           <div className="chat-title">
-            <span className="nickname">{nickname}</span>
+            <span className="nickname">
+              {nickname}
+              <span className="tag">#{tag}</span>
+            </span>
             <span className="timestamp"> · {formattedTime}</span>
           </div>
           <span className="last-message">{message}</span>
