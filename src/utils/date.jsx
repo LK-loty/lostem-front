@@ -20,6 +20,10 @@ export const formatRelativeDate = (time) => {
     // 7일 이내 (주 단위)
     const days = Math.floor(timeDifference / 86400000);
     timeDisplay = `${days}일 전`;
+  } else if (timeDifference < 2419200000) {
+    // 4주 이내 (주 단위)
+    const weeks = Math.floor(timeDifference / 604800000);
+    timeDisplay = `${weeks}주 전`;
   } else if (timeDifference < 31536000000) {
     // 1년 이내
     const months = Math.floor(timeDifference / 2628000000);
