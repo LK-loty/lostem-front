@@ -4,7 +4,7 @@ import LostList from "../components/user/LostList";
 import FoundList from "../components/user/FoundList";
 import KeywordList from "../components/user/KeywordList";
 import ReviewList from "../components/user/ReviewList";
-import { getUserProfile } from "../apis/user";
+import { previewUser } from "../apis/user";
 import sproutIco from "../assets/icons/ico_green-sprout.png";
 import Tab from "../components/common/Tab";
 
@@ -22,7 +22,8 @@ const MyPage = () => {
     const fetchData = async () => {
       const tag = localStorage.getItem("tag");
       try {
-        const response = await getUserProfile(tag);
+        const response = await previewUser(tag);
+
         if (response.status === 200) {
           setUserProfile(response.data);
         }
@@ -43,9 +44,9 @@ const MyPage = () => {
             <span className="tag">#{userProfile.tag}</span>
           </div>
           <div className="star-count">
-            <img src={sproutIco} /> {userProfile.starCount}
+            <img src={sproutIco} /> {userProfile.star}
           </div>
-          <Link to={"/account/edit"} className="edit-account">
+          <Link to={"/account/profile"} className="edit-account">
             회원정보 수정
           </Link>
         </div>
