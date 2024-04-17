@@ -104,7 +104,7 @@ const Header = () => {
             )}
             {loginState && (
               <li className="icon-profile">
-                <Link to="/mypage">
+                <Link to="/mypage/lost">
                   <Profile size={40} imageUrl={profile} />
                 </Link>
               </li>
