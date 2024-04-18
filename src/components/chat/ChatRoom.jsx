@@ -55,8 +55,7 @@ const ChatRoom = ({
   }, [roomId]);
 
   useEffect(() => {
-    setMessages((messages) => [...messages, newMessage]);
-    console.log("prevmessage + newmessage => ", messages);
+    if (newMessage) setMessages((messages) => [...messages, newMessage]);
   }, [newMessage]);
 
   // 스크롤 최하단 고정
