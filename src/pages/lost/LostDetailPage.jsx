@@ -52,8 +52,7 @@ const LostDetailPage = () => {
       const data = { postId: postId, state: newState };
       const response = await updateLostState(data);
       if (response.status === 200) {
-        // 상태 업데이트 성공 시 페이지 다시 로드
-        window.location.reload();
+        setSelectedState(newState);
       }
     } catch (error) {
       console.error("상태 업데이트 중 에러:", error);
