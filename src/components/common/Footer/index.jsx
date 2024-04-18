@@ -6,7 +6,7 @@ const Footer = () => {
         <img src={grayLoty} />
       </div>
       COPYRIGHT(c) LOSTEM. ALL RIGHTS RESERVED. <br />
-      e-mail. lostem@naver.com
+      e-mail. lostemloty@gmail.com
     </footer>
   );
 };
