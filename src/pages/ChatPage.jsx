@@ -27,7 +27,7 @@ const ChatPage = () => {
         connectWebSocket(response.data);
       }
     } catch (error) {
-      console.log(error);
+      console.log("채팅 목록 가져오기 에러 => ", error);
     }
   };
 
@@ -146,23 +146,23 @@ const ChatPage = () => {
   const onMessageReceived = (message) => {
     const newMessage = JSON.parse(message.body);
     setNewMessage(newMessage);
-    // console.log("new message received !!!!!!!!!!!!!!! ", newMessage);
+    console.log("new message received !!!!!!!!!!!!!!! ", newMessage);
   };
 
   const onListMessageReceived = (message) => {
     const newListMessage = JSON.parse(message.body);
     console.log(newListMessage);
 
-    if (newListMessage.type === "ENTER") {
+    if (newListMessage.messageType === "ENTER") {
       // ENTER 처리
       setChatList((prevList) => [newListMessage, ...prevList]);
-    } else if (newListMessage.type === "LEAVE") {
+    } else if (newListMessage.messageType === "LEAVE") {
       // LEAVE 처리
       setChatList((prevList) =>
         prevList.filter((item) => item.roomId !== newListMessage.roomId)
       );
       navigate("/chat", { replace: true });
-    } else if (newListMessage.type === "TALK") {
+    } else if (newListMessage.messageType === "TALK") {
       // TALK 처리
       setChatList((prevList) => {
         const updatedList = prevList.map((item) => {
