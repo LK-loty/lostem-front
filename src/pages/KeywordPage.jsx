@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   addKeyword,
   readKeyword,
-  updateKeyword,
   deleteKeyword,
   searchKeyword,
 } from "../apis/keyword";
-import { Link } from "react-router-dom";
 import { FiX } from "react-icons/fi";
 
 const KeywordPage = () => {
@@ -71,6 +70,7 @@ const KeywordPage = () => {
       console.error("키워드 추가 오류 => ", error);
     }
   };
+
   return (
     <div className="keywordpage">
       <div className="keyword-wrapper">
@@ -106,14 +106,14 @@ const KeywordPage = () => {
         )}
         {!keywordPosts ? (
           <ul className="keyword-post">
-            {/* {keywordPosts.map((post) => (
+            {keywordPosts.map((post) => (
               <li className="keyword-post-item">
                 <Link>
                   <img src="" />
                   <span>{post.title}</span>
                 </Link>
               </li>
-            ))} */}
+            ))}
           </ul>
         ) : (
           <div className="no-post">알림이 존재하지 않습니다</div>

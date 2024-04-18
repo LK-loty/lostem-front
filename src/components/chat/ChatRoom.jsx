@@ -17,12 +17,7 @@ const ChatRoom = ({
   const navigate = useNavigate();
   const scrollRef = useRef();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const { roomId } = useParams();
   const location = useLocation();
@@ -41,7 +36,6 @@ const ChatRoom = ({
         // 채팅방 상단 데이터 설정
         setUser(location.state.userInfo);
         setPost(location.state.postInfo);
-        // location.state = null;
       }
     } else {
       fetchChatRoomData(roomId); // 채팅방 상단 정보(대화상대+post)
@@ -52,7 +46,7 @@ const ChatRoom = ({
     return () => {
       unsubscribeRoom();
     };
-  }, [roomId]);
+  }, [roomId, subscribeRoom, unsubscribeRoom, location.state]);
 
   useEffect(() => {
     if (newMessage) setMessages((messages) => [...messages, newMessage]);
@@ -108,7 +102,7 @@ const ChatRoom = ({
             navigate(`/chat/${response.data.roomId}`, { replace: true });
           }
         })
-        .catch((error) => console.error("sendEnterMessage 오류"));
+        .catch((error) => console.error("sendEnterMessage 오류", error));
       reset();
     } else {
       const laterMessage = {

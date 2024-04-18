@@ -3,12 +3,7 @@ import { useForm } from "react-hook-form";
 import { updateProfile, getUserProfile } from "../../apis/user";
 
 const EditAccount = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   const onSubmit = async (data) => {
     try {
@@ -39,7 +34,7 @@ const EditAccount = () => {
         const response = await getUserProfile();
         if (response.status === 200) {
           const profile = response.data; // 프로필 데이터
-          // 수정 가능한 필드만 폼에 설정합니다.
+
           setValue("username", profile.username);
           setValue("name", profile.name);
           setValue("nickname", profile.nickname);
