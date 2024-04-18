@@ -22,8 +22,7 @@ const EditLostPage = () => {
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [imageCheck, setImageCheck] = useState({ error: false, message: "" });
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [date, setDate] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +42,8 @@ const EditLostPage = () => {
           setValue("field_sido", postData.area.split(" ")[0]);
           setValue("field_sigungu", postData.area.split(" ")[1]);
           setValue("category", postData.category);
-          setStartDate(new Date(postData.date));
+          setValue("date", new Date(postData.date));
+          setDate(new Date(postData.date));
 
           // 이미지 설정
         }
@@ -95,6 +95,7 @@ const EditLostPage = () => {
   };
 
   const onSubmit = (data) => {
+    console.log("lost 수정");
     // field_sido와 field_sigungu 필드 제거 및 area에 값 설정
     const areaValue = `${data.field_sido} ${data.field_sigungu}`;
     delete data.field_sido;
@@ -103,6 +104,7 @@ const EditLostPage = () => {
     const updatedData = {
       ...data,
       area: areaValue,
+      postId: postId,
     };
 
     const formData = new FormData();
@@ -190,25 +192,23 @@ const EditLostPage = () => {
         {errors?.item && <span className="error">{errors?.item?.message}</span>}
       </div>
       <div className="postform-group">
-        <div>분실기간</div>
+        <div>분실일자</div>
         <DatePicker
           {...register("date", { required: true })}
           dateFormat="yyyy.MM.dd"
           dateFormatCalendar="yyyy년 MM월"
           locale={ko}
           maxDate={new Date()}
-          selected={startDate}
+          selected={date}
           onChange={(date) => {
-            setStartDate(date);
+            setDate(date);
             setValue("date", date);
           }}
           isClearable={true}
         />
 
         <br />
-        {(errors?.start || errors?.end) && (
-          <span className="error">분실기간을 입력해주세요</span>
-        )}
+        {errors?.date && <span className="error">분실일자를 입력해주세요</span>}
       </div>
       <div className="postform-group">
         분실지역

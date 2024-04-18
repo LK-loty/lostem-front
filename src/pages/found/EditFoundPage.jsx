@@ -38,6 +38,7 @@ const EditFoundPage = () => {
           setValue("field_sido", postData.area.split(" ")[0]);
           setValue("field_sigungu", postData.area.split(" ")[1]);
           setValue("category", postData.category);
+          setValue("date", new Date(postData.date));
           setDate(new Date(postData.date));
 
           // 이미지 설정
@@ -98,6 +99,7 @@ const EditFoundPage = () => {
     const updatedData = {
       ...data,
       area: areaValue,
+      postId: postId,
     };
     const formData = new FormData();
     const JSONData = JSON.stringify(updatedData);
