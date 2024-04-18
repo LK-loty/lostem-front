@@ -43,11 +43,6 @@ const FoundDetailPage = () => {
   const formattedTime = post.time ? formatRelativeDate(post.time) : "";
   const formattedTime2 = post.date ? formatDate(post.date) : "";
 
-  // 수정 버튼 클릭 시 실행되는 함수
-  const handleEditClick = () => {
-    // 수정 페이지로 이동하는 로직 작성
-  };
-
   const handleDeleteClick = async () => {
     try {
       const response = await deleteFound(postId);
@@ -116,9 +111,7 @@ const FoundDetailPage = () => {
               삭제하기
             </button>
             <Link to={`/found/${postId}/edit`}>
-              <button className="fill-green-button" onClick={handleEditClick}>
-                수정하기
-              </button>
+              <button className="fill-green-button">수정하기</button>
             </Link>
           </div>
         )}
