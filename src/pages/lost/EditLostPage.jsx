@@ -31,8 +31,7 @@ const EditLostPage = () => {
         if (response.status === 200) {
           const postData = response.data.postLostDTO;
 
-          console.log(postData);
-
+          setValue("state", postData.state);
           setValue("title", postData.title);
           setValue("item", postData.item);
           setValue("place", postData.place);
@@ -53,7 +52,7 @@ const EditLostPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [postId, setValue]);
 
   const handleImageChange = (event) => {
     let isValid = false;
