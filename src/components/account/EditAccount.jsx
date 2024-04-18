@@ -11,12 +11,22 @@ const EditAccount = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
-      const response = await updateProfile(data);
+      const formData = new FormData();
+      formData.append("image", data.profile);
+
+      delete data.profile;
+
+      const JSONData = JSON.stringify(data);
+
+      formData.append(
+        "data",
+        new Blob([JSONData], { type: "application/json" })
+      );
+
+      const response = await updateProfile(formData);
       if (response.status === 200) {
-        // 프로필 업데이트 성공 처리
-        console.log(response);
+        window.location.reload();
       }
     } catch (error) {
       console.error("프로필 업데이트 에러:", error);
@@ -29,7 +39,6 @@ const EditAccount = () => {
         const response = await getUserProfile();
         if (response.status === 200) {
           const profile = response.data; // 프로필 데이터
-          console.log(profile);
           // 수정 가능한 필드만 폼에 설정합니다.
           setValue("username", profile.username);
           setValue("name", profile.name);
@@ -44,6 +53,7 @@ const EditAccount = () => {
 
     fetchProfile();
   }, [setValue]);
+
   return (
     <form className="account-form" onSubmit={handleSubmit(onSubmit)}>
       <div>
