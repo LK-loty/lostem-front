@@ -2,8 +2,6 @@ import { Link, useParams } from "react-router-dom";
 import ChatItem from "./ChatItem";
 import ImgLoty from "../../assets/images/img_loty.png";
 
-// 최근 (메시지 + 시간)
-// 채팅방 생성 시 리스트 갱신
 const ChatList = ({ chatList }) => {
   const { roomId } = useParams();
 

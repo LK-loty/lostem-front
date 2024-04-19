@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { reportFound, reportLost } from "../../../../apis/report";
+import { reportPost } from "../../../../apis/report";
 
 const reasons = [
   "욕설 및 비속어 사용",
@@ -22,29 +22,16 @@ const PostReportModal = ({ title, type, postId, onClose }) => {
       contents: selectedReason,
     };
 
-    if (type === "found") {
-      reportFound(reportData).then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          onClose();
-        } else if (response.status === 401) {
-          localStorage.clear();
-          navigate("/login");
-          onClose();
-        }
-      });
-    } else if (type === "lost") {
-      reportLost(reportData).then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          onClose();
-        } else if (response.status === 401) {
-          localStorage.clear();
-          navigate("/login");
-          onClose();
-        }
-      });
-    }
+    reportPost(reportData, type).then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        onClose();
+      } else if (response.status === 401) {
+        localStorage.clear();
+        navigate("/login");
+        onClose();
+      }
+    });
   };
 
   const handleReasonChange = (event) => {

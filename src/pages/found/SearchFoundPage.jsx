@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import PostList from "../../components/PostList";
 import Paginate from "../../components/common/Paginate";
-import { searchFound } from "../../apis/search";
+import { searchPost } from "../../apis/post";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
@@ -27,7 +27,6 @@ const SearchFoundPage = () => {
   const [totalItemCount, setTotalItemCount] = useState();
   const postPerPage = 20; // 페이지 당 post 개수
 
-  const [loading, setLoading] = useState(false);
   const [date, setDate] = useState();
 
   const onSubmit = (data) => {
@@ -41,14 +40,11 @@ const SearchFoundPage = () => {
 
     localStorage.setItem("searchFound", JSON.stringify(formData));
 
-    searchFound(formData).then((response) => {
-      // if (response.status === 200) {
-      console.log("검색 결과 => ", response.data);
-      setPosts(response.data.content);
-      setTotalItemCount(response.data.totalElements);
-
-      navigate("/found/search");
-      // }
+    searchPost(formData, "found").then((response) => {
+      if (response.status === 200) {
+        setPosts(response.data.content);
+        setTotalItemCount(response.data.totalElements);
+      }
     });
   };
 
@@ -59,13 +55,15 @@ const SearchFoundPage = () => {
     const searchData = JSON.parse(localStorage.getItem("searchLost"));
 
     if (searchData) {
-      searchFound({ ...searchData, page: page - 1 }).then((response) => {
-        if (response.status === 200) {
-          console.log("검색 결과 => ", response.data);
-          setPosts(response.data.content);
-          setTotalItemCount(response.data.totalElements);
+      searchData.page = page - 1;
+      searchPost({ ...searchData, page: page - 1 }, "found").then(
+        (response) => {
+          if (response.status === 200) {
+            setPosts(response.data.content);
+            setTotalItemCount(response.data.totalElements);
+          }
         }
-      });
+      );
     }
   };
 
@@ -76,26 +74,29 @@ const SearchFoundPage = () => {
   }, [location.search]);
 
   useEffect(() => {
-    const searchData = JSON.parse(localStorage.getItem("searchFound"));
+    const fetchData = () => {
+      const searchData = JSON.parse(localStorage.getItem("searchFound"));
 
-    if (searchData) {
-      setValue("title", searchData.title || "");
-      setValue("item", searchData.item || "");
-      setValue("date", searchData.date || "");
-      setValue("area", searchData.area || "");
-      setValue("place", searchData.place || "");
-      setValue("category", searchData.category || "");
-      setValue("contents", searchData.contents || "");
+      if (searchData) {
+        setValue("title", searchData.title || "");
+        setValue("item", searchData.item || "");
+        setValue("date", searchData.date || "");
+        setValue("area", searchData.area || "");
+        setValue("place", searchData.place || "");
+        setValue("category", searchData.category || "");
+        setValue("contents", searchData.contents || "");
 
-      searchFound(searchData).then((response) => {
-        if (response.status === 200) {
-          console.log("검색 결과 => ", response.data);
-          setPosts(response.data.content);
-          setTotalItemCount(response.data.totalElements);
-        }
-      });
-    }
-  }, []);
+        searchPost(searchData, "found").then((response) => {
+          if (response.status === 200) {
+            setPosts(response.data.content);
+            setTotalItemCount(response.data.totalElements);
+          }
+        });
+      }
+    };
+
+    fetchData();
+  }, [setValue]);
 
   return (
     <div className="findpage">

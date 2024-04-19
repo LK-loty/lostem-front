@@ -1,14 +1,14 @@
 import axios from "axios";
 
-// 글작성 - 잃어버렸어요
-export const postLost = async (data) => {
+// 글작성
+export const createPost = async (data, type) => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.post("/api/lost/create", data, {
+    const response = await axios.post(`/api/${type}/create`, data, {
       headers,
     });
 
@@ -18,27 +18,10 @@ export const postLost = async (data) => {
   }
 };
 
-// 글작성 - 주인을찾아요
-export const postFound = async (data) => {
+// 글목록 조회
+export const readPost = async (page, type) => {
   try {
-    const accessToken = localStorage.getItem("act");
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-    };
-
-    const response = await axios.post("/api/found/create", data, {
-      headers,
-    });
-    return response;
-  } catch (error) {
-    return error.response;
-  }
-};
-
-// 글목록 조회 - 잃어버렸어요
-export const readLost = async (page) => {
-  try {
-    const response = await axios.get("/api/lost/read", {
+    const response = await axios.get(`/api/${type}/read`, {
       params: {
         page: page - 1,
       },
@@ -51,25 +34,10 @@ export const readLost = async (page) => {
   }
 };
 
-// 글목록 조회 - 주인을찾아요
-export const readFound = async (page) => {
+// 글 내용 조회
+export const readPostDetail = async (postId, type) => {
   try {
-    const response = await axios.get("/api/found/read", {
-      params: {
-        page: page - 1,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.log("readFound api 에러:", error);
-    return error.response;
-  }
-};
-
-// 글 자세히 - 잃어버렸어요
-export const readLostDetail = async (postId) => {
-  try {
-    const response = await axios.get(`/api/lost/read/${postId}`, {});
+    const response = await axios.get(`/api/${type}/read/${postId}`);
     return response;
   } catch (error) {
     console.log("readLostDetail api 에러", error);
@@ -77,71 +45,34 @@ export const readLostDetail = async (postId) => {
   }
 };
 
-// 글 자세히 - 주인을찾아요
-export const readFoundDetail = async (postId) => {
-  try {
-    const response = await axios.get(`/api/found/read/${postId}`, {});
-    return response;
-  } catch (error) {
-    console.log("readFoundDetail api 에러", error);
-    return error.response;
-  }
-};
-
-// 글 수정 - 주인을찾아요
-export const updateFound = async (data) => {
+// 글 수정
+export const updatePost = async (data, type) => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.patch("/api/found/update", data, { headers });
+    const response = await axios.patch(`/api/${type}/update`, data, {
+      headers,
+    });
     return response;
   } catch (error) {
     return error.response;
   }
 };
 
-// 글 수정 - 잃어버렸어요
-export const updateLost = async (data) => {
+// 글 상태 수정
+export const updatePostState = async (data, type) => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.patch("/api/lost/update", data, { headers });
-    return response;
-  } catch (error) {
-    return error.response;
-  }
-};
-
-// 글 상태 수정 - 주인을찾아요
-export const updateFoundState = async (data) => {
-  try {
-    const accessToken = localStorage.getItem("act");
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-    };
-
-    const response = await axios.patch("/api/found/change", data, { headers });
-    return response;
-  } catch (error) {
-    return error.response;
-  }
-};
-
-// 글 상태 수정 - 잃어버렸어요
-export const updateLostState = async (data) => {
-  try {
-    const accessToken = localStorage.getItem("act");
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-    };
-
-    const response = await axios.patch("/api/lost/change", data, { headers });
+    const response = await axios.patch(`/api/${type}/change`, data, {
+      headers,
+    });
     return response;
   } catch (error) {
     return error.response;
@@ -149,7 +80,7 @@ export const updateLostState = async (data) => {
 };
 
 // 글 삭제
-export const deleteFound = async (postId) => {
+export const deletePost = async (postId, type) => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
@@ -160,39 +91,25 @@ export const deleteFound = async (postId) => {
       headers: headers,
     };
 
-    const response = await axios.delete(`/api/found/delete/${postId}`, config);
+    const response = await axios.delete(
+      `/api/${type}/delete/${postId}`,
+      config
+    );
     return response;
   } catch (error) {
     return error.response;
   }
 };
 
-// 글 삭제
-export const deleteLost = async (postId) => {
+// 게시글 검색
+export const searchPost = async (data, type) => {
   try {
-    const accessToken = localStorage.getItem("act");
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-    };
+    const response = await axios.get(`api/${type}/search`, {
+      params: data,
+    });
 
-    const config = {
-      headers: headers,
-    };
-
-    const response = await axios.delete(`/api/lost/delete/${postId}`, config);
     return response;
   } catch (error) {
-    return error.response;
-  }
-};
-
-// 평가글 작성
-export const writeReview = async (data, type) => {
-  try {
-    const response = await axios.post(``);
-    return response;
-  } catch (error) {
-    console.log("평가글 작성 api 에러 => ", error);
     return error.response;
   }
 };

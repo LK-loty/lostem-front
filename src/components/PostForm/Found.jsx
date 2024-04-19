@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { BiImageAdd } from "react-icons/bi";
 import { FiX } from "react-icons/fi";
-import { postFound } from "../../apis/post";
+import { createPost } from "../../apis/post";
 import { regions } from "../../data/regions";
 import { category } from "../../data/category";
 
@@ -80,7 +80,7 @@ const Found = () => {
       formData.append("image", image);
     });
 
-    postFound(formData).then((response) => {
+    createPost(formData, "found").then((response) => {
       if (response.status === 200) {
         navigate(-1);
       } else if (response.status === 401) {

@@ -37,8 +37,3 @@ export const checkAccessToken = () => {
     console.error("Access Token 디코딩 오류 => ", error);
   }
 };
-
-// 태그 일치 확인
-const compareTag = (tag) => {
-  const myTag = localStorage.getItem("tag");
-};

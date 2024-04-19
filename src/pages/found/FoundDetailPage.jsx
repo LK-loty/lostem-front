@@ -2,11 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import ImageSlider from "../../components/common/ImageSlider";
 import PostReportModal from "../../components/common/Modal/report/PostReportModal";
-import {
-  readFoundDetail,
-  updateFoundState,
-  deleteFound,
-} from "../../apis/post";
+import { readPostDetail, updatePostState, deletePost } from "../../apis/post";
 import { formatRelativeDate, formatDate } from "../../utils/date";
 
 const FoundDetailPage = () => {
@@ -25,7 +21,7 @@ const FoundDetailPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await readFoundDetail(postId);
+        const response = await readPostDetail(postId, "found");
         if (response.status === 200) {
           setPost(response.data.postFoundDTO);
           setUser(response.data.postUserDTO);
@@ -38,14 +34,14 @@ const FoundDetailPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [postId]);
 
   const formattedTime = post.time ? formatRelativeDate(post.time) : "";
   const formattedTime2 = post.date ? formatDate(post.date) : "";
 
   const handleDeleteClick = async () => {
     try {
-      const response = await deleteFound(postId);
+      const response = await deletePost(postId, "found");
       if (response.status === 200) {
         navigate("/found");
       }
@@ -58,7 +54,7 @@ const FoundDetailPage = () => {
     const newState = e.target.value;
     try {
       const data = { postId: postId, state: newState };
-      const response = await updateFoundState(data);
+      const response = await updatePostState(data, "found");
       if (response.status === 200) {
         setSelectedState(newState);
       }

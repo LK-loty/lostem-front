@@ -4,7 +4,7 @@ import { IoIosSearch } from "react-icons/io";
 import { GoPencil } from "react-icons/go";
 import PostList from "../../components/PostList";
 import Paginate from "../../components/common/Paginate";
-import { readFound } from "../../apis/post";
+import { readPost } from "../../apis/post";
 
 const FoundListPage = () => {
   const navigate = useNavigate();
@@ -14,20 +14,17 @@ const FoundListPage = () => {
   const [totalItemCount, setTotalItemCount] = useState(); // 총 게시글 개수
   const postPerPage = 20; // 페이지 당 post 개수
 
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
     // 글 목록 조회
     const fetchData = async () => {
       try {
-        const response = await readFound(page);
+        const response = await readPost(page, "found");
         if (response.status === 200) {
           setPosts(response.data.content);
           setTotalItemCount(response.data.totalElements);
-          setLoading(false);
         }
       } catch (error) {
         console.error("findownerpage useeffect 에러", error);
-        setLoading(false);
       }
     };
 

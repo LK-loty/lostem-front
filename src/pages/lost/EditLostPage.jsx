@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { BiImageAdd } from "react-icons/bi";
 import { FiX } from "react-icons/fi";
-import { readLostDetail, updateLost } from "../../apis/post";
+import { readPostDetail, updatePost } from "../../apis/post";
 import { regions } from "../../data/regions";
 import { category } from "../../data/category";
 
@@ -27,7 +27,7 @@ const EditLostPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await readLostDetail(postId);
+        const response = await readPostDetail(postId, "lost");
         if (response.status === 200) {
           const postData = response.data.postLostDTO;
 
@@ -115,7 +115,7 @@ const EditLostPage = () => {
       formData.append("image", image);
     });
 
-    updateLost(formData).then((response) => {
+    updatePost(formData, "lost").then((response) => {
       console.log(response);
       if (response.status === 200) {
         navigate(-1);

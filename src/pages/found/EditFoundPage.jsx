@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { BiImageAdd } from "react-icons/bi";
 import { FiX } from "react-icons/fi";
-import { readFoundDetail, updateFound } from "../../apis/post";
+import { readPostDetail, updatePost } from "../../apis/post";
 import { regions } from "../../data/regions";
 import { category } from "../../data/category";
 const EditFoundPage = () => {
@@ -26,7 +26,7 @@ const EditFoundPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await readFoundDetail(postId);
+        const response = await readPostDetail(postId, "found");
         if (response.status === 200) {
           const postData = response.data.postFoundDTO;
 
@@ -111,7 +111,7 @@ const EditFoundPage = () => {
       formData.append("image", image);
     });
 
-    updateFound(formData).then((response) => {
+    updatePost(formData, "found").then((response) => {
       if (response.status === 200) {
         navigate(-1);
       } else if (response.status === 401) {

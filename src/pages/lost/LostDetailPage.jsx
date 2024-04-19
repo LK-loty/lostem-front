@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import ImageSlider from "../../components/common/ImageSlider";
 import PostReportModal from "../../components/common/Modal/report/PostReportModal";
-import { readLostDetail, updateLostState, deleteLost } from "../../apis/post";
+import { readPostDetail, updatePostState, deletePost } from "../../apis/post";
 import { formatRelativeDate, formatDate } from "../../utils/date";
 
 const LostDetailPage = () => {
@@ -20,7 +20,7 @@ const LostDetailPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await readLostDetail(postId);
+        const response = await readPostDetail(postId, "lost");
         if (response.status === 200) {
           setPost(response.data.postLostDTO);
           setUser(response.data.postUserDTO);
@@ -33,11 +33,11 @@ const LostDetailPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [postId]);
 
   const handleDeleteClick = async () => {
     try {
-      const response = await deleteLost(postId);
+      const response = await deletePost(postId, "lost");
       if (response.status === 200) {
         navigate("/");
       }
@@ -50,7 +50,7 @@ const LostDetailPage = () => {
     const newState = e.target.value;
     try {
       const data = { postId: postId, state: newState };
-      const response = await updateLostState(data);
+      const response = await updatePostState(data, "lost");
       if (response.status === 200) {
         setSelectedState(newState);
       }

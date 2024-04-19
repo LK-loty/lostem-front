@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getUserFoundPost } from "../../apis/user";
+import { readUserPost } from "../../apis/user";
 import PostList from "../PostList";
 
 const FoundList = () => {
@@ -10,7 +10,7 @@ const FoundList = () => {
     const tag = localStorage.getItem("tag");
     const fetchLostPosts = async () => {
       try {
-        const response = await getUserFoundPost(tag);
+        const response = await readUserPost(tag, "found");
         if (response.status === 200) {
           setPosts(response.data);
         }

@@ -24,9 +24,10 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
+    const tag = localStorage.getItem("tag");
     const fetchUserInfo = async () => {
       try {
-        const response = await previewUser();
+        const response = await previewUser(tag);
         if (response.status === 200) setProfile(response.data.profile);
       } catch (error) {
         console.error("header 유저 프로필 에러:", error);

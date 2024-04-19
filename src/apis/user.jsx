@@ -13,7 +13,7 @@ export const signup = async (data) => {
   }
 };
 
-// 아이디  중복확인
+// 아이디 중복확인
 export const checkUsername = async (username) => {
   try {
     const response = await axios.get("/api/users/check", {
@@ -30,7 +30,7 @@ export const checkUsername = async (username) => {
   }
 };
 
-// 유저 프로필 받아오기
+// 유저 프로필 조회
 export const previewUser = async (tag) => {
   try {
     const params = { tag: tag };
@@ -43,7 +43,7 @@ export const previewUser = async (tag) => {
   }
 };
 
-// 마이페이지 사용자 프로필
+// 사용자 정보 조회
 export const getUserProfile = async () => {
   try {
     const accessToken = localStorage.getItem("act");
@@ -57,26 +57,18 @@ export const getUserProfile = async () => {
   }
 };
 
-export const getUserLostPost = async (tag) => {
+// 사용자 게시글 조회
+export const readUserPost = async (tag, type) => {
   try {
     const params = { tag: tag };
-    const response = await axios.get("/api/lost/read/user", { params });
+    const response = await axios.get(`/api/${type}/read/user`, { params });
     return response;
   } catch (error) {
     return error.response;
   }
 };
 
-export const getUserFoundPost = async (tag) => {
-  try {
-    const params = { tag: tag };
-    const response = await axios.get("/api/found/read/user", { params });
-    return response;
-  } catch (error) {
-    return error.response;
-  }
-};
-
+// 프로필 수정
 export const updateProfile = async (data) => {
   try {
     const accessToken = localStorage.getItem("act");

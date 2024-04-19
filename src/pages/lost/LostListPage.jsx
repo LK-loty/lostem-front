@@ -4,7 +4,7 @@ import { IoIosSearch } from "react-icons/io";
 import { GoPencil } from "react-icons/go";
 import PostList from "../../components/PostList";
 import Paginate from "../../components/common/Paginate";
-import { readLost } from "../../apis/post";
+import { readPost } from "../../apis/post";
 
 const LostListPage = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const LostListPage = () => {
     // 글 목록 조회
     const fetchData = async () => {
       try {
-        const response = await readLost(page);
+        const response = await readPost(page, "lost");
 
         if (response.status === 200) {
           setPosts(response.data.content);
