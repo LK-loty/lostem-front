@@ -29,7 +29,13 @@ const UserPostList = ({ postType }) => {
         <ul className="post-list">
           {posts.map((post, index) => (
             <li key={index}>
-              <Link to={`/${postType}/${post.postId}`}>
+              <Link
+                to={
+                  postType === "lost"
+                    ? `/${post.postId}`
+                    : `/${postType}/${post.postId}`
+                }
+              >
                 <PostList post={post} />
               </Link>
             </li>
