@@ -21,7 +21,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--max-old-space-size=2048 react-scripts start",
+    "start": "react-scripts start --max-old-space-size=2048",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
