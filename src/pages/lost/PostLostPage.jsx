@@ -1,9 +1,9 @@
-import Lost from "../../components/PostForm/Lost";
+import PostForm from "../../components/PostForm";
 
 const PostLostPage = () => {
   return (
     <div className="postpage">
-      <Lost />
+      <PostForm postType={"lost"} />
     </div>
   );
 };

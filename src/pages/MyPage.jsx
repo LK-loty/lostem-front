@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import LostList from "../components/user/LostList";
-import FoundList from "../components/user/FoundList";
+import UserPostList from "../components/user/UserPostList";
 import KeywordList from "../components/user/KeywordList";
 import ReviewList from "../components/user/ReviewList";
 import { previewUser } from "../apis/user";
@@ -55,8 +54,11 @@ const MyPage = () => {
         <Tab tabs={tabs} />
         <div className="tab-contents">
           <Routes>
-            <Route path="/lost" element={<LostList />} />
-            <Route path="/found" element={<FoundList />} />
+            <Route path="/lost" element={<UserPostList postType={"lost"} />} />
+            <Route
+              path="/found"
+              element={<UserPostList postType={"found"} />}
+            />
             <Route path="/review" element={<ReviewList />} />
             <Route path="/keyword" element={<KeywordList />} />
             <Route path="/*" element={<></>} />

@@ -1,9 +1,8 @@
-import Found from "../../components/PostForm/Found";
-
+import PostForm from "../../components/PostForm";
 const PostFoundPage = () => {
   return (
     <div className="postpage">
-      <Found />
+      <PostForm postType={"found"} />
     </div>
   );
 };

@@ -10,13 +10,19 @@ import { createPost } from "../../apis/post";
 import { regions } from "../../data/regions";
 import { category } from "../../data/category";
 
-const Found = () => {
+const PostForm = ({ postType }) => {
+  const typeName = postType === "found" ? "습득" : "분실";
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({ defaultValues: { date: "", state: "찾는중" } });
+  } = useForm({
+    defaultValues: {
+      date: "",
+      state: "찾는중",
+    },
+  });
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [imageCheck, setImageCheck] = useState({ error: false, message: "" });
@@ -71,6 +77,7 @@ const Found = () => {
       ...data,
       area: areaValue,
     };
+
     const formData = new FormData();
     const JSONData = JSON.stringify(updatedData);
 
@@ -80,7 +87,8 @@ const Found = () => {
       formData.append("image", image);
     });
 
-    createPost(formData, "found").then((response) => {
+    createPost(formData, postType).then((response) => {
+      console.log(response);
       if (response.status === 200) {
         navigate(-1);
       } else if (response.status === 401) {
@@ -141,23 +149,23 @@ const Found = () => {
         )}
       </div>
       <div className="postform-group">
-        습득물명
+        {typeName}물명
         <input
           type="text"
           {...register("item", {
-            required: "습득물명을 입력해주세요",
+            required: `${typeName}물명을 입력해주세요`,
             maxLength: {
               value: 20,
-              message: "습득물명은 20자이내로 입력해야 합니다",
+              message: `${typeName}물명은 20자이내로 입력해야 합니다`,
             },
           })}
         />
         {errors?.item && <span className="error">{errors?.item?.message}</span>}
       </div>
       <div className="postform-group">
-        <div>습득일자</div>
+        <div>{typeName}일자</div>
         <DatePicker
-          {...register("date", { required: "습득날짜를 입력해주세요" })}
+          {...register("date", { required: true })}
           dateFormat="yyyy.MM.dd"
           dateFormatCalendar="yyyy년 MM월"
           locale={ko}
@@ -170,12 +178,18 @@ const Found = () => {
           isClearable={true}
         />
         <br />
-        {errors?.date && <span className="error">{errors?.date?.message}</span>}
+        {errors?.date && (
+          <span className="error">{typeName}일자를 입력해주세요</span>
+        )}
       </div>
       <div className="postform-group">
-        습득지역
+        {typeName}지역
         <div className="region-container">
-          <select {...register("field_sido", { required: true })}>
+          <select
+            {...register("field_sido", {
+              required: `${typeName}지역을 입력해주세요`,
+            })}
+          >
             <option value="">선택</option>
             {regions.map((reg) => (
               <option key={reg.id} value={reg.name}>
@@ -187,28 +201,24 @@ const Found = () => {
             type="text"
             placeholder="시 / 구 / 군"
             {...register("field_sigungu", {
-              required: true,
-              maxLength: {
-                value: 15,
-                message: "시/군/구는 15자 이내로 입력해야 합니다",
-              },
+              required: `${typeName}지역을 입력해주세요`,
             })}
           />
         </div>
         {(errors?.field_sido?.type === "required" ||
           errors?.field_sigungu?.type === "required") && (
-          <span className="error">습득지역을 입력해주세요</span>
+          <span className="error">{typeName}지역을 입력해주세요</span>
         )}
         {errors?.field_sigungu?.type === "maxLength" && (
           <span className="error"> {errors?.field_sigungu?.message}</span>
         )}
       </div>
       <div className="postform-group">
-        습득장소
+        {typeName}장소
         <input
           type="text"
           name="place"
-          {...register("place", { required: "습득장소를 입력해주세요" })}
+          {...register("place", { required: `${typeName}장소를 입력해주세요` })}
         />
         {errors?.place && (
           <span className="error">{errors?.place?.message}</span>
@@ -254,4 +264,4 @@ const Found = () => {
     </form>
   );
 };
-export default Found;
+export default PostForm;
