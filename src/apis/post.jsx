@@ -26,7 +26,6 @@ export const readPost = async (page, type) => {
         page: page - 1,
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.log("readPost api 에러:", error);
