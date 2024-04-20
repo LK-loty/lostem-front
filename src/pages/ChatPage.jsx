@@ -39,6 +39,8 @@ const ChatPage = () => {
     };
 
     const socketEndpoint = "http://localhost:8080/api/websocket";
+    // const socketEndpoint = "http://43.203.241.21:8080/api/websocket";
+
     const stompClient = Stomp.over(() => new SockJS(socketEndpoint));
 
     // 웹소켓 연결

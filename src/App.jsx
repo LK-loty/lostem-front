@@ -28,7 +28,8 @@ import NotFound from "./pages/NotFoundPage";
 import PrivateRoute from "./routes/PrivateRoute";
 import MainLayout from "./routes/MainLayout";
 
-axios.defaults.baseURL = "http://localhost:8080/";
+// axios.defaults.baseURL = "http://localhost:8080/";
+axios.defaults.baseURL = "http://43.203.241.21:8080/";
 
 const App = () => {
   return (
