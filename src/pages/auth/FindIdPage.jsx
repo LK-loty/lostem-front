@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { sendMail, checkMail } from "../../apis/auth";
 
 const FindIdPage = () => {
   const {
