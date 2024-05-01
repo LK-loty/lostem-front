@@ -44,3 +44,25 @@ export const updateToken = async () => {
     return error.response;
   }
 };
+
+// 메일 인증번호 발송
+export const sendMail = async (email) => {
+  try {
+    const data = { email: email };
+    const response = await axios.post("/api/mail/request", data);
+
+    return response.status;
+  } catch (error) {
+    return error.response.status;
+  }
+};
+
+// 인증번호 검사
+export const checkMail = async (data) => {
+  try {
+    const response = await axios.post("/api/mail/validate", data);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

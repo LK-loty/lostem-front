@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { signup, checkUsername } from "../../apis/user";
+import { sendMail, checkMail } from "../../apis/auth";
 import {
   usernameRegex,
   nameRegex,
@@ -23,9 +24,43 @@ const SignUpPage = () => {
   } = useForm();
 
   const [isUsernameAvailable, setUsernameAvailable] = useState(false); // 아이디 중복확인
-  const [authNum, setAuthNum] = useState(""); // 인증번호
-  const [isPhoneVerified, setPhoneVerified] = useState(false); // 인증 확인
-  const [timer, setTimer] = useState();
+
+  const [authNum, setAuthNum] = useState(false); // 인증번호
+  const [isEmailVerified, setEmailVerified] = useState(false); // 인증 확인
+  const [timer, setTimer] = useState(0);
+  const [isResendDisabled, setResendDisabled] = useState(false);
+
+  useEffect(() => {
+    // 타이머 기능 추가
+    let interval;
+
+    if (timer >= 0) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer === 0) {
+            clearInterval(interval);
+            // 타이머가 종료되면 인증상태를 초기화합니다.
+            setEmailVerified(false);
+            setAuthNum(false);
+            setResendDisabled(false);
+            return 0; // 타이머 초기값으로 재설정
+          }
+          return prevTimer - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 타이머 해제
+  }, [timer]);
+
+  // 시간을 "mm:ss" 형식으로 포맷하는 함수
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+    return `${formattedMinutes}:${formattedSeconds}`;
+  };
 
   // 아이디 중복 확인
   const handleCheckUsername = async (username) => {
@@ -57,53 +92,76 @@ const SignUpPage = () => {
   };
 
   // 인증번호 요청
-  const requestAuthNum = (phone) => {
-    if (!phone) {
-      setError("phone", {
+  const requestAuthNum = async (email) => {
+    clearErrors("number");
+    if (!email) {
+      setError("email", {
         type: "required",
-        message: "휴대전화번호를 입력해주세요",
+        message: "이메일을 입력해주세요",
       });
       return;
-    } else if (!phoneRegex.test(phone)) {
-      setError("phone", {
+    } else if (!emailRegex.test(email)) {
+      setError("email", {
         type: "pattern",
-        message: "휴대전화번호 형식이 올바르지 않습니다",
+        message: "이메일 형식이 올바르지 않습니다",
       });
       return;
-    }
+    } else clearErrors("email");
 
-    clearErrors("phone");
-    setAuthNum("123");
+    setResendDisabled(true);
+    const response = await sendMail(email);
+    if (response === 200) {
+      setAuthNum(true);
+      setTimer(180); // 3분 타이머로 설정
+    } else {
+      setAuthNum(false);
+      setError("email", {
+        type: "custom",
+        message: "인증번호 전송을 실패했습니다. 다시 시도해주세요",
+      });
+
+      setResendDisabled(false);
+    }
   };
 
   // 인증 확인
-  // 3분 타이머 추가
-  const checkAuthNum = (number) => {
-    if (!authNum) {
+  const checkAuthNum = async (number) => {
+    if (!number) {
       setError("number", {
         type: "required",
         message: "인증번호를 입력해주세요",
       });
       return;
+    } else if (timer === 0) {
+      setError("number", {
+        type: "custom",
+        message: "인증 시간이 만료되었습니다",
+      });
+      return;
     }
 
-    if (authNum === number) {
+    const response = await checkMail({
+      email: getValues("email"),
+      authCode: number,
+    });
+
+    if (response.status === 200) {
       clearErrors("number");
-      setPhoneVerified(true);
+      setEmailVerified(true);
     } else {
       setError("number", {
         type: "pattern",
         message: "인증번호가 올바르지 않습니다",
       });
-      setPhoneVerified(false);
+      setEmailVerified(false);
     }
   };
 
   const onSubmit = async (data) => {
     const result = await signup(data);
     if (result) {
-      // 회원가입 성공시 이전 페이지로 이동
-      navigate(-1);
+      // 회원가입 성공시 로그인 페이지로 이동
+      navigate("/login");
     } else {
       // 회원가입 실패시
     }
@@ -206,59 +264,59 @@ const SignUpPage = () => {
             <span className="error">{errors?.nickname?.message}</span>
           )}
           <input
-            type="text"
-            placeholder="이메일"
-            {...register("email", {
+            type="tel"
+            placeholder="휴대전화번호*"
+            {...register("phone", {
+              required: "휴대전화번호를 입력해주세요",
               pattern: {
-                value: emailRegex,
-                message: "이메일 형식이 올바르지 않습니다",
+                value: phoneRegex,
+                message: "휴대전화번호 형식이 올바르지 않습니다",
               },
             })}
           />
-          {errors?.email?.message && (
-            <span className="error">{errors?.email?.message}</span>
+          {errors?.phone?.message && (
+            <span className="error">{errors?.phone?.message}</span>
           )}
           <div className="form-group">
             <input
-              type="tel"
-              placeholder="휴대전화번호*"
-              {...register("phone", {
-                required: "휴대전화번호를 입력해주세요",
+              type="text"
+              placeholder="이메일"
+              {...register("email", {
+                required: "이메일을 입력해주세요",
                 pattern: {
-                  value: phoneRegex,
-                  message: "휴대전화번호 형식이 올바르지 않습니다",
+                  value: emailRegex,
+                  message: "이메일 형식이 올바르지 않습니다",
                 },
                 onChange: () => {
-                  setPhoneVerified(false);
+                  setEmailVerified(false);
                   setAuthNum("");
                 },
               })}
             />
             <button
               type="button"
-              onClick={() => requestAuthNum(getValues("phone"))}
+              onClick={() => requestAuthNum(getValues("email"))}
+              disabled={isResendDisabled}
             >
               인증번호 전송
             </button>
           </div>
-          {errors?.phone?.message && (
-            <span className="error">{errors?.phone?.message}</span>
+          {errors?.email?.message && (
+            <span className="error">{errors?.email?.message}</span>
           )}
           {authNum && (
             <span className="green success">인증번호가 전송되었습니다</span>
           )}
-
           <div className="form-group">
             <div className="number-container">
               <input
                 type="number"
                 placeholder="인증번호*"
                 {...register("number", {
-                  validate: () =>
-                    isPhoneVerified || "휴대전화번호 인증을 해주세요",
+                  validate: () => isEmailVerified || "이메일 인증을 해주세요",
                 })}
               />
-              <span className="green">00:00</span>
+              <span className="green">{formatTime(timer)}</span>
             </div>
             <button
               type="button"
@@ -268,7 +326,7 @@ const SignUpPage = () => {
             </button>
           </div>
           <span className="error">{errors?.number?.message}</span>
-          {isPhoneVerified && (
+          {isEmailVerified && (
             <span className="green success">인증이 완료되었습니다</span>
           )}
           <button type="submit" className="auth-button">
