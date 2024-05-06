@@ -289,7 +289,7 @@ const SignUpPage = () => {
                 },
                 onChange: () => {
                   setEmailVerified(false);
-                  setAuthNum("");
+                  setAuthNum(false);
                 },
               })}
             />
