@@ -2,7 +2,12 @@ import axios from "axios";
 
 export const createReview = async (data) => {
   try {
-    const response = await axios.post("api/review/create", data);
+    const accessToken = localStorage.getItem("act");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    const response = await axios.post("api/review/create", data, { headers });
     return response;
   } catch (error) {
     return error.response;
@@ -19,7 +24,7 @@ export const readReview = async (tag) => {
   }
 };
 
-export const deleteReviewe = async (reviewId) => {
+export const deleteReview = async (reviewId) => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {

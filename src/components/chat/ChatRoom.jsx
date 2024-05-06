@@ -3,6 +3,7 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { readChatRoom, readMessages, createRoom } from "../../apis/chat";
 import ChatMessage from "./ChatMessage";
+import ReviewModal from "../common/Modal/ReviewModal";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { BsFillSendFill } from "react-icons/bs";
 
@@ -24,9 +25,12 @@ const ChatRoom = ({
 
   const [post, setPost] = useState({});
   const [user, setUser] = useState({});
-  const [isDropOpen, setIsDropOpen] = useState(false);
-  const [isChatReportModalOpen, setIsChatReportModalOpen] = useState(false);
+  const [room, setRoom] = useState({});
   const [messages, setMessages] = useState([]);
+
+  const [isDropOpen, setIsDropOpen] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [isChatReportModalOpen, setIsChatReportModalOpen] = useState(false);
 
   // roomId가 변경될때마다 해당 채팅방 데이터 가져오기
   useEffect(() => {
@@ -64,8 +68,10 @@ const ChatRoom = ({
       const response = await readChatRoom(roomId);
 
       if (response.status === 200) {
+        console.log(response.data);
         setPost(response.data.postInfoDTO);
         setUser(response.data.userInfoDTO);
+        setRoom(response.data.roomInfoDTO);
       }
     } catch (error) {
       console.error(error);
@@ -120,6 +126,16 @@ const ChatRoom = ({
     <div className="chatroom">
       {roomId || location.state ? (
         <>
+          {isReviewModalOpen && (
+            <ReviewModal
+              onClose={() => setIsReviewModalOpen(false)}
+              postType={post.postType}
+              postId={post.postId}
+              tag={
+                localStorage.getItem("tag") === room.hostUserTag ? user.tag : ""
+              }
+            />
+          )}
           <div className="header">
             <div className="user-info">
               <div>
@@ -158,8 +174,13 @@ const ChatRoom = ({
                   <button className="fill-green-button">거래완료</button>
                 )}
                 {/* 후기 작성은 거래 완료 상태일 때만 활성화 */}
-                {(post.state === "습득완료" || post.state === "전달완료") && (
-                  <button className="fill-green-button">후기작성</button>
+                {post.state === "해결완료" && (
+                  <button
+                    className="outline-green-button"
+                    onClick={() => setIsReviewModalOpen(true)}
+                  >
+                    후기작성
+                  </button>
                 )}
               </div>
             </div>
