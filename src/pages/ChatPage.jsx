@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const ChatPage = () => {
   const [newMessage, setNewMessage] = useState();
   const [chatList, setChatList] = useState([]);
+  const [webSocketConnected, setWebSocketConnected] = useState(false);
   const stompClientRef = useRef(null);
   const subRoomRef = useRef(null);
 
@@ -50,6 +51,7 @@ const ChatPage = () => {
         // 연결 성공 후 구독 설정
         stompClient.subscribe(`/sub/chat/list/${tag}`, onListMessageReceived);
         if (roomId) subscribeRoom(roomId);
+        setWebSocketConnected(true);
       },
       (error) => {
         console.log("error ", error);
@@ -198,15 +200,19 @@ const ChatPage = () => {
 
   return (
     <div className="chatpage">
-      <ChatList chatList={chatList} />
-      <ChatRoom
-        sendEnterMessage={sendEnterMessage}
-        leaveChatRoom={leaveChatRoom}
-        sendMessageLater={sendMessageLater}
-        subscribeRoom={subscribeRoom}
-        unsubscribeRoom={unsubscribeRoom}
-        newMessage={newMessage}
-      />
+      {webSocketConnected && (
+        <>
+          <ChatList chatList={chatList} />
+          <ChatRoom
+            sendEnterMessage={sendEnterMessage}
+            leaveChatRoom={leaveChatRoom}
+            sendMessageLater={sendMessageLater}
+            subscribeRoom={subscribeRoom}
+            unsubscribeRoom={unsubscribeRoom}
+            newMessage={newMessage}
+          />
+        </>
+      )}
     </div>
   );
 };

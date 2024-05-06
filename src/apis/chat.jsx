@@ -71,3 +71,41 @@ export const createRoom = async (data) => {
     return error.response;
   }
 };
+
+// 본인의 게시글에 속한 채팅목록 조회
+export const readMyChatList = async (data) => {
+  try {
+    const accessToken = localStorage.getItem("act");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    const response = axios.get("/api/chat/get/list", {
+      headers: headers,
+      params: data,
+    });
+
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// 해당 게시글에 사용자가 참여한 채팅방 유무 조회
+export const readMyRoomId = async (data) => {
+  try {
+    const accessToken = localStorage.getItem("act");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    const response = await axios.get("/api/chat/get/post", {
+      headers: headers,
+      params: data,
+    });
+
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
