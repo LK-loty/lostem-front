@@ -12,7 +12,7 @@ const UserPostList = ({ postType }) => {
       try {
         const response = await readUserPost(tag, postType);
         if (response.status === 200) {
-          console.log(response.data);
+          // console.log(response.data);
           setPosts(response.data);
         }
       } catch (error) {
@@ -21,7 +21,7 @@ const UserPostList = ({ postType }) => {
     };
 
     fetchLostPosts();
-  }, []);
+  }, [postType]);
 
   return (
     <>
