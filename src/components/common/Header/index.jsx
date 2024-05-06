@@ -1,17 +1,22 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
 import { PiChatsCircle } from "react-icons/pi";
 import { GoPerson } from "react-icons/go";
 import { PiBell } from "react-icons/pi";
 import { isLogin } from "../../../utils/auth";
 import { previewUser } from "../../../apis/user";
+import { logout } from "../../../apis/auth";
 import Profile from "../Profile";
 import ImgLoty from "../../../assets/images/img_loty.png";
 
 const Header = () => {
   const [nav, setNav] = useState(false);
   const [profile, setProfile] = useState("");
-  const [loginState, SetLoginState] = useState();
+  const [loginState, setLoginState] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // 드롭다운 메뉴 상태 추가
+
+  const navigate = useNavigate();
 
   const navItems = [
     { name: "잃어버렸어요", link: "/" },
@@ -20,7 +25,7 @@ const Header = () => {
 
   useEffect(() => {
     const isLoggedIn = isLogin();
-    SetLoginState(isLoggedIn);
+    setLoginState(isLoggedIn);
   }, []);
 
   useEffect(() => {
@@ -38,6 +43,26 @@ const Header = () => {
       fetchUserInfo();
     }
   }, [loginState]);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout(); // 로그아웃 요청
+      if (response.status === 200) {
+        // 성공 시 로컬 스토리지 비우고 메인 페이지로 이동
+        localStorage.removeItem("act");
+        localStorage.removeItem("tag");
+        navigate("/");
+      } else {
+        console.error("로그아웃 실패:", response.data.message);
+      }
+    } catch (error) {
+      console.error("로그아웃 에러:", error);
+    }
+  };
 
   return (
     <div className="main-header-wrap">
@@ -106,9 +131,19 @@ const Header = () => {
             )}
             {loginState && (
               <li className="icon-profile">
-                <Link to="/mypage/lost">
+                <div onClick={toggleDropdown}>
                   <Profile size={40} imageUrl={profile} />
-                </Link>
+                </div>
+                {dropdownOpen && (
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link to="/mypage">마이페이지</Link>
+                    </li>
+                    <li>
+                      <button onClick={handleLogout}>로그아웃</button>
+                    </li>
+                  </ul>
+                )}
               </li>
             )}
           </ul>
@@ -131,4 +166,5 @@ const Header = () => {
     </div>
   );
 };
+
 export default Header;

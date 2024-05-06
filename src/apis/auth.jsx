@@ -22,15 +22,16 @@ export const login = async (data) => {
 // 로그아웃
 export const logout = async () => {
   try {
-    const response = await axios.get("/api/logout");
+    const accessToken = localStorage.getItem("act");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
 
-    if (response.status === 200) {
-      localStorage.removeItem("act");
-      return true;
-    } else return false;
+    const response = await axios.get("/api/logout", { headers });
+
+    return response;
   } catch (error) {
-    console.log(error);
-    return false;
+    return error.response;
   }
 };
 
