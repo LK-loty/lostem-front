@@ -21,9 +21,10 @@ const PostReportModal = ({ title, type, postId, tag, onClose }) => {
       location: postId,
       contents: selectedReason,
       type: type,
-      tag: tag,
+      userTag: tag,
     };
 
+    console.log(reportData);
     reportPost(reportData).then((response) => {
       console.log(response);
       if (response.status === 200) {
