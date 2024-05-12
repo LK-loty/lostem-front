@@ -53,8 +53,8 @@ const Header = () => {
       const response = await logout(); // 로그아웃 요청
       if (response.status === 200) {
         // 성공 시 로컬 스토리지 비우고 메인 페이지로 이동
-        localStorage.removeItem("act");
-        localStorage.removeItem("tag");
+        localStorage.clear();
+        setLoginState(false);
         navigate("/");
       } else {
         console.error("로그아웃 실패:", response.data.message);
