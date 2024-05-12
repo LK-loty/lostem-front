@@ -10,8 +10,6 @@ const ChatItem = ({
   message,
   isCurrent,
 }) => {
-  const formattedTime = time ? formatRelativeDate(time) : "";
-
   return (
     <Link to={`/chat/${roomId}`}>
       <div className={`chat-item ${isCurrent ? "current-room" : ""}`}>
@@ -22,7 +20,7 @@ const ChatItem = ({
               {nickname}
               <span className="tag">#{tag}</span>
             </span>
-            <span className="timestamp"> · {formattedTime}</span>
+            <span className="timestamp"> · {formatRelativeDate(time)}</span>
           </div>
           <span className="last-message">{message}</span>
         </div>
