@@ -11,18 +11,20 @@ const reasons = [
   "음란성",
 ];
 
-const PostReportModal = ({ title, type, postId, onClose }) => {
+const PostReportModal = ({ title, type, postId, tag, onClose }) => {
   const navigate = useNavigate();
   const [selectedReason, setSelectedReason] = useState("");
 
   const handleReport = () => {
     const reportData = {
       title: title,
-      postId: postId,
+      location: postId,
       contents: selectedReason,
+      type: type,
+      tag: tag,
     };
 
-    reportPost(reportData, type).then((response) => {
+    reportPost(reportData).then((response) => {
       console.log(response);
       if (response.status === 200) {
         onClose();
