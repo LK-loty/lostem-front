@@ -28,7 +28,10 @@ const ReviewList = () => {
           <li key={index}>
             <img className="profile_img" />
             <div className="review-detail">
-              <span className="bolder">{review.reviewedUserTag}</span>
+              <span className="bolder">
+                {review.reviewedNickname}
+                <span className="tag">#{review.reviewedUserTag}</span>
+              </span>
               <span className="review-time">
                 {review.role} · {formatDate(review.time)}
               </span>
