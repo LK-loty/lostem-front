@@ -1,14 +1,14 @@
 import axios from "axios";
 
 // 게시글 신고
-export const reportPost = async (data, type) => {
+export const reportPost = async (data) => {
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.post(`api/reports/${type}`, data, {
+    const response = await axios.post("api/reports/create", data, {
       headers,
     });
 

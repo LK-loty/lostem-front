@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import ImageSlider from "../../components/common/ImageSlider";
 import PostReportModal from "../../components/common/Modal/report/PostReportModal";
 import { readPostDetail, updatePostState, deletePost } from "../../apis/post";
+import { readMyChatList, readMyRoomId } from "../../apis/chat";
 import { formatRelativeDate, formatDate } from "../../utils/date";
 
 const FoundDetailPage = () => {
@@ -36,9 +37,6 @@ const FoundDetailPage = () => {
     fetchData();
   }, [postId]);
 
-  const formattedTime = post.time ? formatRelativeDate(post.time) : "";
-  const formattedTime2 = post.date ? formatDate(post.date) : "";
-
   const handleDeleteClick = async () => {
     try {
       const response = await deletePost(postId, "found");
@@ -63,6 +61,35 @@ const FoundDetailPage = () => {
     }
   };
 
+  const handleChatButtonClick = async () => {
+    if (currentUserTag !== user.tag) {
+      // 작성자 !== 본인
+      const data = { postId: post.postId, postType: "lost" };
+      const response = await readMyRoomId(data);
+      console.log(response);
+      if (response.status === 200) {
+        navigate(`/chat/${response.data}`);
+      } else
+        navigate("/chat", {
+          state: {
+            userInfo: user,
+            postInfo: {
+              title: post.title,
+              // image: post.images[0], // 게시글 첫번째 이미지
+              state: post.state,
+              postId: post.postId,
+              postType: "found",
+            },
+          },
+        });
+    } else {
+      // 작성자 --- 본인
+      const data = { postId: post.postId, postType: "found" };
+      const response = await readMyChatList(data);
+      console.log(response);
+    }
+  };
+
   return (
     <div className="postdetail">
       {isPostReportModalOpen && (
@@ -82,20 +109,12 @@ const FoundDetailPage = () => {
             >
               신고하기
             </button>
-            <Link
-              to={"/chat"}
-              state={{
-                userInfo: user,
-                postInfo: {
-                  title: post.title,
-                  state: post.state,
-                  postId: post.postId,
-                  postType: "found",
-                },
-              }}
+            <button
+              className="fill-green-button"
+              onClick={handleChatButtonClick}
             >
-              <button className="fill-green-button">채팅하기</button>
-            </Link>
+              채팅하기
+            </button>
           </div>
         ) : (
           <div className="postdetail-buttons">
@@ -106,8 +125,14 @@ const FoundDetailPage = () => {
               삭제하기
             </button>
             <Link to={`/found/${postId}/edit`}>
-              <button className="fill-green-button">수정하기</button>
+              <button className="outline-green-button">수정하기</button>
             </Link>
+            <button
+              className="fill-green-button"
+              onClick={handleChatButtonClick}
+            >
+              채팅하기
+            </button>
           </div>
         )}
 
@@ -115,7 +140,8 @@ const FoundDetailPage = () => {
           <ImageSlider images={images} />
           <div className="details-contents">
             <div className="details-title">
-              {post.title} <span className="time">{formattedTime}</span>
+              {post.title}{" "}
+              <span className="time">{formatRelativeDate(post.time)}</span>
             </div>
             <div className="writer-info">
               <img src="" />
@@ -143,7 +169,7 @@ const FoundDetailPage = () => {
               <span className="bolder">카테고리</span> {post.category}
             </div>
             <div className="period">
-              <span className="bolder">습득일자</span> {formattedTime2}
+              <span className="bolder">습득일자</span> {formatDate(post.date)}
             </div>
             <div className="area">
               <span className="bolder">습득지역</span> {post.area}
