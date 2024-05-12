@@ -96,6 +96,7 @@ const FoundDetailPage = () => {
         <PostReportModal
           title={post.title}
           postId={post.postId}
+          tag={user.tag}
           type={"found"}
           onClose={() => setIsPostReportModalOpen(false)}
         />
