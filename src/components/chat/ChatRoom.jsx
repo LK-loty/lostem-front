@@ -50,7 +50,7 @@ const ChatRoom = ({
     return () => {
       unsubscribeRoom();
     };
-  }, [roomId, subscribeRoom, unsubscribeRoom, location.state]);
+  }, [roomId]);
 
   useEffect(() => {
     if (newMessage) setMessages((messages) => [...messages, newMessage]);
@@ -68,7 +68,7 @@ const ChatRoom = ({
       const response = await readChatRoom(roomId);
 
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
         setPost(response.data.postInfoDTO);
         setUser(response.data.userInfoDTO);
         setRoom(response.data.roomInfoDTO);
@@ -83,7 +83,7 @@ const ChatRoom = ({
       const response = await readMessages(roomId);
 
       if (response.status === 200) {
-        console.log("fetch messages data : ", response.data);
+        // console.log("fetch messages data : ", response.data);
         setMessages(response.data);
       }
     } catch (error) {
