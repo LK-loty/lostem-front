@@ -65,10 +65,6 @@ const EditAccount = () => {
         <input {...register("username")} type="text" id="username" disabled />
       </div>
       <div>
-        <label htmlFor="password">비밀번호</label>
-        <input {...register("password")} type="password" id="password" />
-      </div>
-      <div>
         <label htmlFor="name">이름</label>
         <input {...register("name")} type="text" id="name" />
       </div>
