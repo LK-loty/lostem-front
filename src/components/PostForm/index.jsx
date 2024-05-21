@@ -64,7 +64,11 @@ const PostForm = ({ postType }) => {
     const newImages = [...images];
     newImages.splice(index, 1);
     setImages(newImages);
-    console.log(newImages.length);
+
+    // 이미지 개수 검사 및 오류 상태 초기화
+    if (newImages.length <= 3) {
+      setImageCheck({ error: false, message: "" });
+    }
   };
 
   const onSubmit = (data) => {
