@@ -145,7 +145,7 @@ const FoundDetailPage = () => {
               <span className="time">{formatRelativeDate(post.time)}</span>
             </div>
             <div className="writer-info">
-              <img src="" />
+              <img src={user.profile} />
               {user.nickname}
               <span className="tag">#{user.tag}</span>
             </div>
