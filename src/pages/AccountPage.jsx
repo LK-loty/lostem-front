@@ -5,12 +5,14 @@ import sproutIco from "../assets/icons/ico_green-sprout.png";
 import Tab from "../components/common/Tab";
 import EditAccount from "../components/account/EditAccount";
 import DeleteAccount from "../components/account/DeleteAccount";
+import PasswordAccount from "../components/account/PasswordAccount";
 
 const EditAccountPage = () => {
   const [userProfile, setUserProfile] = useState({});
 
   const tabs = [
     { title: "프로필 수정", url: "/account/profile" },
+    { title: "비밀번호 변경", url: "/account/password" },
     { title: "탈퇴", url: "/account/delete" },
   ];
 
@@ -33,7 +35,7 @@ const EditAccountPage = () => {
   return (
     <div className="edit-account-page">
       <div className="user-profile">
-        <img />
+        <img src={userProfile.profile} />
         <div className="user-detail">
           <div className="user-nickname">
             {userProfile.nickname}
@@ -53,6 +55,7 @@ const EditAccountPage = () => {
           <Routes>
             <Route path="/profile" element={<EditAccount />} />
             <Route path="/delete" element={<DeleteAccount />} />
+            <Route path="/password" element={<PasswordAccount />} />
             <Route path="*" element={<></>} />
           </Routes>
         </div>
