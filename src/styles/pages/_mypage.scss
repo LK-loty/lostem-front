@@ -75,14 +75,16 @@
   }
 }
 
-.review-detail {
+.review-detail,
+.keyword-detail {
   display: flex;
   flex-direction: column;
   gap: 5px;
   padding: 5px;
 }
 
-.review-time {
+.review-time,
+.keyword-time {
   color: $gray5;
   font-size: 14px;
 }

@@ -7,6 +7,7 @@ import {
   searchKeyword,
 } from "../apis/keyword";
 import { FiX } from "react-icons/fi";
+import { formatRelativeDate } from "../utils/date";
 
 const KeywordPage = () => {
   const [keywordPosts, setKeywordPosts] = useState([]);
@@ -104,13 +105,24 @@ const KeywordPage = () => {
             ))}
           </ul>
         )}
-        {!keywordPosts ? (
+        {keywordPosts ? (
           <ul className="keyword-post">
             {keywordPosts.map((post) => (
-              <li className="keyword-post-item">
-                <Link>
-                  <img src="" />
-                  <span>{post.title}</span>
+              <li className="keyword-post-item" key={post.postId}>
+                <Link
+                  to={
+                    post.type === "Lost"
+                      ? `/${post.postId}`
+                      : `/found/${post.postId}`
+                  }
+                >
+                  <img src={post.image} />
+                  <div className="keyword-detail">
+                    <span>{post.title}</span>
+                    <span className="keyword-time">
+                      {post.area} · {formatRelativeDate(post.time)}
+                    </span>
+                  </div>
                 </Link>
               </li>
             ))}
