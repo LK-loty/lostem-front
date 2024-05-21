@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { updateProfile, getUserProfile } from "../../apis/user";
 
 const EditAccount = () => {
   const { register, handleSubmit, setValue } = useForm();
+  const [image, setImage] = useState();
 
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
-      formData.append("image", data.profile);
+      formData.append("image", image);
 
       delete data.profile;
 
@@ -54,10 +55,10 @@ const EditAccount = () => {
       <div>
         <label htmlFor="profile">프로필사진</label>
         <input
-          {...register("profile")}
           type="file"
           accept="image/*"
           id="profile"
+          onChange={(e) => setImage(e.target.files[0])}
         />
       </div>
       <div>
