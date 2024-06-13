@@ -24,6 +24,7 @@ const FoundDetailPage = () => {
       try {
         const response = await readPostDetail(postId, "found");
         if (response.status === 200) {
+          console.log(response.data);
           setPost(response.data.postFoundDTO);
           setUser(response.data.postUserDTO);
           setCurrentUserTag(localStorage.getItem("tag"));
@@ -75,7 +76,7 @@ const FoundDetailPage = () => {
             userInfo: user,
             postInfo: {
               title: post.title,
-              // image: post.images[0], // 게시글 첫번째 이미지
+              image: post.images[0],
               state: post.state,
               postId: post.postId,
               postType: "found",
@@ -138,7 +139,7 @@ const FoundDetailPage = () => {
         )}
 
         <div className="details-container">
-          <ImageSlider images={images} />
+          <ImageSlider images={post.images || []} />
           <div className="details-contents">
             <div className="details-title">
               {post.title}{" "}

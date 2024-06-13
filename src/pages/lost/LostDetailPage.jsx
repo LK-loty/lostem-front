@@ -14,7 +14,6 @@ const LostDetailPage = () => {
 
   const [post, setPost] = useState({});
   const [user, setUser] = useState({});
-  const images = ["", "", ""]; // 테스트용 이미지
 
   const [isPostReportModalOpen, setIsPostReportModalOpen] = useState(false);
 
@@ -75,7 +74,7 @@ const LostDetailPage = () => {
             userInfo: user,
             postInfo: {
               title: post.title,
-              // image: post.images[0], // 게시글 첫번째 이미지
+              image: post.images[0],
               state: post.state,
               postId: post.postId,
               postType: "lost",
@@ -137,7 +136,7 @@ const LostDetailPage = () => {
           </div>
         )}
         <div className="details-container">
-          <ImageSlider images={images} />
+          <ImageSlider images={post.images || []} />
           <div className="details-contents">
             <div className="details-title">
               {post.title}{" "}

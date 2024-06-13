@@ -4,14 +4,12 @@ import { updateProfile, getUserProfile } from "../../apis/user";
 
 const EditAccount = () => {
   const { register, handleSubmit, setValue } = useForm();
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
 
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
       formData.append("image", image);
-
-      delete data.profile;
 
       const JSONData = JSON.stringify(data);
 
@@ -36,6 +34,7 @@ const EditAccount = () => {
         if (response.status === 200) {
           const profile = response.data; // 프로필 데이터
 
+          setValue("profile", profile.profile);
           setValue("username", profile.username);
           setValue("name", profile.name);
           setValue("nickname", profile.nickname);

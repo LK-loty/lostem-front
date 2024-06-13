@@ -36,7 +36,7 @@ const MyPage = () => {
   return (
     <div className="mypage">
       <div className="user-profile">
-        <img />
+        <img src={userProfile.profile} />
         <div className="user-detail">
           <div className="user-nickname">
             {userProfile.nickname}
