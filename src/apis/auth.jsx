@@ -67,3 +67,23 @@ export const checkMail = async (data) => {
     return error.response;
   }
 };
+
+// 아이디 찾기
+export const findId = async (data) => {
+  try {
+    const response = await axios.post("/api/mail/find", data);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// 비밀번호 재설정
+export const resetPassword = async (data) => {
+  try {
+    const response = await axios.post("api/mail/reset", data);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

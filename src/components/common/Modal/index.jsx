@@ -1,42 +1,25 @@
-import { useEffect } from "react";
-
-const Modal = ({ show, handleClose, content }) => {
-  useEffect(() => {
-    document.body.style.cssText = `
-      position: fixed; 
-      top: -${window.scrollY}px;
-      overflow-y: scroll;
-      width: 100%;`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = "";
-      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
-    };
-  }, []);
+const Modal = ({ onClose, content, title }) => {
   return (
-    show && (
-      <div className="modal-wrap">
+    <div className="modal-overlay">
+      <div className="modal">
         <div className="modal-content">
+          <p className="modal-title">{title}</p>
           {content}
           <div className="modal-button">
-            <button
+            {/* <button
               name="button"
               className="button-close"
-              onClick={handleClose}
+              onClick={onClose}
             >
               취소
-            </button>
-            <button
-              name="button"
-              className="button-check"
-              onClick={handleClose}
-            >
+            </button> */}
+            <button name="button" className="confirm-button" onClick={onClose}>
               확인
             </button>
           </div>
         </div>
       </div>
-    )
+    </div>
   );
 };
 export default Modal;
