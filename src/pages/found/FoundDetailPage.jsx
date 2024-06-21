@@ -15,8 +15,6 @@ const FoundDetailPage = () => {
   const [post, setPost] = useState({});
   const [user, setUser] = useState({});
 
-  const images = ["", "", ""]; // 테스트용 이미지
-
   const [isPostReportModalOpen, setIsPostReportModalOpen] = useState(false);
 
   useEffect(() => {

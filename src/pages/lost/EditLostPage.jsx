@@ -31,6 +31,7 @@ const EditLostPage = () => {
         if (response.status === 200) {
           const postData = response.data.postLostDTO;
 
+          setImages(postData.images);
           setValue("state", postData.state);
           setValue("title", postData.title);
           setValue("item", postData.item);
@@ -104,6 +105,7 @@ const EditLostPage = () => {
       ...data,
       area: areaValue,
       postId: postId,
+      images: images.filter((image) => typeof image === "string"),
     };
 
     const formData = new FormData();
@@ -112,7 +114,7 @@ const EditLostPage = () => {
     formData.append("data", new Blob([JSONData], { type: "application/json" }));
 
     images.forEach((image) => {
-      formData.append("image", image);
+      if (typeof image !== "string") formData.append("image", image);
     });
 
     updatePost(formData, "lost").then((response) => {
@@ -161,7 +163,12 @@ const EditLostPage = () => {
           />
           {images.map((image, index) => (
             <div className="file-image" key={index}>
-              <img src={URL.createObjectURL(image)} alt="" />
+              <img
+                src={
+                  typeof image === "string" ? image : URL.createObjectURL(image)
+                }
+                alt=""
+              />
               <button
                 type="button"
                 className="button-delete"

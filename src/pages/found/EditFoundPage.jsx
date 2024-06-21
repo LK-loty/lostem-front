@@ -9,6 +9,7 @@ import { FiX } from "react-icons/fi";
 import { readPostDetail, updatePost } from "../../apis/post";
 import { regions } from "../../data/regions";
 import { category } from "../../data/category";
+
 const EditFoundPage = () => {
   const { postId } = useParams();
 
@@ -27,9 +28,12 @@ const EditFoundPage = () => {
     const fetchData = async () => {
       try {
         const response = await readPostDetail(postId, "found");
+
+        console.log("found 편집 : 게시글 내용 => ", response.data);
         if (response.status === 200) {
           const postData = response.data.postFoundDTO;
 
+          setImages(postData.images);
           setValue("state", postData.state);
           setValue("title", postData.title);
           setValue("item", postData.item);
@@ -41,8 +45,6 @@ const EditFoundPage = () => {
           setValue("category", postData.category);
           setValue("date", new Date(postData.date));
           setDate(new Date(postData.date));
-
-          // 이미지 설정
         }
       } catch (error) {
         console.error("edit lost page fetchdata 에러 => ", error);
@@ -101,6 +103,7 @@ const EditFoundPage = () => {
       ...data,
       area: areaValue,
       postId: postId,
+      images: images.filter((image) => typeof image === "string"), // 기존 이미지 URL
     };
     const formData = new FormData();
     const JSONData = JSON.stringify(updatedData);
@@ -108,7 +111,7 @@ const EditFoundPage = () => {
     formData.append("data", new Blob([JSONData], { type: "application/json" }));
 
     images.forEach((image) => {
-      formData.append("image", image);
+      if (typeof image !== "string") formData.append("image", image);
     });
 
     updatePost(formData, "found").then((response) => {
@@ -156,7 +159,12 @@ const EditFoundPage = () => {
           />
           {images.map((image, index) => (
             <div className="file-image" key={index}>
-              <img src={URL.createObjectURL(image)} alt="" />
+              <img
+                src={
+                  typeof image === "string" ? image : URL.createObjectURL(image)
+                }
+                alt=""
+              />
               <button
                 type="button"
                 className="button-delete"
