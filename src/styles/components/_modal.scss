@@ -18,6 +18,14 @@
   background-color: $white;
   border-radius: 3px;
   padding: 20px;
+
+  li {
+    cursor: pointer;
+  }
+}
+
+.modal .selected {
+  color: $green;
 }
 
 .modal-title {
