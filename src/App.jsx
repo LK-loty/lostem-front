@@ -61,6 +61,7 @@ const App = () => {
             <Route path=":roomId" element={<ChatPage />} />
           </Route>
         </Route>
+        <Route path="/notfound" element={<NotFound />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
