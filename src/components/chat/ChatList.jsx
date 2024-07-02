@@ -20,7 +20,7 @@ const ChatList = ({ chatList }) => {
             <ChatItem
               key={index}
               roomId={item.roomId}
-              image={""}
+              image={item.chatUserDTO.profile}
               tag={item.chatUserDTO.tag}
               nickname={item.chatUserDTO.nickname}
               time={item.chatMessageDTO.time}
