@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import StarRating from "../StarRating";
 import { createReview } from "../../../apis/review";
 
-const ReviewModal = ({ onClose, postType, postId, tag }) => {
+const ReviewModal = ({ onClose, postType, postId }) => {
   const [rating, setRating] = useState(1); // 별점 상태
   const [review, setReview] = useState(""); // 후기 상태
 
@@ -20,7 +20,6 @@ const ReviewModal = ({ onClose, postType, postId, tag }) => {
       star: rating,
       postType: postType,
       postId: postId,
-      tag: tag,
       contents: review,
     };
 
