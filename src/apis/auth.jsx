@@ -46,11 +46,23 @@ export const updateToken = async () => {
   }
 };
 
-// 메일 인증번호 발송
+// 메일 인증번호 발송 - 아이디/비밀번호 찾기
 export const sendMail = async (email) => {
   try {
     const data = { email: email };
     const response = await axios.post("/api/mail/request", data);
+
+    return response.status;
+  } catch (error) {
+    return error.response.status;
+  }
+};
+
+// 메일 인증번호 발송 - 회원가입
+export const sendSignMail = async (email) => {
+  try {
+    const data = { email: email };
+    const response = await axios.post("/api/mail/sign", data);
 
     return response.status;
   } catch (error) {

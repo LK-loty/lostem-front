@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { signup, checkUsername } from "../../apis/user";
-import { sendMail, checkMail } from "../../apis/auth";
+import { sendSignMail, checkMail } from "../../apis/auth";
 import {
   usernameRegex,
   nameRegex,
@@ -109,7 +109,7 @@ const SignUpPage = () => {
     } else clearErrors("email");
 
     setResendDisabled(true);
-    const response = await sendMail(email);
+    const response = await sendSignMail(email);
     if (response === 200) {
       setAuthNum(true);
       setTimer(180); // 3분 타이머로 설정
