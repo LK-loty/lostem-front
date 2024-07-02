@@ -43,6 +43,7 @@ const ChatRoom = ({
         // 채팅방 상단 데이터 설정
         setUser(location.state.userInfo);
         setPost(location.state.postInfo);
+        setRoom({ leaveUserTag: null });
       }
     } else {
       fetchChatRoomData(roomId); // 채팅방 상단 정보(대화상대+post)
@@ -217,7 +218,7 @@ const ChatRoom = ({
                 })}
                 type="text"
                 placeholder={
-                  room.levaeUserTag
+                  !room.leaveUserTag
                     ? "메시지를 입력해주세요"
                     : "상대방이 채팅방을 나갔습니다"
                 }
