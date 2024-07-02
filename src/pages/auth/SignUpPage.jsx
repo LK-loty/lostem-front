@@ -120,7 +120,7 @@ const SignUpPage = () => {
         message: "인증번호 전송을 실패했습니다. 다시 시도해주세요",
       });
 
-      setResendDisabled(false);
+      // setResendDisabled(false);
     }
   };
 
