@@ -32,10 +32,7 @@ export const checkUsername = async (username) => {
 // 유저 프로필 조회
 export const previewUser = async (tag) => {
   try {
-    const params = { tag: tag };
-    const response = await axios.get("/api/users/preview", {
-      params,
-    });
+    const response = await axios.get(`/api/users/preview/${tag}`);
     return response;
   } catch (error) {
     return error.response;
@@ -59,8 +56,7 @@ export const getUserProfile = async () => {
 // 사용자 게시글 조회
 export const readUserPost = async (tag, type) => {
   try {
-    const params = { tag: tag };
-    const response = await axios.get(`/api/${type}/read/user`, { params });
+    const response = await axios.get(`/api/${type}/read/user/${tag}`);
     return response;
   } catch (error) {
     return error.response;

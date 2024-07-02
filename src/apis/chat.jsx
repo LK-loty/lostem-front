@@ -106,16 +106,14 @@ export const readMyRoomId = async (data) => {
 
 // 해당 게시글에 대한 채팅 잠여자 리스트 조회
 export const readChatMembers = async (postId, type) => {
-  const data = { postId: postId };
   try {
     const accessToken = localStorage.getItem("act");
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.get(`/api/${type}/read/chat`, {
+    const response = await axios.get(`/api/${type}/read/chat/${postId}`, {
       headers: headers,
-      params: data,
     });
 
     return response;

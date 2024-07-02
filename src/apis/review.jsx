@@ -16,8 +16,7 @@ export const createReview = async (data) => {
 
 export const readReview = async (tag) => {
   try {
-    const params = { tag: tag };
-    const response = await axios.get("api/review/read", { params });
+    const response = await axios.get(`api/review/read/${tag}`);
     return response;
   } catch (error) {
     return error.response;
@@ -33,10 +32,12 @@ export const deleteReview = async (reviewId) => {
 
     const config = {
       headers: headers,
-      data: { reviewId: reviewId },
     };
 
-    const response = await axios.delete("api/review/delete", config);
+    const response = await axios.delete(
+      `api/review/delete/${reviewId}`,
+      config
+    );
     return response;
   } catch (error) {
     return error.response;
