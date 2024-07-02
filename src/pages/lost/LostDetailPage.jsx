@@ -5,6 +5,8 @@ import PostReportModal from "../../components/common/Modal/report/PostReportModa
 import { readPostDetail, updatePostState, deletePost } from "../../apis/post";
 import { readMyChatList, readMyRoomId } from "../../apis/chat";
 import { formatRelativeDate, formatDate } from "../../utils/date";
+import UserSelectionModal from "../../components/common/Modal/UserSelectionModal";
+import RoomListModal from "../../components/common/Modal/RoomListModal";
 
 const LostDetailPage = () => {
   const navigate = useNavigate();
@@ -16,6 +18,8 @@ const LostDetailPage = () => {
   const [user, setUser] = useState({});
 
   const [isPostReportModalOpen, setIsPostReportModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isRoomListModalOpen, setRoomListModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,9 +31,9 @@ const LostDetailPage = () => {
           setCurrentUserTag(localStorage.getItem("tag"));
           setSelectedState(response.data.postLostDTO.state);
         }
-        // 존재하지 않는 게시물 처리 - 404
       } catch (error) {
-        console.error("lostdetailpage fetchdata 에러", error);
+        if (error.response.status === 404)
+          navigate("/notfound", { replace: true });
       }
     };
 
@@ -50,10 +54,14 @@ const LostDetailPage = () => {
   const handleStateChange = async (e) => {
     const newState = e.target.value;
     try {
-      const data = { postId: postId, state: newState };
-      const response = await updatePostState(data, "lost");
-      if (response.status === 200) {
-        setSelectedState(newState);
+      if (newState === "해결완료") {
+        setModalOpen(true);
+      } else {
+        const data = { postId: postId, state: newState };
+        const response = await updatePostState(data, "lost");
+        if (response.status === 200) {
+          setSelectedState(newState);
+        }
       }
     } catch (error) {
       console.error("상태 업데이트 중 에러:", error);
@@ -83,9 +91,7 @@ const LostDetailPage = () => {
         });
     } else {
       // 작성자 --- 본인
-      const data = { postId: post.postId, postType: "lost" };
-      const response = await readMyChatList(data);
-      console.log(response);
+      setRoomListModalOpen(true);
     }
   };
 
@@ -98,6 +104,20 @@ const LostDetailPage = () => {
           type={"lost"}
           tag={user.tag}
           onClose={() => setIsPostReportModalOpen(false)}
+        />
+      )}
+      {isModalOpen && (
+        <UserSelectionModal
+          postId={post.postId}
+          type={"lost"}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
+      {isRoomListModalOpen && (
+        <RoomListModal
+          postId={postId}
+          type={"lost"}
+          onClose={() => setRoomListModalOpen(false)}
         />
       )}
       <div className="postdetail-container">

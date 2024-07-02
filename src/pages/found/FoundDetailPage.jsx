@@ -3,8 +3,10 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import ImageSlider from "../../components/common/ImageSlider";
 import PostReportModal from "../../components/common/Modal/report/PostReportModal";
 import { readPostDetail, updatePostState, deletePost } from "../../apis/post";
-import { readMyChatList, readMyRoomId } from "../../apis/chat";
+import { readMyRoomId } from "../../apis/chat";
 import { formatRelativeDate, formatDate } from "../../utils/date";
+import UserSelectionModal from "../../components/common/Modal/UserSelectionModal";
+import RoomListModal from "../../components/common/Modal/RoomListModal";
 
 const FoundDetailPage = () => {
   const navigate = useNavigate();
@@ -16,20 +18,22 @@ const FoundDetailPage = () => {
   const [user, setUser] = useState({});
 
   const [isPostReportModalOpen, setIsPostReportModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isRoomListModalOpen, setRoomListModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await readPostDetail(postId, "found");
         if (response.status === 200) {
-          console.log(response.data);
           setPost(response.data.postFoundDTO);
           setUser(response.data.postUserDTO);
           setCurrentUserTag(localStorage.getItem("tag"));
           setSelectedState(response.data.postFoundDTO.state);
         }
       } catch (error) {
-        console.error("lostdetailpage fetchdata 에러", error);
+        if (error.response.status === 404)
+          navigate("/notfound", { replace: true });
       }
     };
 
@@ -50,10 +54,15 @@ const FoundDetailPage = () => {
   const handleStateChange = async (e) => {
     const newState = e.target.value;
     try {
-      const data = { postId: postId, state: newState };
-      const response = await updatePostState(data, "found");
-      if (response.status === 200) {
-        setSelectedState(newState);
+      // "해결완료"로 상태 변경 시 거래 대상자 선택 후 전송
+      if (newState === "해결완료") {
+        setModalOpen(true);
+      } else {
+        const data = { postId: postId, state: newState };
+        const response = await updatePostState(data, "found");
+        if (response.status === 200) {
+          setSelectedState(newState);
+        }
       }
     } catch (error) {
       console.error("상태 업데이트 중 에러:", error);
@@ -63,29 +72,27 @@ const FoundDetailPage = () => {
   const handleChatButtonClick = async () => {
     if (currentUserTag !== user.tag) {
       // 작성자 !== 본인
-      const data = { postId: post.postId, postType: "lost" };
+      const data = { postId: post.postId, postType: "found" };
       const response = await readMyRoomId(data);
       console.log(response);
       if (response.status === 200) {
         navigate(`/chat/${response.data}`);
-      } else
-        navigate("/chat", {
-          state: {
-            userInfo: user,
-            postInfo: {
-              title: post.title,
-              image: post.images[0],
-              state: post.state,
-              postId: post.postId,
-              postType: "found",
-            },
+      }
+      navigate("/chat", {
+        state: {
+          userInfo: user,
+          postInfo: {
+            title: post.title,
+            image: post.images[0],
+            state: post.state,
+            postId: post.postId,
+            postType: "found",
           },
-        });
+        },
+      });
     } else {
-      // 작성자 --- 본인
-      const data = { postId: post.postId, postType: "found" };
-      const response = await readMyChatList(data);
-      console.log(response);
+      // 작성자 === 본인
+      setRoomListModalOpen(true);
     }
   };
 
@@ -98,6 +105,20 @@ const FoundDetailPage = () => {
           tag={user.tag}
           type={"found"}
           onClose={() => setIsPostReportModalOpen(false)}
+        />
+      )}
+      {isModalOpen && (
+        <UserSelectionModal
+          postId={post.postId}
+          type={"found"}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
+      {isRoomListModalOpen && (
+        <RoomListModal
+          postId={postId}
+          type={"found"}
+          onClose={() => setRoomListModalOpen(false)}
         />
       )}
       <div className="postdetail-container">
