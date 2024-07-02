@@ -11,6 +11,7 @@ const ChatPage = () => {
   const [newMessage, setNewMessage] = useState();
   const [chatList, setChatList] = useState([]);
   const [webSocketConnected, setWebSocketConnected] = useState(false);
+  const [isRoomSubscribed, setIsRoomSubscribed] = useState(false);
   const stompClientRef = useRef(null);
   const subRoomRef = useRef(null);
 
@@ -108,21 +109,19 @@ const ChatPage = () => {
 
   // 채팅방 구독
   const subscribeRoom = (roomId) => {
-    if (stompClientRef.current) {
+    if (stompClientRef.current && !isRoomSubscribed) {
       const subscription = stompClientRef.current.subscribe(
         `/sub/chat/room/${roomId}`,
         onMessageReceived
       );
       subRoomRef.current = subscription;
-
-      // console.log("채팅 방 구독", subRoomRef.current);
+      setIsRoomSubscribed(true);
     }
   };
 
   // 채팅방 구독 해제
   const unsubscribeRoom = () => {
     if (subRoomRef.current) {
-      // console.log(subRoomRef.current, "구독 해제");
       subRoomRef.current.unsubscribe();
       subRoomRef.current = null;
     }
@@ -149,22 +148,23 @@ const ChatPage = () => {
   // 채팅 메시지 수신 처리
   const onMessageReceived = (message) => {
     const newMessage = JSON.parse(message.body);
-    setNewMessage(newMessage);
-    console.log("new message received !!!!!!!!!!!!!!! ", newMessage);
+    if (newMessage.messageType === "LEAVE") {
+      // LEAVE 처리
+      setChatList((prevList) =>
+        prevList.filter((item) => item.roomId !== newMessage.roomId)
+      );
+      navigate("/chat", { replace: true });
+    } else setNewMessage(newMessage);
   };
 
   const onListMessageReceived = (message) => {
     const newListMessage = JSON.parse(message.body);
-    console.log(newListMessage);
 
     if (newListMessage.messageType === "ENTER") {
       // ENTER 처리
       setChatList((prevList) => [newListMessage, ...prevList]);
     } else if (newListMessage.messageType === "LEAVE") {
       // LEAVE 처리
-      setChatList((prevList) =>
-        prevList.filter((item) => item.roomId !== newListMessage.roomId)
-      );
       navigate("/chat", { replace: true });
     } else if (newListMessage.messageType === "TALK") {
       // TALK 처리
