@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { readChatRoom, readMessages, createRoom } from "../../apis/chat";
 import ChatMessage from "./ChatMessage";
 import ReviewModal from "../common/Modal/ReviewModal";
+import ChatReportModal from "../common/Modal/report/ChatReportModal";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { BsFillSendFill } from "react-icons/bs";
 
@@ -31,6 +32,8 @@ const ChatRoom = ({
   const [isDropOpen, setIsDropOpen] = useState(false);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [isChatReportModalOpen, setIsChatReportModalOpen] = useState(false);
+
+  const currentUserTag = localStorage.getItem("tag");
 
   // roomId가 변경될때마다 해당 채팅방 데이터 가져오기
   useEffect(() => {
@@ -68,13 +71,14 @@ const ChatRoom = ({
       const response = await readChatRoom(roomId);
 
       if (response.status === 200) {
-        // console.log(response.data);
+        console.log("채팅방 정보 조회 =>", response.data);
         setPost(response.data.postInfoDTO);
         setUser(response.data.userInfoDTO);
         setRoom(response.data.roomInfoDTO);
       }
     } catch (error) {
-      console.error(error);
+      if (error.response.status === 404)
+        navigate("/notfound", { replace: true });
     }
   };
 
@@ -83,16 +87,12 @@ const ChatRoom = ({
       const response = await readMessages(roomId);
 
       if (response.status === 200) {
-        // console.log("fetch messages data : ", response.data);
         setMessages(response.data);
       }
     } catch (error) {
       console.error("fetchMessagesData error: ", error);
     }
   };
-
-  // 채팅방 생성됐을 때
-  // location.state 값에 담긴 정보로 상단 바 내용 출력
 
   const onSubmit = (data) => {
     if (!roomId) {
@@ -101,6 +101,7 @@ const ChatRoom = ({
         postType: post.postType,
         message: data.message,
       };
+      console.log("first => ", firstMessage);
       createRoom(firstMessage)
         .then((response) => {
           if (response.status === 200) {
@@ -124,6 +125,15 @@ const ChatRoom = ({
 
   return (
     <div className="chatroom">
+      {isChatReportModalOpen && (
+        <ChatReportModal
+          title={post.title}
+          type={post.postType}
+          postId={post.postId}
+          tag={user.tag}
+          onClose={() => setIsChatReportModalOpen(false)}
+        />
+      )}
       {roomId || location.state ? (
         <>
           {isReviewModalOpen && (
@@ -131,17 +141,16 @@ const ChatRoom = ({
               onClose={() => setIsReviewModalOpen(false)}
               postType={post.postType}
               postId={post.postId}
-              tag={
-                localStorage.getItem("tag") === room.hostUserTag ? user.tag : ""
-              }
             />
           )}
           <div className="header">
             <div className="user-info">
-              <div>
-                <img className="profile_img" />
-                {user.nickname}
-                <span className="tag">#{user.tag}</span>
+              <div className="user-profile">
+                <img className="profile_img" src={user.profile} />
+                <span>
+                  {user.nickname}
+                  <span className="tag">#{user.tag}</span>
+                </span>
               </div>
               <div className="dropdown">
                 <button onClick={() => setIsDropOpen(!isDropOpen)}>
@@ -149,15 +158,9 @@ const ChatRoom = ({
                 </button>
                 {isDropOpen && (
                   <ul className="menu-list">
-                    <li>
-                      <button onClick={() => leaveChatRoom(roomId)}>
-                        채팅방 나가기
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => setIsChatReportModalOpen(true)}>
-                        신고하기
-                      </button>
+                    <li onClick={() => leaveChatRoom(roomId)}>채팅방 나가기</li>
+                    <li onClick={() => setIsChatReportModalOpen(true)}>
+                      신고하기
                     </li>
                   </ul>
                 )}
@@ -166,22 +169,30 @@ const ChatRoom = ({
             <hr />
             <div className="item-info">
               <div>
-                <div>
-                  <img />
-                  <span>{post.title}</span>
+                <div className="item-image">
+                  <Link
+                    to={`${post.postType === "lost" ? "" : "/found"}/${
+                      post.postId
+                    }`}
+                  >
+                    <img src={post.image} />
+                    <span>{post.title}</span>
+                  </Link>
                 </div>
                 {localStorage.getItem("tag") === user.tag && (
-                  <button className="fill-green-button">거래완료</button>
+                  <button className="fill-green-button">해결완료</button>
                 )}
-                {/* 후기 작성은 거래 완료 상태일 때만 활성화 */}
-                {post.state === "해결완료" && (
-                  <button
-                    className="outline-green-button"
-                    onClick={() => setIsReviewModalOpen(true)}
-                  >
-                    후기작성
-                  </button>
-                )}
+                {post.state === "해결완료" &&
+                  post.traderTag &&
+                  (post.traderTag === currentUserTag ||
+                    post.traderTag === user.tag) && (
+                    <button
+                      className="outline-green-button"
+                      onClick={() => setIsReviewModalOpen(true)}
+                    >
+                      후기작성
+                    </button>
+                  )}
               </div>
             </div>
           </div>
@@ -205,11 +216,16 @@ const ChatRoom = ({
                   maxLength: 1000,
                 })}
                 type="text"
-                placeholder="메시지를 입력해주세요"
+                placeholder={
+                  room.levaeUserTag
+                    ? "메시지를 입력해주세요"
+                    : "상대방이 채팅방을 나갔습니다"
+                }
                 maxLength={1000}
+                disabled={room.leaveUserTag}
               />
 
-              <button type="submit">
+              <button type="submit" disabled={room.leaveUserTag}>
                 <BsFillSendFill size={14} />
               </button>
             </div>
