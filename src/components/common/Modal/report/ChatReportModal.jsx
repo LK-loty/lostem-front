@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { reportFound, reportLost } from "../../../../apis/report";
+import { reportPost } from "../../../../apis/report";
 
 const reasons = [
   "욕설 및 비속어 사용",
@@ -11,40 +11,27 @@ const reasons = [
   "음란성",
 ];
 
-const PostReportModal = ({ title, type, postId, onClose }) => {
+const ChatReportModal = ({ title, type, postId, tag, onClose }) => {
   const navigate = useNavigate();
   const [selectedReason, setSelectedReason] = useState("");
 
   const handleReport = () => {
     const reportData = {
       title: title,
-      postId: postId,
+      location: postId,
       contents: selectedReason,
+      type: type,
+      userTag: tag,
     };
-
-    if (type === "found") {
-      reportFound(reportData).then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          onClose();
-        } else if (response.status === 401) {
-          localStorage.clear();
-          navigate("/login");
-          onClose();
-        }
-      });
-    } else if (type === "lost") {
-      reportLost(reportData).then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          onClose();
-        } else if (response.status === 401) {
-          localStorage.clear();
-          navigate("/login");
-          onClose();
-        }
-      });
-    }
+    reportPost(reportData).then((response) => {
+      if (response.status === 200) {
+        onClose();
+      } else if (response.status === 401) {
+        localStorage.clear();
+        navigate("/login");
+        onClose();
+      } else onClose();
+    });
   };
 
   const handleReasonChange = (event) => {
@@ -55,7 +42,7 @@ const PostReportModal = ({ title, type, postId, onClose }) => {
     <div className="modal-overlay">
       <div className="modal">
         <div className="modal-content">
-          <p className="modal-title">게시글 신고</p>
+          <p className="modal-title">채팅 신고</p>
           <form className="post-report">
             {reasons.map((reason) => (
               <label key={reason}>
@@ -93,4 +80,4 @@ const PostReportModal = ({ title, type, postId, onClose }) => {
     </div>
   );
 };
-export default PostReportModal;
+export default ChatReportModal;

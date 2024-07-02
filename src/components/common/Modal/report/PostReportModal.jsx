@@ -24,16 +24,14 @@ const PostReportModal = ({ title, type, postId, tag, onClose }) => {
       userTag: tag,
     };
 
-    console.log(reportData);
     reportPost(reportData).then((response) => {
-      console.log(response);
       if (response.status === 200) {
         onClose();
       } else if (response.status === 401) {
         localStorage.clear();
         navigate("/login");
         onClose();
-      }
+      } else onClose();
     });
   };
 
