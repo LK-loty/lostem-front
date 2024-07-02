@@ -35,13 +35,8 @@ export const readPost = async (page, type) => {
 
 // 글 내용 조회
 export const readPostDetail = async (postId, type) => {
-  try {
-    const response = await axios.get(`/api/${type}/read/${postId}`);
-    return response;
-  } catch (error) {
-    console.log("readLostDetail api 에러", error);
-    return error.response;
-  }
+  const response = await axios.get(`/api/${type}/read/${postId}`);
+  return response;
 };
 
 // 글 수정

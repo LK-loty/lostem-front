@@ -20,38 +20,30 @@ export const readChatList = async () => {
 
 // 특정 채팅방 정보조회
 export const readChatRoom = async (roomId) => {
-  try {
-    const accessToken = localStorage.getItem("act");
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-    };
+  const accessToken = localStorage.getItem("act");
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+  };
 
-    const response = await axios.get(`api/chat/room/read/${roomId}`, {
-      headers,
-    });
+  const response = await axios.get(`api/chat/room/read/${roomId}`, {
+    headers,
+  });
 
-    return response;
-  } catch (error) {
-    return error.response;
-  }
+  return response;
 };
 
 // 채팅방의 전체 메시지 조회
 export const readMessages = async (roomId) => {
-  try {
-    const accessToken = localStorage.getItem("act");
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-    };
+  const accessToken = localStorage.getItem("act");
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+  };
 
-    const response = await axios.get(`/api/chat/get/room/${roomId}`, {
-      headers,
-    });
+  const response = await axios.get(`/api/chat/get/room/${roomId}`, {
+    headers,
+  });
 
-    return response;
-  } catch (error) {
-    return error.response;
-  }
+  return response;
 };
 
 // 채팅 방 개설
@@ -61,6 +53,8 @@ export const createRoom = async (data) => {
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
+
+    console.log(data);
 
     const response = await axios.post("/api/chat/room/create", data, {
       headers,
@@ -100,6 +94,26 @@ export const readMyRoomId = async (data) => {
     };
 
     const response = await axios.get("/api/chat/get/post", {
+      headers: headers,
+      params: data,
+    });
+
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// 해당 게시글에 대한 채팅 잠여자 리스트 조회
+export const readChatMembers = async (postId, type) => {
+  const data = { postId: postId };
+  try {
+    const accessToken = localStorage.getItem("act");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    const response = await axios.get(`/api/${type}/read/chat`, {
       headers: headers,
       params: data,
     });
