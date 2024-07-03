@@ -112,7 +112,7 @@ export const readChatMembers = async (postId, type) => {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    const response = await axios.get(`/api/${type}/read/chat/${postId}`, {
+    const response = await axios.get(`/api/${type}/chat/${postId}`, {
       headers: headers,
     });
 
