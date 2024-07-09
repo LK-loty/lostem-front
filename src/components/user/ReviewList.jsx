@@ -11,7 +11,6 @@ const ReviewList = () => {
       try {
         const response = await readReview(tag);
         if (response.status === 200) {
-          console.log(response.data);
           setReviews(response.data);
         }
       } catch (error) {
@@ -26,7 +25,7 @@ const ReviewList = () => {
       <ul className="review-list">
         {reviews.map((review, index) => (
           <li key={index}>
-            <img className="profile_img" />
+            <img className="profile_img" src={review.profile} />
             <div className="review-detail">
               <span className="bolder">
                 {review.reviewedNickname}
