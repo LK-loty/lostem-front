@@ -31,7 +31,12 @@ const EditLostPage = () => {
         if (response.status === 200) {
           const postData = response.data.postLostDTO;
 
-          setImages(postData.images);
+          const filteredImages = postData.images.filter(
+            (image) =>
+              image !== "https://lostem-upload.s3.amazonaws.com/itemBasic.png"
+          );
+
+          setImages(filteredImages);
           setValue("state", postData.state);
           setValue("title", postData.title);
           setValue("item", postData.item);
